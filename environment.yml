@@ -4,9 +4,4 @@ channels:
 dependencies:
   - numpy
   - matplotlib=3.2.2
-  - pandas
-  - ipywidgets
-  - traitlets
-  - bqplot=0.12.30
-  - matplotlib.pyplot
   - PIL
