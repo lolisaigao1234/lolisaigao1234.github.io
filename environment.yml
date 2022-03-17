@@ -4,4 +4,3 @@ channels:
 dependencies:
   - numpy
   - matplotlib=3.2.2
-  - PIL
