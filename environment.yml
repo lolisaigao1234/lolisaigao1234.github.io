@@ -8,3 +8,5 @@ dependencies:
   - ipywidgets
   - traitlets
   - bqplot=0.12.30
+  - matplotlib.pyplot
+  - PIL
