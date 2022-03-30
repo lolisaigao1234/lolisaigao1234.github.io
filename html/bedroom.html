@@ -18,13 +18,22 @@
     </div>
     <hr>
     <script>
-        function DisplayDrawer() {
-            var x = document.getElementById("drawer");
+        function show(divId) {
+            var x = document.getElementById(divId);
             if (x.style.display === "none") {
                 x.style.display = "block";
             } else {
                 x.style.display = "none";
             }
+        }
+        function DisplayDrawer() {
+            show("drawer");
+        }
+        function OpenDrawer() {
+            show("OpenDrawer");
+        }
+        function OpenBookshelf() {
+            show("bookshelf");
         }
     </script>
     <p>Content of the drawer will be displayed here:</p>
@@ -33,11 +42,14 @@
             You find out that there was a drawer besides the bed. 
             Would you like to open it?
         </p>
-        <p> Continue reading if you choose to open the drawer </p>
-        <p>
-            You opened the drawer, and there was a small knife in it. 
-            You equipped the small knife.
-        </p>
+        <p> Click on the button to open the drawer </p>
+        <button onclick="OpenDrawer()">Open the drawer</button>
+        <div id="OpenDrawer" style="display:none">
+            <p>
+                You opened the drawer, and there was a small knife in it. 
+                You equipped the small knife.
+            </p>
+        </div>
     </div>
     <hr>
     <div>
@@ -45,13 +57,15 @@
             Do you want to explore more?
         </p>
         <p>
-            Continue reading if you choose to explore more.
-            If you do not want to explore anymore, click the 
+            Click on the button to explore more.
+            If you do not want to explore anymore, click the house
             link above to explore the house. 
         </p>
+        <button onclick="OpenBookshelf()">Explore more</button>
     </div>
     <hr>
-    <div>
+    <p>Content of more exploration will be displayed here:</p>
+    <div id="bookshelf" style="display:none">
         <p>
             You found a spellbook inside the bookshelf. You picked up the book.
         </p>
