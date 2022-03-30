@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <script>
+        function show(divId) {
+            var x = document.getElementById(divId);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+        function ExploreDungeon() {
+            show("exploreDungeon");
+        }
+        function IgnoreTreasureBox() {
+            show("ignoreTreasureBox");
+        }
+        function ShowBookToWitch() {
+            show("showBookToWitch");
+        }
+    </script>
 <title> Rocky Wu's Info 303 Page </title>
 <section>
     <div>
@@ -8,14 +27,13 @@
             You have traversed the forest. In front of you is a 
             dungeon. Would you like to go inside?
         </p>
-        <p>
-            Continue reading if you would like to go inside.
-            If not, click on the link below to turn back.
-        </p>
+        <p> Click on the button to explore the dungeon. </p>
+        <button onclick="ExploreDungeon()">Explore the Dungeon</button>
+        <p> Or click on the click to go back to the forest. </p>
         <a href="stellar.html">Back to the forest</a>
     </div>
     <hr>
-    <div>
+    <div id="exploreDungeon" style="display: none;">
         <p>
             Now you are in the dungeon. You picked up a torch beside and 
             slowly walked inside. 
@@ -25,36 +43,32 @@
             any hint of creatures or life in the dungeon. You slowly walked 
             down the tunnel inside the dungeon.
         </p>
-        <p>
-            You saw a treasure box, would you like to open it?
-        </p>
-        <p>
-            Continue reading if you wish not to open. 
-        </p>
-        <p>
-            Clicked on the link to open the treasure box. 
-        </p>
+        <p> You saw a treasure box, would you like to open it? </p>
+        <p> Click on the button to ignore the treasure box and continue exploring.</p>
+        <button onclick="IgnoreTreasureBox()">Ignore the treasure box</button>
+        <p> Click on the link to open the treasure box. </p>
         <a href="death.html">Open the treasure box</a>
+        <hr>
+        <div id="ignoreTreasureBox" style="display: none;">
+            <p>
+                You walked pass the treasure box, and keep on walking. 
+            </p>
+            <p>
+                Suddenly, you heard a sound from deep inside the dungeon, 
+                you can tell that its a moaning sound from a human. 
+                Also, you noticed that there was another road beside the 
+                one with the sound coming out. 
+                Would you like to go to the sound source and take a look?
+                Or, would you like to go and explore the other road?
+            </p>
+            <p>
+                Continue reading if you choose to take a look. 
+            </p>
+            <p> Click on the link to explore the other road</p>
+            <a href="otherRoad.html">The other road</a>
+        </div>
     </div>
     <hr>
-    <div>
-        <p>
-            You walked pass the treasure box, and keep on walking. 
-        </p>
-        <p>
-            Suddenly, you heard a sound from deep inside the dungeon, 
-            you can tell that its a moaning sound from a human. 
-            Also, you noticed that there was another road beside the 
-            one with the sound coming out. 
-            Would you like to go to the sound source and take a look?
-            Or, would you like to go and explore the other road?
-        </p>
-        <p>
-            Continue reading if you choose to take a look. 
-        </p>
-        <p> Click on the link to explore the other road</p>
-        <a href="otherRoad.html">The other road</a>
-    </div>
     <hr>
     <div>
         <p>
