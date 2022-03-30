@@ -14,12 +14,12 @@
         <p>Click on the button to explore the drawer </p>
         <p>Click on the house link if you choose to explore the house. </p>
         <a href="corridor.html">house</a>
-        <button id="drawerToggle">Explore the drawer</button>
+        <button id="drawerBtn">Explore the drawer</button>
     </div>
     <hr>
     <script>
-        const hideDiv = document.getElementById("drawer");
-        const btn = document.getElementById()
+        const targetDiv = document.getElementById("drawer");
+        const btn = document.getElementById("drawerBtn")
         btn.onclick = function () {
             if (targetDiv.style.display !== "none") {
                 targetDiv.style.display = "none";
@@ -28,7 +28,6 @@
             }
         };
     </script>
-
     <div id="drawer">
         <p>
             You find out that there was a drawer besides the bed. 
