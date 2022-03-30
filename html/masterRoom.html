@@ -2,6 +2,22 @@
 <html>
 <body>
 <title> Rocky Wu's Info 303 Page </title>
+<script>
+    function show(divId) {
+        var x = document.getElementById(divId);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function DisplayMasterBed() {
+        show("masterRoom")
+    }
+    function DisplayUnderMasterBed() {
+        show("masterRoomUnderBed")
+    }
+</script>
 <section>
     <div>
         <img src = "../images/oyashiki/oyashiki12.jpg">
@@ -13,29 +29,30 @@
     <div>
         <p> Click on the link below to exist the master room. </p>
         <a href="corridor.html">Exit the master room</a>
-        <p> Continue to read if you choose to explore. </p>
+        <p> Click on the button to explore the master room. </p>
+        <button onclick="DisplayMasterBed()">Explore the master room</button>
     </div>
     <hr>
-    <div>
+    <div id="masterRoom" style="display:none">
         <p>
             You looked around the room. You believe that there 
             is something under the bed. Do you want to go under 
             the bed and take a look?
         </p>
         <p> 
-            Continue reading if you choose to explore what is 
-            under the bed. 
+            Click on the button to explore under the bed. 
         </p>
+        <button onclick="DisplayUnderMasterBed()">Explore under the bed</button>
+        <div id="masterRoomUnderBed" style="display:none">
+            <p>
+                There was nothing under the bed. Surprise~. 
+            </p>
+            <p>
+                Nothing more to explore. You could exit the room.
+            </p>
+        </div>
     </div>
-    <hr>
-    <div>
-        <p>
-            There was nothing under the bed. Surprise~. 
-        </p>
-        <p>
-            Nothing more to explore. You could exit the room.
-        </p>
-    </div>
+    
 </section>
 </body>
 </html>
