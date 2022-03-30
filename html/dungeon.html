@@ -16,8 +16,8 @@
         function IgnoreTreasureBox() {
             show("ignoreTreasureBox");
         }
-        function ShowBookToWitch() {
-            show("showBookToWitch");
+        function LookSoundSource() {
+            show("lookSoundSource");
         }
     </script>
 <title> Rocky Wu's Info 303 Page </title>
@@ -47,7 +47,7 @@
         <p> Click on the button to ignore the treasure box and continue exploring.</p>
         <button onclick="IgnoreTreasureBox()">Ignore the treasure box</button>
         <p> Click on the link to open the treasure box. </p>
-        <a href="death.html">Open the treasure box</a>
+        <a href="deathKillTreasure.html">Open the treasure box</a>
         <hr>
         <div id="ignoreTreasureBox" style="display: none;">
             <p>
@@ -61,38 +61,36 @@
                 Would you like to go to the sound source and take a look?
                 Or, would you like to go and explore the other road?
             </p>
-            <p>
-                Continue reading if you choose to take a look. 
-            </p>
+            <p> Click on the button to take a look at the sound source. </p>
+            <button onclick="LookSoundSource()">Take a look?</button>
             <p> Click on the link to explore the other road</p>
             <a href="otherRoad.html">The other road</a>
+            <hr>
+            <div id="lookSoundSource" style="display: none;">
+                <p>
+                    You hold the torch in front of you, and slowly walked down the 
+                    road to take a look. Eventually, you walked down and saw there 
+                    was a man moaning. He asked that if you could give him a med kit
+                    to heal him. 
+                </p>
+                <p>
+                    Choose to give him the med kit if you have it. 
+                </p>
+                <a href="newParter.html">Give him the med kit. </a>
+                <p>
+                    Continue reading if you choose not to give the med kit
+                    or you do not have one. 
+                </p>
+                <hr>
+                <div>
+                    <p>
+                        You walked pass the moaning man, and there was a door to open. 
+                        Would you like to open the door?
+                    </p>
+                    <a href="boss.html">Open the door.</a>
+                </div>
+            </div>
         </div>
-    </div>
-    <hr>
-    <hr>
-    <div>
-        <p>
-            You hold the torch in front of you, and slowly walked down the 
-            road to take a look. Eventually, you walked down and saw there 
-            was a man moaning. He asked that if you could give him a med kit
-            to heal him. 
-        </p>
-        <p>
-            Choose to give him the med kit if you have it. 
-        </p>
-        <a href="newParter.html">Give him the med kit. </a>
-        <p>
-            Continue reading if you choose not to give the med kit
-            or you do not have one. 
-        </p>
-    </div>
-    <hr>
-    <div>
-        <p>
-            You walked pass the moaning man, and there was a door to open. 
-            Would you like to open the door?
-        </p>
-        <a href="boss.html">Open the door.</a>
     </div>
 </section>
 </body>
