@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 
 <html>
+<head>
+    <title>Rocky Wu's Info303 Adventure</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+    </script>
+</head>
 <body>
 <title> Rocky Wu's Info 303 Page </title>
 <section>
@@ -15,19 +22,16 @@
         <p>Click on the house link if you choose to explore the house. </p>
         <a href="corridor.html">house</a>
         <br>
-        <button id="drawerBtn">Explore the drawer</button>
+        <button onclick="DisplayDrawer()">Explore the drawer</button>
     </div>
     <hr>
     <script>
-        const targetDiv = document.getElementById("drawer");
-        const btn = document.getElementById("drawerBtn")
-        btn.onclick = function () {
-            if (targetDiv.style.display !== "none") {
-                targetDiv.style.display = "none";
-            } else {
-                targetDiv.style.display = "block";
-            }
-        };
+        function show(divId) {
+            $("#" + divId).show();
+        }
+        function DisplayDrawer() {
+            show('drawer');
+        }
     </script>
     <div id="drawer">
         <p>
