@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<title> Rocky Wu's Info 303 Page </title>
-<section>
-    <div>
-        <img src="../images/oyashiki/yashiki17.jpg" 
-        alt = "The bedroom of the large house">
-        <p>
-            You wake up in a bedroom in a large house. <br>
-            Would you like to explore the bedroom or the house?
-        </p>
-        <p>Click on the button to explore the drawer </p>
-        <p>Click on the house link if you choose to explore the house. </p>
-        <a href="corridor.html">house</a>
-        <p>or</p>
-        <button onclick="DisplayDrawer()">Explore the drawer</button>
-    </div>
-    <hr>
     <script>
         function show(divId) {
             var x = document.getElementById(divId);
@@ -36,6 +20,22 @@
             show("bookshelf");
         }
     </script>
+<title> Rocky Wu's Info 303 Page </title>
+<section>
+    <div>
+        <img src="../images/oyashiki/yashiki17.jpg" 
+        alt = "The bedroom of the large house">
+        <p>
+            You wake up in a bedroom in a large house. <br>
+            Would you like to explore the bedroom or the house?
+        </p>
+        <p>Click on the button to explore the drawer </p>
+        <p>Click on the house link if you choose to explore the house. </p>
+        <a href="corridor.html">house</a>
+        <p>or</p>
+        <button onclick="DisplayDrawer()">Explore the drawer</button>
+    </div>
+    <hr>
     <p>Content of the drawer will be displayed here:</p>
     <div id="drawer" style="display:none">
         <p>
@@ -59,20 +59,20 @@
                 link above to explore the house. 
             </p>
             <button onclick="OpenBookshelf()">Explore more</button>
+            <hr>
+            <div id="bookshelf" style="display:none">
+                <p>Content of more exploration will be displayed here:</p>
+                <p>If content is not showing up, scroll down a little bit. </p>
+                <hr>
+                <p>
+                    You found a spellbook inside the bookshelf. You picked up the book.
+                </p>
+                <p>
+                    There was nothing more in the bedroom. Click on the link above
+                    to explore the house. 
+                </p>
+            </div>
         </div>
-    </div>
-    <hr>
-    <div id="bookshelf" style="display:none">
-        <p>Content of more exploration will be displayed here:</p>
-        <p>If content is not showing up, scroll down a little bit. </p>
-        <hr>
-        <p>
-            You found a spellbook inside the bookshelf. You picked up the book.
-        </p>
-        <p>
-            There was nothing more in the bedroom. Click on the link above
-            to explore the house. 
-        </p>
     </div>
 </section>
 </body>
