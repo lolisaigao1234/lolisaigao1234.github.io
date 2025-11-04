@@ -3,74 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rocky Wu's Project Page</title>
+    <title>Rocky Wu | Information Science Portfolio</title>
+    <meta name="description" content="Rocky Wu's portfolio showcasing data visualization, interactive projects, and academic work from the University of Illinois.">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="glass">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
     <div id="container">
-        <div id="content">
-            <div id="about">
-                <h1>
-                    <div style="float:left; margin-bottom:20px;">Rocky Wu</div>
-                    <div class="stage">
-                        <div class="pyramid3d">
-                            <div class="triangle side1"></div>
-                            <div class="triangle side2"></div>
-                            <div class="triangle side3"></div>
-                            <div class="triangle side4"></div>
-                        </div>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Rocky Wu</h1>
+            <p class="hero-subtitle">Information Science Student | Data Visualization Enthusiast | Developer</p>
+            <div class="hero-links">
+                <a href="https://github.com/lolisaigao1234" class="btn btn-primary">
+                    <span>GitHub</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span>Get in Touch</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-content glass">
+                <h2 class="section-title">About Me</h2>
+                <p class="about-text">
+                    I'm an Information Science major at the University of Illinois, passionate about data visualization,
+                    interactive experiences, and building innovative web applications. My work spans from creating
+                    data-driven visualizations to developing engaging interactive narratives.
+                </p>
+                <p class="about-text">
+                    When I'm not coding, I enjoy playing games like League of Legends and Hearthstone, and watching anime.
+                    My favorite anime is <a href="https://myanimelist.net/anime/8769/Ore_no_Imouto_ga_Konnani_Kawaii_Wake_ga_Nai"
+                    style="color: var(--accent-blue);">Oreimo</a>.
+                </p>
+
+                <h3 class="section-title" style="font-size: 1.5rem; margin-top: 32px;">Favorite Characters</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-card">
+                        <a href="https://myanimelist.net/character/24544/Kirino_Kousaka">Kirino Kousaka</a>
                     </div>
-                </h1>
-                <h3 style="clear:both" class="subhead">
-                    Rocky is an Information Science major student currently studying at the University of Illinois.
-                </h3>
-                <p id="pleft">
-                    He enjoys playing games like League of Legends and Hearthstone, and loves watching anime. His favorite anime is
-                    <a href="https://myanimelist.net/anime/8769/Ore_no_Imouto_ga_Konnani_Kawaii_Wake_ga_Nai">Oreimo</a>.
-                    <br>Best Girl Out of Three:
+                    <div class="favorite-card">
+                        <a href="https://myanimelist.net/character/118763/Rem">Rem</a>
+                    </div>
+                    <div class="favorite-card">
+                        <a href="https://myanimelist.net/character/498/Rin_Toosaka">Toosaka Rin</a>
+                    </div>
+                </div>
+
+                <div class="audio-player">
+                    <h3 class="section-title" style="font-size: 1.3rem; margin-bottom: 16px;">Currently Listening</h3>
+                    <p class="about-text" style="font-size: 0.9rem; margin-bottom: 12px;">
+                        One Last Kiss - A beautiful track that sets the perfect mood
+                    </p>
+                    <audio src="/music/oneLastKiss.flac" controls>
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <h2 class="section-title" style="text-align: center; font-size: 2.5rem;">Featured Projects</h2>
+
+            <div class="projects-grid">
+                <!-- NYC Taxi Data Visualization -->
+                <div class="project-card glass">
+                    <span class="project-tag">Data Visualization</span>
+                    <h3 class="project-title">NYC Taxi Analytics</h3>
+                    <p class="project-description">
+                        Interactive data visualization analyzing NYC Yellow Taxi trip data from January 2021,
+                        featuring heatmaps, time series analysis, and passenger count insights using Python and bqplot.
+                    </p>
+                    <div class="project-links">
+                        <a href="spring2022/IS445/FinalProject/IS445FinalProjectPart3.html" class="project-link">View Demo</a>
+                        <a href="https://github.com/lolisaigao1234/IS497FinalProject" class="project-link">Source Code</a>
+                    </div>
+                </div>
+
+                <!-- Interactive Adventure Game -->
+                <div class="project-card glass">
+                    <span class="project-tag">Interactive Fiction</span>
+                    <h3 class="project-title">Text Adventure Game</h3>
+                    <p class="project-description">
+                        A branching narrative adventure game built with HTML and JavaScript.
+                        Make choices that affect the story outcome in this fantasy-themed interactive experience.
+                    </p>
+                    <div class="project-links">
+                        <a href="spring2022/INFO303/MP2/html/Start.html" class="project-link">Play Now</a>
+                    </div>
+                </div>
+
+                <!-- Online Privacy Project -->
+                <div class="project-card glass">
+                    <span class="project-tag">Research</span>
+                    <h3 class="project-title">Online Privacy Study</h3>
+                    <p class="project-description">
+                        Comprehensive research project exploring online privacy concerns, featuring survey analysis,
+                        data visualization, and an informative poster on data privacy practices.
+                    </p>
+                    <div class="project-links">
+                        <a href="spring2022/INFO303/MP3/index.html" class="project-link">Read More</a>
+                        <a href="spring2022/INFO303/MP3/files/DataPrivacy.pdf" class="project-link">View Poster</a>
+                    </div>
+                </div>
+
+                <!-- Vega-Lite Demo -->
+                <div class="project-card glass">
+                    <span class="project-tag">Data Visualization</span>
+                    <h3 class="project-title">Vega-Lite Demonstrations</h3>
+                    <p class="project-description">
+                        Collection of interactive visualizations built with Vega-Lite and Idyll,
+                        demonstrating various chart types and data exploration techniques.
+                    </p>
+                    <div class="project-links">
+                        <a href="spring2022/IS445/HW/HW10/index.html" class="project-link">Explore</a>
+                    </div>
+                </div>
+
+                <!-- Mythology Project -->
+                <div class="project-card glass">
+                    <span class="project-tag">Educational</span>
+                    <h3 class="project-title">Greco-Roman Mythology</h3>
+                    <p class="project-description">
+                        An educational website exploring the fascinating world of Greco-Roman mythology,
+                        featuring stories of gods, heroes, and ancient legends.
+                    </p>
+                    <div class="project-links">
+                        <a href="spring2022/CLCV115/CreativeProject/newPage/index.html" class="project-link">Discover</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <footer id="contact">
+            <div class="footer-content glass">
+                <h2 class="footer-title">Let's Connect</h2>
+                <p class="footer-text">
+                    Interested in collaborating or just want to chat about anime, games, or tech?
+                    Feel free to reach out!
                 </p>
-                <p id="pright">
-                    Check out some of his work and experiments on <a href="https://github.com/lolisaigao1234">GitHub</a>.
-                </p>
-                <ul>
-                    <li><a href="https://myanimelist.net/character/24544/Kirino_Kousaka?q=Kirino&cat=character">Kirino Kousaka</a></li>
-                    <li><a href="https://myanimelist.net/character/118763/Rem?q=Rem&cat=character">Rem</a></li>
-                    <li><a href="https://myanimelist.net/character/498/Rin_Toosaka?q=ToosakaRin&cat=character">Toosaka Rin</a></li>
-                </ul>
-                <p>
-                    Feel free to contact him at jywu3@illinois.edu if you'd like to discuss who is the best waifu.
-                </p>
-                <p>Also, try out the text-based interactive game he made.</p>
-                <a href="spring2022/INFO303/MP2/html/Start.html">Click here to start the journey</a>
-                <p>
-                    One of his favorite music pieces is Zen Zen Zense by Radwimps.
-                </p>
-                <audio src="/music/oneLastKiss.flac" controls>
-                    <embed src="/music/oneLastKiss.flac" width="300" height="90" loop="false" autostart="true">
-                </audio>
+                <a href="mailto:jywu3@illinois.edu" class="footer-email">jywu3@illinois.edu</a>
             </div>
-            <div>
-                <p>IS445 HW 10 link</p>
-                <a href="spring2022/IS445/HW/HW10/index.html">Click here to browse a simple vega-lite demo</a>
-            </div>
-            <div>
-                <p>A topic that I want to talk about: Online Privacy</p>
-                <a href="spring2022/INFO303/MP3/index.html">Click here to learn about Online Privacy</a>
-                <p>A simple poster I made for the topic above</p>
-                <a href="spring2022/INFO303/MP3/files/DataPrivacy.pdf">Click here to view the poster</a>
-            </div>
-            <div>
-                <p>Some simple introduction regarding Greco-Roman Mythology</p>
-                <a href="spring2022/CLCV115/CreativeProject/newPage/index.html">Click here to have a look</a>
-            </div>
-            <div>
-                <p>A simple Jupyter notebook for IS445</p>
-                <a href="spring2022/IS445/FinalProject/IS445FinalProjectPart3.html">Click here to view the visualization</a>
-                <p>Link to the Jupyter notebook on GitHub</p>
-                <a href="https://github.com/lolisaigao1234/IS497FinalProject">Download the notebook</a>
-            </div>
-        </div>
+        </footer>
     </div>
-    <hr>
 </body>
 </html>

@@ -97,10 +97,42 @@ jupyter nbconvert --to html <notebook_path>
 
 ## Key Design Patterns
 
-### Homepage Structure
-- Single-page portfolio with sections for different projects
-- Animated 3D pyramid graphic in header (pure CSS)
-- Responsive layout adapting to mobile/tablet/desktop
+### Homepage Structure (Liquid Glass Design)
+The homepage features a modern Apple-inspired liquid glass design with the following characteristics:
+
+**Glassmorphism Effects:**
+- Frosted glass cards using `backdrop-filter: blur(20px)` with semi-transparent backgrounds
+- Subtle borders and shadows creating depth and layering
+- CSS variables for consistent theming (accent colors: blue #007AFF, purple #AF52DE, pink #FF2D55)
+
+**Layout Architecture:**
+- Fixed navigation bar with glass effect at the top
+- Hero section with gradient text and CTA buttons
+- About section with glass card containing personal info, favorites grid, and audio player
+- Projects grid using CSS Grid with auto-fit columns (min 320px)
+- Footer with contact information in glass card
+
+**Interactive Elements:**
+- Smooth hover animations with `cubic-bezier(0.4, 0, 0.2, 1)` easing
+- Cards that lift on hover (`translateY(-8px)`)
+- Gradient accent lines appearing on project cards
+- Button hover effects with shadow enhancement
+
+**Typography:**
+- Inter font family (with -apple-system fallback)
+- Gradient text effects for titles using `-webkit-background-clip: text`
+- Fluid typography using `clamp()` for responsive scaling
+
+**Color System:**
+- Dark gradient background (black to dark blue)
+- Radial gradient overlays for ambient lighting effects
+- Three-tier text opacity system (primary 95%, secondary 70%, tertiary 50%)
+
+**Responsive Design:**
+- Mobile-first approach with breakpoints at 480px, 768px
+- Grid collapses to single column on mobile
+- Navigation adapts with smaller padding and font sizes
+- Hero buttons stack vertically on small screens
 
 ### Data Visualization Projects
 - Downsampling large datasets for performance (1% sample for mybinder)
@@ -114,8 +146,35 @@ jupyter nbconvert --to html <notebook_path>
 - Different endings based on player choices
 - Non-persistent inventory system (items don't carry between playthroughs)
 
+## Design System Reference
+
+### CSS Classes
+- `.glass` - Core glassmorphism effect (backdrop blur, borders, shadows)
+- `.btn` - Base button styling with smooth transitions
+- `.btn-primary` - Blue accent button with glow effect
+- `.btn-secondary` - Glass button with border
+- `.project-card` - Project showcase card with hover lift effect
+- `.project-tag` - Colored tag labels for categorization
+- `.project-link` - Interactive link with slide animation
+
+### Animations
+- `fadeInUp` - Entry animation (0.8s ease-out)
+- `slideDown` - Navigation slide-in (0.6s ease-out)
+- Staggered delays on project cards (0.1s increments)
+- Respects `prefers-reduced-motion` for accessibility
+
+### Accessibility Features
+- Semantic HTML5 structure (`<nav>`, `<section>`, `<footer>`)
+- Proper heading hierarchy (h1 → h2 → h3)
+- ARIA-friendly navigation with anchor links
+- High contrast text (95% opacity on dark background)
+- Keyboard-friendly focus states
+- Reduced motion support for users with vestibular disorders
+
 ## Notes
 - Site deployed via GitHub Pages (no build step needed)
 - Audio files use FLAC format
 - Some projects reference external data sources via URLs
 - Portfolio showcases coursework from Spring 2022 semester
+- New design uses Inter font (loaded from Google Fonts)
+- All animations use GPU-accelerated properties (transform, opacity)
