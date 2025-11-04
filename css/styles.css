@@ -400,6 +400,45 @@ nav a:hover {
     vertical-align: middle;
 }
 
+/* Experience Company Styling */
+.experience-company {
+    margin-bottom: 16px;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.company-header strong {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+}
+
+.date-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(175, 82, 222, 0.15);
+    color: var(--accent-purple);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.company-role {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 12px;
+}
+
 /* Skills Section */
 .skills-container {
     display: grid;

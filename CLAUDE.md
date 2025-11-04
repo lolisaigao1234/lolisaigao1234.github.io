@@ -175,7 +175,13 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - `.tertiary-item` - Individual detail card with label/value pairs
 - `.tertiary-item-label` - Uppercase label for detail category
 - `.tertiary-item-value` - Detail content with emphasized text
-- `.info-badge` - Small badge for highlighting dates/status
+- `.info-badge` - Small badge for highlighting dates/status (blue accent)
+
+**Experience Company Headers:**
+- `.experience-company` - Container for company information block
+- `.company-header` - Flex container with company name and date badge
+- `.date-badge` - Purple accent badge for date ranges
+- `.company-role` - Italic text for job title and location
 
 **Projects:**
 - `.project-card` - Project showcase card with hover lift effect
@@ -207,16 +213,38 @@ The site includes vanilla JavaScript for accordion interaction:
 
 ## Space-Efficient Design Strategy
 
-The professional background section uses a hierarchical information architecture:
-1. **Accordion headers** provide quick overview (icon, title, subtitle)
-2. **Accordion content** reveals summary and key highlights
-3. **Tertiary menus** organize detailed information into scannable cards
+The professional background section uses a hierarchical information architecture organized by domain/field rather than chronology:
 
-This approach:
-- Reduces initial visual clutter on the About section
-- Allows users to selectively expand sections of interest
-- Maintains scanability through visual hierarchy
-- Works well on mobile devices with limited screen space
+### Three-Tier Structure:
+1. **Domain Accordions** (Primary Level)
+   - Cloud Computing & Infrastructure
+   - Quantitative Finance & Trading
+   - Data Engineering & Analytics
+   - NLP & AI Systems
+   - Product Analytics & Marketing
+
+2. **Company Headers** (Secondary Level)
+   - Company name with type descriptor (e.g., "— AI Quantitative Hedge Fund")
+   - Date badges with purple accent
+   - Job title and location
+   - Separated by visual dividers within each domain
+
+3. **Achievement Items** (Tertiary Level)
+   - Detailed accomplishments organized by project/category
+   - Labeled with descriptive categories (e.g., "Cloud Architecture Migration")
+   - Emphasizes technical skills, metrics, and business impact
+   - Uses strong tags to highlight key technologies and results
+
+### Design Benefits:
+- **Domain-based grouping** shows breadth of expertise across different fields
+- **Reduces initial visual clutter** - only domain headers visible by default
+- **Selective expansion** - users can explore specific domains of interest
+- **Multiple companies per domain** - shows progression and depth in each area
+- **Detailed achievements** - comprehensive bullet points from full resume
+- **Mobile-friendly** - works well on limited screen space with collapsible sections
+
+### Data Source:
+Experience details sourced from `JiaYang_Wu_Resume_full/main.tex` with full achievement descriptions preserved
 
 ## Notes
 - Site deployed via GitHub Pages (no build step needed)
