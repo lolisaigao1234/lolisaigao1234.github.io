@@ -47,49 +47,134 @@
                     & Data Science with a minor in Computer Science (GPA: 3.58).
                 </p>
                 
-                <!-- Professional Background -->
-                <div class="info-grid">
-                    <div class="info-card glass">
-                        <div class="info-icon">💼</div>
-                        <h3 class="info-card-title">Current Role</h3>
-                        <p class="info-card-text">
-                            <strong>Data Analyst & Model Building Intern</strong><br>
-                            ActionTec Electronics Co., LTD<br>
-                            <span style="color: var(--text-tertiary); font-size: 0.9rem;">Aug 2025 - Present</span>
-                        </p>
-                        <p class="info-card-description">
-                            Developing cloud-based Wi-Fi Health Score systems, building end-to-end data pipelines on AWS, 
-                            and creating real-time monitoring dashboards that boost network assessment efficiency by 60%.
-                        </p>
+                <!-- Professional Background - Accordion -->
+                <div class="info-accordion">
+                    <!-- Current Role -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-header-left">
+                                <span class="accordion-icon">💼</span>
+                                <div class="accordion-title-group">
+                                    <h3 class="accordion-title">Current Role <span class="info-badge">Aug 2025 - Present</span></h3>
+                                    <p class="accordion-subtitle">Data Analyst & Model Building Intern at ActionTec Electronics</p>
+                                </div>
+                            </div>
+                            <div class="accordion-toggle"></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p class="accordion-main-text">
+                                    Developing cloud-based Wi-Fi Health Score systems, building end-to-end data pipelines on AWS,
+                                    and creating real-time monitoring dashboards that boost network assessment efficiency by 60%.
+                                </p>
+                                <div class="tertiary-menu">
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Key Project</div>
+                                        <div class="tertiary-item-value">
+                                            <strong>Wi-Fi Health Score System</strong> - Cloud-based analytics platform with real-time monitoring
+                                        </div>
+                                    </div>
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Technologies</div>
+                                        <div class="tertiary-item-value">
+                                            AWS (EC2, S3, Athena), Python, ETL Pipelines, Real-time Dashboards
+                                        </div>
+                                    </div>
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Impact</div>
+                                        <div class="tertiary-item-value">
+                                            60% improvement in network assessment efficiency
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="info-card glass">
-                        <div class="info-icon">🎓</div>
-                        <h3 class="info-card-title">Education</h3>
-                        <p class="info-card-text">
-                            <strong>University of Illinois at Urbana-Champaign</strong><br>
-                            M.S. in Information Management (2024-2025)<br>
-                            B.S. in Information & Data Science (2020-2024)
-                        </p>
-                        <p class="info-card-description">
-                            Coursework: Data Analytics, Machine Learning, Deep Learning, Database Concepts, 
-                            Data Structures, Cloud Computing
-                        </p>
+                    <!-- Education -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-header-left">
+                                <span class="accordion-icon">🎓</span>
+                                <div class="accordion-title-group">
+                                    <h3 class="accordion-title">Education</h3>
+                                    <p class="accordion-subtitle">University of Illinois at Urbana-Champaign</p>
+                                </div>
+                            </div>
+                            <div class="accordion-toggle"></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <div class="tertiary-menu">
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Graduate Degree</div>
+                                        <div class="tertiary-item-value">
+                                            <strong>M.S. in Information Management</strong> (2024-2025)<br>
+                                            Focus: Data Analytics, Cloud Computing, Financial Data Management
+                                        </div>
+                                    </div>
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Undergraduate Degree</div>
+                                        <div class="tertiary-item-value">
+                                            <strong>B.S. in Information Science & Data Science</strong> (2020-2024)<br>
+                                            Minor in Computer Science | GPA: 3.58
+                                        </div>
+                                    </div>
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Relevant Coursework</div>
+                                        <div class="tertiary-item-value">
+                                            Data Analytics, Machine Learning, Deep Learning, Database Concepts,
+                                            Data Structures, Cloud Computing, Algorithms, Software Engineering
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="info-card glass">
-                        <div class="info-icon">🚀</div>
-                        <h3 class="info-card-title">Key Experience</h3>
-                        <p class="info-card-text">
-                            Previous internships at:<br>
-                            • AiFinSphere (Quant Hedge Fund)<br>
-                            • SDIC Securities (Leading Firm)<br>
-                            • Tencent (Global Tech Giant)
-                        </p>
-                        <p class="info-card-description">
-                            Specialized in building quantitative models, data pipelines, NLP systems, 
-                            and cloud-based analytics solutions across finance and tech sectors.
-                        </p>
+                    <!-- Key Experience -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-header-left">
+                                <span class="accordion-icon">🚀</span>
+                                <div class="accordion-title-group">
+                                    <h3 class="accordion-title">Professional Experience</h3>
+                                    <p class="accordion-subtitle">Finance & Technology Sectors</p>
+                                </div>
+                            </div>
+                            <div class="accordion-toggle"></div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p class="accordion-description">
+                                    Specialized in building quantitative models, data pipelines, NLP systems,
+                                    and cloud-based analytics solutions across finance and tech sectors.
+                                </p>
+                                <div class="tertiary-menu">
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">AiFinSphere - Quant Hedge Fund</div>
+                                        <div class="tertiary-item-value">
+                                            <strong>Quantitative Analyst Intern</strong><br>
+                                            Built trading strategies and risk models using machine learning
+                                        </div>
+                                    </div>
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">SDIC Securities - Leading Firm</div>
+                                        <div class="tertiary-item-value">
+                                            <strong>Data Science Intern</strong><br>
+                                            Developed financial data pipelines and analytics dashboards
+                                        </div>
+                                    </div>
+                                    <div class="tertiary-item">
+                                        <div class="tertiary-item-label">Tencent - Global Tech Giant</div>
+                                        <div class="tertiary-item-value">
+                                            <strong>Software Engineering Intern</strong><br>
+                                            Implemented NLP systems and backend services at scale
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -260,5 +345,31 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        // Accordion toggle functionality
+        function toggleAccordion(header) {
+            const accordionItem = header.parentElement;
+            const isActive = accordionItem.classList.contains('active');
+
+            // Close all accordion items
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // If the clicked item wasn't active, open it
+            if (!isActive) {
+                accordionItem.classList.add('active');
+            }
+        }
+
+        // Optional: Open the first accordion item by default
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstAccordion = document.querySelector('.accordion-item');
+            if (firstAccordion) {
+                firstAccordion.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -225,66 +225,179 @@ nav a:hover {
     margin-bottom: 20px;
 }
 
-/* Info Grid - Professional Background Cards */
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+/* Info Accordion - Collapsible Professional Background */
+.info-accordion {
     margin: 32px 0;
 }
 
-.info-card {
-    padding: 28px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.info-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 40px rgba(0, 122, 255, 0.15);
-}
-
-.info-card:hover::before {
-    opacity: 1;
-}
-
-.info-icon {
-    font-size: 2.5rem;
+.accordion-item {
     margin-bottom: 16px;
-    display: block;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.info-card-title {
-    font-size: 1.3rem;
+.accordion-item:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.accordion-item.active {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 122, 255, 0.3);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.accordion-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.accordion-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.accordion-title-group {
+    flex: 1;
+}
+
+.accordion-title {
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 12px;
+    margin-bottom: 4px;
 }
 
-.info-card-text {
+.accordion-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+.accordion-toggle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.accordion-toggle::after {
+    content: '›';
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-toggle::after {
+    transform: rotate(270deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 1000px;
+}
+
+.accordion-body {
+    padding: 0 24px 24px 24px;
+}
+
+.accordion-main-text {
     color: var(--text-primary);
     font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 12px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(0, 122, 255, 0.05);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 8px;
 }
 
-.info-card-description {
+.accordion-description {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+/* Tertiary Menu - Detail Items within Accordion */
+.tertiary-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.tertiary-item {
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.3s ease;
+}
+
+.tertiary-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+}
+
+.tertiary-item-label {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.tertiary-item-value {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tertiary-item-value strong {
+    color: var(--accent-blue);
+}
+
+/* Badge for highlighting */
+.info-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(0, 122, 255, 0.15);
+    color: var(--accent-blue);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
 }
 
 /* Skills Section */
@@ -542,11 +655,26 @@ footer {
         padding: 28px;
     }
 
-    .info-card {
-        padding: 24px;
+    .accordion-header {
+        padding: 16px 20px;
     }
 
-    .info-grid,
+    .accordion-header-left {
+        gap: 12px;
+    }
+
+    .accordion-icon {
+        font-size: 1.5rem;
+    }
+
+    .accordion-title {
+        font-size: 1.1rem;
+    }
+
+    .accordion-body {
+        padding: 0 20px 20px 20px;
+    }
+
     .projects-grid,
     .skills-container {
         grid-template-columns: 1fr;
@@ -572,8 +700,24 @@ footer {
         padding: 24px;
     }
 
-    .info-card {
-        padding: 20px;
+    .accordion-header {
+        padding: 14px 16px;
+    }
+
+    .accordion-icon {
+        font-size: 1.3rem;
+    }
+
+    .accordion-title {
+        font-size: 1rem;
+    }
+
+    .accordion-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .accordion-body {
+        padding: 0 16px 16px 16px;
     }
 
     .section-title {
@@ -582,10 +726,6 @@ footer {
 
     .project-title {
         font-size: 1.2rem;
-    }
-
-    .info-card-title {
-        font-size: 1.1rem;
     }
 }
 
@@ -601,13 +741,13 @@ footer {
     .project-card:nth-child(4) { animation-delay: 0.4s; }
     .project-card:nth-child(5) { animation-delay: 0.5s; }
 
-    .info-card {
+    .accordion-item {
         animation: fadeInUp 0.6s ease-out both;
     }
 
-    .info-card:nth-child(1) { animation-delay: 0.2s; }
-    .info-card:nth-child(2) { animation-delay: 0.3s; }
-    .info-card:nth-child(3) { animation-delay: 0.4s; }
+    .accordion-item:nth-child(1) { animation-delay: 0.2s; }
+    .accordion-item:nth-child(2) { animation-delay: 0.3s; }
+    .accordion-item:nth-child(3) { animation-delay: 0.4s; }
 }
 
 /* Accessibility */

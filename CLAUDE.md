@@ -108,7 +108,11 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 **Layout Architecture:**
 - Fixed navigation bar with glass effect at the top
 - Hero section with gradient text and CTA buttons
-- About section with glass card containing personal info, favorites grid, and audio player
+- About section with:
+  - Collapsible accordion for professional background (Current Role, Education, Experience)
+  - Tertiary menus within accordions for detailed information
+  - Skills showcase grid
+  - Favorites grid and audio player
 - Projects grid using CSS Grid with auto-fit columns (min 320px)
 - Footer with contact information in glass card
 
@@ -117,6 +121,8 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - Cards that lift on hover (`translateY(-8px)`)
 - Gradient accent lines appearing on project cards
 - Button hover effects with shadow enhancement
+- Collapsible accordion system for professional background with smooth expand/collapse transitions
+- Tertiary menu items with hover slide animations
 
 **Typography:**
 - Inter font family (with -apple-system fallback)
@@ -149,10 +155,29 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 ## Design System Reference
 
 ### CSS Classes
+
+**Core Components:**
 - `.glass` - Core glassmorphism effect (backdrop blur, borders, shadows)
 - `.btn` - Base button styling with smooth transitions
 - `.btn-primary` - Blue accent button with glow effect
 - `.btn-secondary` - Glass button with border
+
+**Accordion System:**
+- `.info-accordion` - Container for accordion items
+- `.accordion-item` - Individual collapsible section
+- `.accordion-header` - Clickable header with icon, title, and toggle
+- `.accordion-content` - Collapsible content area with max-height transition
+- `.accordion-body` - Inner content wrapper with padding
+- `.accordion-toggle` - Animated chevron indicator
+
+**Tertiary Menu (Detail Display):**
+- `.tertiary-menu` - Container for detail items within accordion
+- `.tertiary-item` - Individual detail card with label/value pairs
+- `.tertiary-item-label` - Uppercase label for detail category
+- `.tertiary-item-value` - Detail content with emphasized text
+- `.info-badge` - Small badge for highlighting dates/status
+
+**Projects:**
 - `.project-card` - Project showcase card with hover lift effect
 - `.project-tag` - Colored tag labels for categorization
 - `.project-link` - Interactive link with slide animation
@@ -171,6 +196,28 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - Keyboard-friendly focus states
 - Reduced motion support for users with vestibular disorders
 
+## JavaScript Functionality
+
+### Accordion Toggle
+The site includes vanilla JavaScript for accordion interaction:
+- `toggleAccordion(header)` - Manages accordion expand/collapse behavior
+- Implements single-accordion-open pattern (closes others when opening one)
+- Auto-opens first accordion item on page load
+- No external dependencies required
+
+## Space-Efficient Design Strategy
+
+The professional background section uses a hierarchical information architecture:
+1. **Accordion headers** provide quick overview (icon, title, subtitle)
+2. **Accordion content** reveals summary and key highlights
+3. **Tertiary menus** organize detailed information into scannable cards
+
+This approach:
+- Reduces initial visual clutter on the About section
+- Allows users to selectively expand sections of interest
+- Maintains scanability through visual hierarchy
+- Works well on mobile devices with limited screen space
+
 ## Notes
 - Site deployed via GitHub Pages (no build step needed)
 - Audio files use FLAC format
@@ -178,3 +225,4 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - Portfolio showcases coursework from Spring 2022 semester
 - New design uses Inter font (loaded from Google Fonts)
 - All animations use GPU-accelerated properties (transform, opacity)
+- Accordion system uses pure CSS transitions (no JavaScript animation libraries)
