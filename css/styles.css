@@ -237,7 +237,6 @@ nav a:hover {
     border: 1px solid rgba(255, 255, 255, 0.08);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: auto;
 }
 
 .accordion-item:hover {
@@ -322,7 +321,35 @@ nav a:hover {
 }
 
 .accordion-item.active .accordion-content {
-    max-height: 1000px;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar styling for accordion content */
+.accordion-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.accordion-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 122, 255, 0.3);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 122, 255, 0.5);
+}
+
+/* Firefox scrollbar styling */
+.accordion-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 122, 255, 0.3) rgba(255, 255, 255, 0.05);
 }
 
 .accordion-body {
@@ -715,6 +742,10 @@ footer {
         padding: 0 20px 20px 20px;
     }
 
+    .accordion-item.active .accordion-content {
+        max-height: 500px;
+    }
+
     .projects-grid,
     .skills-container {
         grid-template-columns: 1fr;
@@ -758,6 +789,10 @@ footer {
 
     .accordion-body {
         padding: 0 16px 16px 16px;
+    }
+
+    .accordion-item.active .accordion-content {
+        max-height: 400px;
     }
 
     .section-title {

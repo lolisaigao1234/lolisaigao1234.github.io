@@ -122,6 +122,7 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - Gradient accent lines appearing on project cards
 - Button hover effects with shadow enhancement
 - Collapsible accordion system for professional background with smooth expand/collapse transitions
+- Scrollable accordion content with custom styled scrollbars (600px max-height on desktop)
 - Tertiary menu items with hover slide animations
 
 **Typography:**
@@ -139,6 +140,7 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - Grid collapses to single column on mobile
 - Navigation adapts with smaller padding and font sizes
 - Hero buttons stack vertically on small screens
+- Accordion max-height adjusts by screen size (600px desktop, 500px tablet, 400px mobile)
 
 ### Data Visualization Projects
 - Downsampling large datasets for performance (1% sample for mybinder)
@@ -166,9 +168,10 @@ The homepage features a modern Apple-inspired liquid glass design with the follo
 - `.info-accordion` - Container for accordion items
 - `.accordion-item` - Individual collapsible section
 - `.accordion-header` - Clickable header with icon, title, and toggle
-- `.accordion-content` - Collapsible content area with max-height transition
+- `.accordion-content` - Collapsible content area with max-height transition and vertical scrolling when active
 - `.accordion-body` - Inner content wrapper with padding
 - `.accordion-toggle` - Animated chevron indicator
+- Custom scrollbar styling using `::-webkit-scrollbar` and `scrollbar-*` properties
 
 **Tertiary Menu (Detail Display):**
 - `.tertiary-menu` - Container for detail items within accordion
@@ -240,8 +243,10 @@ The professional background section uses a hierarchical information architecture
 - **Reduces initial visual clutter** - only domain headers visible by default
 - **Selective expansion** - users can explore specific domains of interest
 - **Multiple companies per domain** - shows progression and depth in each area
-- **Detailed achievements** - comprehensive bullet points from full resume
-- **Mobile-friendly** - works well on limited screen space with collapsible sections
+- **Detailed achievements** - comprehensive bullet points from full resume preserved
+- **Scrollable content** - long experience sections remain accessible with styled scrollbars
+- **Fixed height constraint** - prevents accordion from pushing other content off-screen
+- **Mobile-friendly** - works well on limited screen space with adaptive max-height
 
 ### Data Source:
 Experience details sourced from `JiaYang_Wu_Resume_full/main.tex` with full achievement descriptions preserved
@@ -254,3 +259,27 @@ Experience details sourced from `JiaYang_Wu_Resume_full/main.tex` with full achi
 - New design uses Inter font (loaded from Google Fonts)
 - All animations use GPU-accelerated properties (transform, opacity)
 - Accordion system uses pure CSS transitions (no JavaScript animation libraries)
+- Custom scrollbars styled for webkit browsers and Firefox with blue accent theming
+
+## Scrollable Accordion Implementation
+
+### Technical Details:
+The accordion content becomes scrollable when expanded to handle long experience sections:
+
+**Max-Height Values:**
+- Desktop (default): 600px
+- Tablet (≤768px): 500px
+- Mobile (≤480px): 400px
+
+**Scrollbar Styling:**
+- Width: 8px (webkit)
+- Track: Semi-transparent white background
+- Thumb: Blue accent color matching site theme
+- Hover state: Brighter blue for visual feedback
+- Firefox support via `scrollbar-width` and `scrollbar-color`
+
+**Why This Approach:**
+- **Problem**: Initial implementation had `overflow: hidden` on `.accordion-content`, preventing scroll
+- **Solution**: Applied `overflow-y: auto` only when accordion is active (`.accordion-item.active .accordion-content`)
+- **Benefit**: Long sections (like "Data Engineering & Analytics" with 3 companies) remain accessible without expanding the entire page
+- **User Experience**: Users can scroll within the accordion to see all achievements while other sections remain visible
