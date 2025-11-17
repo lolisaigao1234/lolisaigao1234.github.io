@@ -283,3 +283,181 @@ The accordion content becomes scrollable when expanded to handle long experience
 - **Solution**: Applied `overflow-y: auto` only when accordion is active (`.accordion-item.active .accordion-content`)
 - **Benefit**: Long sections (like "Data Engineering & Analytics" with 3 companies) remain accessible without expanding the entire page
 - **User Experience**: Users can scroll within the accordion to see all achievements while other sections remain visible
+
+---
+
+## Improvement Roadmap & Planning Documents
+
+### Comprehensive Improvement Plan
+The repository contains a detailed roadmap for enhancing the portfolio website with modern features, animations, and optimizations. All planning documents are located in the root directory.
+
+### Main Planning Document
+**`roadmap_TODO.md`** - Master roadmap containing:
+- Executive summary of all proposed improvements
+- 22 categorized enhancements organized by impact and priority
+- Implementation phases (Quick Wins → Visual Polish → Architecture → Advanced Features)
+- Technology stack recommendations
+- Risk assessment and success metrics
+- Design principles to maintain during improvements
+
+### Individual TODO Files
+Each improvement has a dedicated planning document with detailed implementation guidance:
+
+#### 🎨 Visual & Animation Enhancements
+- **`TODO_01_opening_animations.md`** - Opening screen/splash animations
+- **`TODO_02_background_effects.md`** - Particle systems and dynamic backgrounds
+- **`TODO_03_advanced_animations.md`** - GSAP integration for professional animations
+- **`TODO_04_parallax_scroll.md`** - Parallax scrolling and scroll-triggered effects
+- **`TODO_05_3d_elements.md`** - Three.js 3D background elements
+
+#### 🛠️ Technical Architecture
+- **`TODO_06_vue_migration.md`** - Vue.js 3 framework migration plan
+- **`TODO_07_component_architecture.md`** - Modular component design system
+- **`TODO_08_state_management.md`** - Centralized state management (Pinia/vanilla)
+
+#### ⚡ Performance & UX
+- **`TODO_09_performance.md`** - Comprehensive performance optimization
+- **`TODO_10_pwa.md`** - Progressive Web App implementation
+- **`TODO_11_loading_states.md`** - Loading states and skeleton screens
+
+#### 🎯 User Experience Features
+- **`TODO_12_theme_toggle.md`** - Dark/light mode toggle system
+- **`TODO_13_microinteractions.md`** - Microinteractions and user feedback
+- **`TODO_14_interactive_projects.md`** - Interactive project showcases with modals
+- **`TODO_15_custom_cursor.md`** - Custom cursor effects (desktop)
+
+#### 📱 Content & Features
+- **`TODO_16_blog_section.md`** - Blog/articles section for technical writing
+- **`TODO_17_project_filtering.md`** - Project filtering and search functionality
+- **`TODO_18_contact_form.md`** - Contact form with validation
+- **`TODO_19_analytics.md`** - Analytics and tracking setup
+
+#### ♿ Accessibility & SEO
+- **`TODO_20_accessibility.md`** - WCAG 2.1 AA compliance improvements
+- **`TODO_21_seo_optimization.md`** - SEO optimization (meta tags, structured data)
+- **`TODO_22_internationalization.md`** - Multi-language support (i18n)
+
+### Implementation Guidelines
+
+#### Priority Matrix
+Each TODO file includes:
+- **Priority**: HIGH / MEDIUM / LOW
+- **Difficulty**: Low / Medium / High
+- **Estimated Time**: Days/weeks required
+- **Status**: Planning / In Progress / Completed
+- **Dependencies**: Related TODOs and prerequisites
+
+#### Phase-Based Approach
+The roadmap recommends implementing improvements in phases:
+
+**Phase 1: Quick Wins** (1-2 weeks)
+- Opening animations, background effects
+- Performance optimization, theme toggle
+- SEO optimization
+
+**Phase 2: Visual Polish** (2-3 weeks)
+- GSAP animations, parallax effects
+- Microinteractions, loading states
+- Interactive project showcases
+
+**Phase 3: Architectural Improvements** (4-6 weeks)
+- Vue.js migration (optional)
+- Component architecture
+- Project filtering, contact form
+
+**Phase 4: Advanced Features** (2-4 weeks)
+- 3D elements, PWA
+- Blog section, enhanced accessibility
+
+#### Design Principles to Maintain
+All improvements should preserve:
+- ✅ Glassmorphism aesthetic (frosted glass effects)
+- ✅ Apple-inspired premium design language
+- ✅ Smooth cubic-bezier animations
+- ✅ Accessibility-first approach (`prefers-reduced-motion`)
+- ✅ Mobile-responsive design
+- ✅ Performance (Lighthouse >90)
+- ✅ Existing color palette (blue #007AFF, purple #AF52DE, pink #FF2D55)
+
+#### Technology Stack Recommendations
+The roadmap suggests modern tools while maintaining simplicity:
+- **Build Tool**: Vite (if migrating to framework)
+- **Framework**: Vue 3 with Composition API (optional)
+- **Animations**: GSAP, Lottie, particles.js/tsParticles
+- **State**: Pinia (Vue) or vanilla JS state manager
+- **Styling**: SCSS + PostCSS
+- **PWA**: Vite PWA Plugin or Workbox
+- **Analytics**: Plausible (privacy-friendly) or Google Analytics 4
+
+### Using the Planning Documents
+
+#### Before Implementation
+1. Read `roadmap_TODO.md` for overall strategy
+2. Review individual TODO files for detailed specs
+3. Check dependencies between TODOs
+4. Consider phase-based implementation
+5. Validate against design principles
+
+#### During Implementation
+1. Follow implementation steps in TODO files
+2. Use provided code examples as starting points
+3. Test against success metrics
+4. Maintain accessibility and performance
+5. Update TODO status as work progresses
+
+#### After Implementation
+1. Verify testing checklists are complete
+2. Measure success metrics (performance, accessibility)
+3. Document any deviations from plan
+4. Update CLAUDE.md with new patterns/features
+5. Consider related TODOs for next iteration
+
+### Planning Document Features
+
+Each TODO file contains:
+- **Overview**: High-level description of the improvement
+- **Goals**: Specific objectives to achieve
+- **Implementation Approach**: Detailed technical guidance
+- **Code Examples**: Ready-to-use code snippets
+- **Testing Checklist**: Comprehensive test scenarios
+- **Performance Considerations**: Optimization strategies
+- **Accessibility Notes**: WCAG compliance guidance
+- **Alternative Approaches**: Multiple implementation options
+- **Dependencies & Related TODOs**: Cross-references
+- **Success Metrics**: Measurable outcomes
+
+### Risk Assessment
+
+The roadmap categorizes improvements by implementation risk:
+
+**Low Risk** (Easy to reverse):
+- Opening animations, background effects, microinteractions
+- Theme toggle, loading states, SEO improvements
+
+**Medium Risk** (Moderate complexity):
+- GSAP integration, PWA setup
+- Contact form, project filtering
+
+**High Risk** (Significant refactor):
+- Vue.js migration (major architecture change)
+- 3D elements integration, full i18n
+
+### Notes for Future Development
+
+- All improvements are **backwards compatible** with current design
+- Can be implemented **incrementally** without breaking changes
+- **No code has been implemented yet** - these are planning documents only
+- Each enhancement is designed to be **independently implementable**
+- The roadmap is **flexible** - pick improvements based on priorities
+- Consider **starting with Phase 1** for immediate impact
+
+---
+
+## Planning Document Status
+
+- **Created**: 2025-11-17
+- **Total Improvements**: 22 documented enhancements
+- **Implementation Status**: Planning phase (no code changes yet)
+- **Next Step**: Review roadmap, prioritize improvements, begin implementation
+- **Maintained By**: Claude Code
+- **Last Updated**: 2025-11-17
