@@ -8,10 +8,21 @@ This is a personal portfolio website for Rocky Wu, hosted on GitHub Pages at htt
 
 ## Architecture
 
-The repository follows a simple static site structure:
+The repository follows a modular static site structure:
 
 - **Root**: Main landing page (`index.html`) with personal introduction and links to projects
 - **`/css`**: Main stylesheet for the homepage (`styles.css`)
+- **`/js`**: Modular JavaScript architecture (Phase 3)
+  - `app.js` - Main application orchestrator
+  - `/modules` - Feature modules (theme, animations, forms, etc.)
+  - `/data` - Project data and utilities
+- **`/.claude`**: Development planning and documentation
+  - `/phase1-quick-wins` - Completed Phase 1 TODO files
+  - `/phase2-visual-polish` - Completed Phase 2 TODO files
+  - `/phase3-architectural` - Completed Phase 3 TODO files
+  - `/phase4-advanced` - Planned Phase 4 TODO files
+  - `/misc` - Miscellaneous enhancement TODOs
+  - `roadmap_TODO.md` - Master roadmap document
 - **`/music`**: Audio files in FLAC format
 - **`/spring2022`**: Academic projects organized by course
 
@@ -521,6 +532,155 @@ The roadmap categorizes improvements by implementation risk:
 
 **Note:** Interactive Project Showcases (TODO #14) skipped as there are no project sections implemented yet. This will be added when project content is created.
 
+### Phase 3: Architectural Improvements ✅ **COMPLETED** (2025-11-17)
+
+**Implemented Features:**
+1. **Modular JavaScript Architecture** (TODO #7 - Component Architecture)
+   - ES6 module system for better code organization
+   - Separated concerns into dedicated modules:
+     - `js/modules/openingScreen.js` - Splash screen management
+     - `js/modules/themeManager.js` - Theme switching
+     - `js/modules/accordion.js` - Accordion functionality
+     - `js/modules/animations.js` - GSAP animations
+     - `js/modules/particles.js` - Particle effects
+     - `js/modules/projectFilter.js` - Project filtering/search
+     - `js/modules/contactForm.js` - Form validation
+   - `js/app.js` - Main orchestrator
+   - `js/data/projects.js` - Project data and utilities
+   - Removed ~600 lines of inline JavaScript
+   - Clean separation of data, logic, and presentation
+
+2. **Projects Section** (TODO #17 - Project Filtering & Search)
+   - Featured projects showcase with 6 portfolio items
+   - Category-based filtering (Data Science, Cloud, AI/ML, Finance, Web Dev)
+   - Real-time search functionality with debouncing
+   - Animated filter transitions using GSAP
+   - Project cards with glass morphism design
+   - Featured badge for highlighted projects
+   - Technology tags for each project
+   - Responsive grid layout (auto-fit, minmax 320px)
+
+3. **Contact Form with Validation** (TODO #18)
+   - Full contact form with name, email, and message fields
+   - Client-side validation with real-time error messages
+   - Email format validation using regex
+   - Field-level validation on blur
+   - Form submission with loading state
+   - Success/error toast notifications
+   - Alternative contact methods section
+   - Accessible form with ARIA labels
+   - Glass morphism styling consistent with site design
+
+**Note:** Vue.js Migration (TODO #6) was **deferred** as it's unnecessary overhead for a simple portfolio. The vanilla JS modular architecture provides sufficient organization without framework complexity.
+
+**Architecture Benefits:**
+- ✅ **Maintainable**: Clear module separation, easy to debug
+- ✅ **Scalable**: Easy to add new features/modules
+- ✅ **Performant**: No framework overhead, native ES6 modules
+- ✅ **Testable**: Each module can be tested independently
+- ✅ **Readable**: ~100 lines per module vs 600 line monolith
+
+---
+
+## Modular Architecture Documentation
+
+### Directory Structure
+
+```
+/js
+├── app.js                    # Main application orchestrator
+├── data/
+│   └── projects.js          # Project data and utility functions
+└── modules/
+    ├── openingScreen.js     # Splash screen management
+    ├── themeManager.js      # Dark/light theme switching
+    ├── accordion.js         # Accordion expand/collapse
+    ├── animations.js        # GSAP animations controller
+    ├── particles.js         # Particle.js background
+    ├── projectFilter.js     # Project filtering and search
+    └── contactForm.js       # Contact form validation
+```
+
+### Module System
+
+**ES6 Module Imports:**
+All modules use ES6 `import/export` syntax for clean dependency management:
+
+```javascript
+// app.js
+import { OpeningScreen } from './modules/openingScreen.js';
+import { ThemeManager } from './modules/themeManager.js';
+// ... other imports
+
+const PortfolioApp = {
+    init() {
+        OpeningScreen.init();
+        ThemeManager.init();
+        // ... initialize other modules
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    PortfolioApp.init();
+});
+```
+
+**Benefits:**
+- Automatic dependency resolution
+- No global namespace pollution
+- Browser-native module loading
+- Better code splitting and caching
+
+### Projects Module (`projectFilter.js`)
+
+**Features:**
+- Dynamic project rendering from data source
+- Real-time category filtering with animations
+- Debounced search input (300ms delay)
+- GSAP-powered filter transitions
+- No results fallback UI
+
+**Usage:**
+```javascript
+ProjectFilter.init(); // Auto-renders projects and sets up filters
+```
+
+**Filter Animation Flow:**
+1. Fade out current cards (stagger 0.03s)
+2. Re-render filtered results
+3. Fade in new cards (stagger 0.05s with back easing)
+
+### Contact Form Module (`contactForm.js`)
+
+**Validation Rules:**
+- **Name**: Required, minimum 2 characters
+- **Email**: Required, valid email format (RFC 5322 basic)
+- **Message**: Required, minimum 10 characters
+
+**Features:**
+- Real-time field validation on blur
+- Inline error messages
+- Submit button loading state
+- Success/error toast notifications
+- Simulated submission (ready for backend integration)
+
+**Backend Integration Notes:**
+Replace the simulated `setTimeout` with actual API call:
+```javascript
+// Option 1: Custom backend
+fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+});
+
+// Option 2: Formspree
+// Update form action attribute
+
+// Option 3: EmailJS
+// Use EmailJS SDK
+```
+
 ---
 
 ## Animation System Documentation
@@ -602,7 +762,14 @@ The site uses GSAP 3.12.5 with ScrollTrigger for professional animations:
 - **Implementation Status**:
   - ✅ Phase 1: Complete (5/5 features)
   - ✅ Phase 2: Complete (4/5 features, 1 skipped)
-  - 📋 Phase 3: Planned (Architectural Improvements)
+  - ✅ Phase 3: Complete (3/4 features, Vue migration deferred)
   - 📋 Phase 4: Planned (Advanced Features)
-- **Next Step**: Phase 3 or selective implementation from remaining TODOs
+- **Next Step**: Phase 4 or selective implementation from remaining TODOs
 - **Maintained By**: Claude Code
+
+### Phase Implementation Summary
+
+**Phase 1 (Quick Wins):** SEO, Theme Toggle, Opening Animation, Particles, Performance
+**Phase 2 (Visual Polish):** GSAP, Parallax, Microinteractions, Loading States
+**Phase 3 (Architecture):** Modular JS, Projects Section, Contact Form
+**Phase 4 (Pending):** 3D Elements, PWA, Blog Section, Enhanced Accessibility
