@@ -1,19 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Essential Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rocky Wu | Data Analyst & ML Engineer</title>
-    <meta name="description" content="Rocky Wu's portfolio showcasing data analytics, machine learning projects, and professional experience in quantitative finance and cloud computing.">
+    <title>Rocky Wu | Data Analyst & ML Engineer | Portfolio</title>
+    <meta name="description" content="Rocky Wu's portfolio showcasing data analytics, machine learning projects, and professional experience in quantitative finance, cloud computing, and AI systems. M.S. in Information Management at UIUC.">
+    <meta name="keywords" content="data analyst, machine learning engineer, cloud computing, Python, AWS, quantitative finance, data visualization, portfolio, Rocky Wu, JiaYang Wu, UIUC">
+    <meta name="author" content="Rocky Wu (JiaYang Wu)">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lolisaigao1234.github.io/">
+    <meta property="og:title" content="Rocky Wu | Data Analyst & ML Engineer">
+    <meta property="og:description" content="Portfolio showcasing data analytics, machine learning projects, and professional experience in quantitative finance and cloud computing.">
+    <meta property="og:image" content="https://lolisaigao1234.github.io/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Rocky Wu Portfolio">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rocky Wu | Data Analyst & ML Engineer">
+    <meta name="twitter:description" content="Portfolio showcasing data analytics, machine learning projects, and professional experience in quantitative finance and cloud computing.">
+    <meta name="twitter:image" content="https://lolisaigao1234.github.io/assets/twitter-card.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lolisaigao1234.github.io/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "JiaYang Wu",
+      "alternateName": "Rocky Wu",
+      "url": "https://lolisaigao1234.github.io",
+      "image": "https://lolisaigao1234.github.io/assets/profile.jpg",
+      "sameAs": [
+        "https://github.com/lolisaigao1234",
+        "https://linkedin.com/in/jiayang-wu-85b960179"
+      ],
+      "jobTitle": "Data Analyst & ML Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ActionTec Electronics Co., LTD"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "University of Illinois at Urbana-Champaign",
+        "sameAs": "https://illinois.edu"
+      },
+      "knowsAbout": ["Data Analytics", "Machine Learning", "Cloud Computing", "Python", "AWS", "Quantitative Finance", "Data Visualization"],
+      "email": "jywu3@illinois.edu",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Champaign",
+        "addressRegion": "IL",
+        "addressCountry": "US"
+      }
+    }
+    </script>
+
+    <!-- Theme initialization (prevent flash of wrong theme) -->
+    <script>
+        (function() {
+            const storedTheme = localStorage.getItem('rocky-portfolio-theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 </head>
 <body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Opening Screen -->
+    <div id="opening-screen" class="opening-screen">
+        <div class="opening-content">
+            <div class="opening-logo">
+                <h1 class="opening-name">Rocky Wu</h1>
+                <p class="opening-subtitle">Data Analyst | ML Engineer</p>
+            </div>
+            <button class="skip-button" id="skip-intro" aria-label="Skip intro animation">
+                Skip Intro
+            </button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="glass">
         <ul>
             <li><a href="#about">About</a></li>
             <!-- <li><a href="#projects">Projects</a></li> -->
             <li><a href="#contact">Contact</a></li>
+            <li>
+                <button
+                    id="theme-toggle"
+                    class="theme-toggle"
+                    aria-label="Toggle theme"
+                    title="Toggle dark/light mode"
+                    aria-pressed="false"
+                >
+                    <svg class="theme-icon-sun" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="3.5" fill="currentColor"/>
+                        <line x1="10" y1="2" x2="10" y2="4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="10" y1="16" x2="10" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="18" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="4" y1="10" x2="2" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="15.5" y1="4.5" x2="14.1" y2="5.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="5.9" y1="14.1" x2="4.5" y2="15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="15.5" y1="15.5" x2="14.1" y2="14.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="5.9" y1="5.9" x2="4.5" y2="4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="theme-icon-moon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10.5C17 14.0899 14.0899 17 10.5 17C6.91015 17 4 14.0899 4 10.5C4 9.45723 4.25098 8.47391 4.69686 7.60783C5.61035 9.4043 7.50488 10.6 9.7 10.6C12.7926 10.6 15.3 8.09264 15.3 5C15.3 4.34961 15.1885 3.72461 14.9834 3.14258C16.2451 4.36816 17 6.08594 17 10.5Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </li>
         </ul>
     </nav>
 
@@ -594,7 +713,166 @@
     </div>
 
     <script>
-        // Accordion toggle functionality
+        // ===========================
+        // Opening Screen Manager
+        // ===========================
+        const OpeningScreen = {
+            STORAGE_KEY: 'rocky-portfolio-seen-intro',
+            ANIMATION_DURATION: 2000, // 2 seconds
+
+            init() {
+                this.screen = document.getElementById('opening-screen');
+                this.skipButton = document.getElementById('skip-intro');
+
+                // Check if user has seen intro before
+                const hasSeenIntro = localStorage.getItem(this.STORAGE_KEY);
+
+                if (hasSeenIntro || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    // Skip animation for returning visitors or those who prefer reduced motion
+                    this.hideImmediately();
+                } else {
+                    // Show animation for first-time visitors
+                    this.showAnimation();
+                }
+            },
+
+            showAnimation() {
+                // Auto-hide after duration
+                this.hideTimeout = setTimeout(() => {
+                    this.hide();
+                }, this.ANIMATION_DURATION);
+
+                // Skip button click
+                if (this.skipButton) {
+                    this.skipButton.addEventListener('click', () => {
+                        clearTimeout(this.hideTimeout);
+                        this.hide();
+                    });
+                }
+
+                // Keyboard shortcuts (Space, Enter, Escape)
+                this.keyHandler = (e) => {
+                    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
+                        e.preventDefault();
+                        clearTimeout(this.hideTimeout);
+                        this.hide();
+                        document.removeEventListener('keydown', this.keyHandler);
+                    }
+                };
+                document.addEventListener('keydown', this.keyHandler);
+            },
+
+            hide() {
+                if (this.screen) {
+                    this.screen.classList.add('hidden');
+                    localStorage.setItem(this.STORAGE_KEY, 'true');
+
+                    // Remove from DOM after animation
+                    setTimeout(() => {
+                        if (this.screen && this.screen.parentNode) {
+                            this.screen.parentNode.removeChild(this.screen);
+                        }
+                    }, 600); // Match CSS transition duration
+                }
+            },
+
+            hideImmediately() {
+                if (this.screen) {
+                    this.screen.style.display = 'none';
+                }
+            }
+        };
+
+        // ===========================
+        // Theme Manager
+        // ===========================
+        const ThemeManager = {
+            STORAGE_KEY: 'rocky-portfolio-theme',
+            THEME_ATTRIBUTE: 'data-theme',
+
+            init() {
+                this.toggleButton = document.getElementById('theme-toggle');
+                this.currentTheme = this.getStoredTheme() || this.getSystemTheme();
+
+                this.applyTheme(this.currentTheme, false);
+                this.setupEventListeners();
+            },
+
+            setupEventListeners() {
+                // Toggle button click
+                if (this.toggleButton) {
+                    this.toggleButton.addEventListener('click', () => {
+                        this.toggleTheme();
+                    });
+                }
+
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!this.getStoredTheme()) {
+                        this.applyTheme(e.matches ? 'dark' : 'light', true);
+                    }
+                });
+
+                // Keyboard shortcut (Ctrl/Cmd + Shift + D)
+                document.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'D') {
+                        e.preventDefault();
+                        this.toggleTheme();
+                    }
+                });
+            },
+
+            toggleTheme() {
+                const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+                this.applyTheme(newTheme, true);
+            },
+
+            applyTheme(theme, animate = false) {
+                this.currentTheme = theme;
+
+                // Apply theme attribute
+                if (theme === 'light') {
+                    document.documentElement.setAttribute(this.THEME_ATTRIBUTE, 'light');
+                } else {
+                    document.documentElement.removeAttribute(this.THEME_ATTRIBUTE);
+                }
+
+                // Save preference
+                localStorage.setItem(this.STORAGE_KEY, theme);
+
+                // Update button ARIA
+                if (this.toggleButton) {
+                    this.toggleButton.setAttribute('aria-pressed', theme === 'light');
+                }
+
+                // Animate transition
+                if (animate) {
+                    this.animateThemeTransition();
+                }
+
+                // Dispatch custom event for other components
+                window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+            },
+
+            animateThemeTransition() {
+                document.documentElement.classList.add('theme-transitioning');
+                setTimeout(() => {
+                    document.documentElement.classList.remove('theme-transitioning');
+                }, 300);
+            },
+
+            getStoredTheme() {
+                return localStorage.getItem(this.STORAGE_KEY);
+            },
+
+            getSystemTheme() {
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+        };
+
+        // ===========================
+        // Accordion Toggle
+        // ===========================
         function toggleAccordion(header) {
             const accordionItem = header.parentElement;
             const isActive = accordionItem.classList.contains('active');
@@ -610,12 +888,132 @@
             }
         }
 
-        // Optional: Open the first accordion item by default
+        // ===========================
+        // Initialize on DOM Ready
+        // ===========================
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize opening screen
+            OpeningScreen.init();
+
+            // Initialize theme manager
+            ThemeManager.init();
+
+            // Open first accordion by default
             const firstAccordion = document.querySelector('.accordion-item');
             if (firstAccordion) {
                 firstAccordion.classList.add('active');
             }
+        });
+
+        // ===========================
+        // Particles.js Configuration
+        // ===========================
+        // Load particles.js and initialize
+        function initParticles() {
+            // Check if particles should be shown (not on mobile, not reduced motion)
+            const isMobile = window.innerWidth <= 768;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (isMobile || prefersReducedMotion) {
+                return; // Skip particles on mobile or if reduced motion preferred
+            }
+
+            // Check if particlesJS is loaded
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 60,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: ['#007AFF', '#AF52DE', '#FF2D55']
+                        },
+                        shape: {
+                            type: 'circle'
+                        },
+                        opacity: {
+                            value: 0.3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#007AFF',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'grab'
+                            },
+                            onclick: {
+                                enable: false
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: {
+                                    opacity: 0.5
+                                }
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+                // Update particle colors based on theme
+                window.addEventListener('themechange', (e) => {
+                    // Particles.js doesn't support dynamic color changes easily
+                    // We'll just keep the current particles
+                });
+            }
+        }
+
+        // Load particles.js after page load (non-blocking)
+        window.addEventListener('load', () => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+            script.async = true;
+            script.onload = () => {
+                // Delay particles initialization slightly
+                setTimeout(initParticles, 500);
+            };
+            document.body.appendChild(script);
         });
     </script>
 </body>

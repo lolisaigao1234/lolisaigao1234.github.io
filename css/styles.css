@@ -2,15 +2,58 @@
 
 /* CSS Variables for Liquid Glass Design */
 :root {
+    /* Background colors (Dark theme default) */
+    --bg-gradient-start: #0a0a0a;
+    --bg-gradient-mid: #1a1a2e;
+    --bg-gradient-end: #0a0a0a;
+
+    /* Glass effects */
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Accent colors */
     --accent-blue: #007AFF;
     --accent-purple: #AF52DE;
     --accent-pink: #FF2D55;
+
+    /* Text colors */
     --text-primary: rgba(255, 255, 255, 0.95);
     --text-secondary: rgba(255, 255, 255, 0.7);
     --text-tertiary: rgba(255, 255, 255, 0.5);
+
+    /* Radial gradients */
+    --radial-gradient-1: rgba(0, 122, 255, 0.15);
+    --radial-gradient-2: rgba(175, 82, 222, 0.15);
+    --radial-gradient-3: rgba(255, 45, 85, 0.1);
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    /* Background colors */
+    --bg-gradient-start: #f5f7fa;
+    --bg-gradient-mid: #e4e9f2;
+    --bg-gradient-end: #f5f7fa;
+
+    /* Glass effects */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
+
+    /* Accent colors (darker for better contrast) */
+    --accent-blue: #0066CC;
+    --accent-purple: #8844BB;
+    --accent-pink: #CC2244;
+
+    /* Text colors */
+    --text-primary: rgba(0, 0, 0, 0.9);
+    --text-secondary: rgba(0, 0, 0, 0.7);
+    --text-tertiary: rgba(0, 0, 0, 0.5);
+
+    /* Radial gradients */
+    --radial-gradient-1: rgba(0, 102, 204, 0.1);
+    --radial-gradient-2: rgba(136, 68, 187, 0.1);
+    --radial-gradient-3: rgba(204, 34, 68, 0.08);
 }
 
 * {
@@ -26,13 +69,14 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
     position: relative;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 body::before {
@@ -43,11 +87,12 @@ body::before {
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(circle at 20% 30%, rgba(0, 122, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(175, 82, 222, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 45, 85, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, var(--radial-gradient-1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, var(--radial-gradient-2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, var(--radial-gradient-3) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
+    transition: background 0.3s ease;
 }
 
 /* Glass Effect */
@@ -845,4 +890,212 @@ footer {
 ::-moz-selection {
     background: rgba(0, 122, 255, 0.3);
     color: white;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    position: absolute;
+}
+
+.theme-toggle:hover svg {
+    color: var(--text-primary);
+}
+
+/* Hide moon icon by default (dark theme shows sun) */
+.theme-icon-moon {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+.theme-icon-sun {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* Show moon icon in light theme */
+[data-theme="light"] .theme-icon-moon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+[data-theme="light"] .theme-icon-sun {
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+/* Smooth theme transition */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.3s ease !important;
+    transition-delay: 0 !important;
+}
+
+/* ===========================
+   Particle Background
+   =========================== */
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Disable particles on mobile for performance */
+@media (max-width: 768px) {
+    #particles-js {
+        display: none;
+    }
+}
+
+/* Disable particles if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    #particles-js {
+        display: none;
+    }
+}
+
+/* ===========================
+   Opening Screen Animations
+   =========================== */
+
+.opening-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.opening-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.opening-content {
+    text-align: center;
+    position: relative;
+}
+
+.opening-logo {
+    margin-bottom: 40px;
+}
+
+.opening-name {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.3s forwards;
+}
+
+.opening-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-secondary);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+.skip-button {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out 1s forwards;
+}
+
+.skip-button:hover {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+}
+
+.skip-button:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* Opening screen animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .opening-screen {
+        animation: none;
+        transition-duration: 0.01ms;
+    }
+
+    .opening-name,
+    .opening-subtitle,
+    .skip-button {
+        animation: none;
+        opacity: 1;
+    }
+
+    .opening-screen.hidden {
+        transition-duration: 0.01ms;
+    }
 }

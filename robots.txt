@@ -1,0 +1,11 @@
+# robots.txt for https://lolisaigao1234.github.io
+
+User-agent: *
+Allow: /
+
+# Disallow development/draft directories if any
+Disallow: /drafts/
+Disallow: /*.git
+
+# Sitemap location
+Sitemap: https://lolisaigao1234.github.io/sitemap.xml
