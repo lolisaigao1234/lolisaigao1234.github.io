@@ -1099,3 +1099,167 @@ html.theme-transitioning *::after {
         transition-duration: 0.01ms;
     }
 }
+
+/* ===========================
+   Loading States & Skeleton Screens
+   =========================== */
+
+/* Page loading state */
+.page-loading {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.page-loaded {
+    opacity: 1;
+}
+
+/* Skeleton loaders */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+[data-theme="light"] .skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.05) 25%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.05) 75%
+    );
+    background-size: 200% 100%;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 16px;
+    margin: 8px 0;
+}
+
+.skeleton-title {
+    height: 32px;
+    margin: 12px 0;
+    width: 60%;
+}
+
+.skeleton-button {
+    height: 44px;
+    width: 120px;
+    margin: 12px 8px;
+}
+
+.skeleton-card {
+    padding: 24px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Loading spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 20px auto;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Progress bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--accent-blue),
+        var(--accent-purple),
+        var(--accent-pink)
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.progress-bar.active {
+    opacity: 1;
+}
+
+/* Fade transitions */
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-to {
+    opacity: 1;
+}
+
+.fade-leave {
+    opacity: 1;
+}
+
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-leave-to {
+    opacity: 0;
+}
+
+/* Slide transitions */
+.slide-up-enter {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.slide-up-enter-active {
+    transition: all 0.5s ease;
+}
+
+.slide-up-enter-to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Disable skeleton animations if reduced motion preferred */
+@media (prefers-reduced-motion: reduce) {
+    .skeleton {
+        animation: none;
+    }
+
+    .spinner {
+        animation: none;
+        border-top-color: var(--accent-blue);
+        border-right-color: var(--accent-blue);
+    }
+}
