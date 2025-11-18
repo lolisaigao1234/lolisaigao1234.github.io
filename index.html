@@ -33,6 +33,13 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#007AFF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rocky Wu">
+
     <!-- Preconnect to Google Fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,8 +98,11 @@
     </script>
 </head>
 <body>
+    <!-- Skip Navigation Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Particle Background -->
-    <div id="particles-js"></div>
+    <div id="particles-js" aria-hidden="true"></div>
 
     <!-- Opening Screen -->
     <div id="opening-screen" class="opening-screen">
@@ -108,10 +118,11 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="glass">
+    <nav class="glass" role="navigation" aria-label="Main navigation">
         <ul>
             <li><a href="#about">About</a></li>
-            <!-- <li><a href="#projects">Projects</a></li> -->
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#blog">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
             <li>
                 <button
@@ -141,7 +152,7 @@
     </nav>
 
     <!-- Main Container -->
-    <div id="container">
+    <main id="main-content" role="main">
         <!-- Hero Section -->
         <section class="hero">
             <h1 class="hero-title">Rocky Wu</h1>
@@ -694,623 +705,134 @@
         </section>
 
         <!-- Projects Section -->
-        <!-- Will update this into new projects. -->
+        <section id="projects" class="projects-section">
+            <div class="projects-header">
+                <h2>Featured Projects</h2>
+                <p>A showcase of my data science, cloud computing, and software engineering work</p>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="project-search"
+                    placeholder="Search projects..."
+                    aria-label="Search projects"
+                />
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="data-science">Data Science</button>
+                <button class="filter-btn" data-filter="cloud">Cloud Computing</button>
+                <button class="filter-btn" data-filter="ai">AI/ML</button>
+                <button class="filter-btn" data-filter="finance">Finance</button>
+                <button class="filter-btn" data-filter="web-dev">Web Development</button>
+            </div>
+
+            <!-- Projects Grid (populated by JavaScript) -->
+            <div class="projects-grid"></div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="blog-section">
+            <div class="blog-header">
+                <h2>Blog & Articles</h2>
+                <p>Technical writeups, tutorials, and insights on data science and engineering</p>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+                <!-- Placeholder for future blog content -->
+                <div class="blog-placeholder glass" style="grid-column: 1 / -1;">
+                    <div class="blog-placeholder-icon">📝</div>
+                    <p>Blog coming soon!</p>
+                    <small>Stay tuned for technical articles, project writeups, and data science insights.</small>
+                </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
-        <footer id="contact">
-            <div class="footer-content glass">
-                <h2 class="footer-title">Let's Connect</h2>
-                <p class="footer-text">
-                    Interested in collaborating on data science projects, discussing quantitative finance, 
-                    or just want to chat about tech? Feel free to reach out!
-                </p>
-                <div style="margin-top: 20px;">
-                    <a href="mailto:jywu3@illinois.edu" class="footer-email">jywu3@illinois.edu</a>
-                    <span style="color: var(--text-tertiary); margin: 0 12px;">|</span>
-                    <a href="mailto:rockyforwork123@gmail.com" class="footer-email">rockyforwork123@gmail.com</a>
+        <section id="contact" class="contact-section">
+            <div class="contact-header">
+                <h2>Get In Touch</h2>
+                <p>Have a project in mind or want to collaborate? Let's connect!</p>
+            </div>
+
+            <!-- Contact Form -->
+            <form id="contact-form" class="contact-form glass">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Your name"
+                        required
+                        aria-required="true"
+                    />
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="your.email@example.com"
+                        required
+                        aria-required="true"
+                    />
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Tell me about your project or idea..."
+                        required
+                        aria-required="true"
+                    ></textarea>
+                    <span class="error-message"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Send Message
+                </button>
+            </form>
+
+            <!-- Alternative Contact Methods -->
+            <div class="alternative-contact">
+                <h3>Or reach me directly</h3>
+                <p>Prefer traditional methods? Feel free to contact me through:</p>
+                <div class="contact-links">
+                    <a href="mailto:jywu3@illinois.edu">jywu3@illinois.edu</a>
+                    <a href="mailto:rockyforwork123@gmail.com">rockyforwork123@gmail.com</a>
+                    <a href="tel:+12173286609">+1 (217) 328-6609</a>
                 </div>
                 <p style="color: var(--text-tertiary); margin-top: 16px; font-size: 0.9rem;">
-                    Champaign, IL | +1 (217) 328-6609
+                    📍 Champaign, IL
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content glass" style="max-width: 1200px; margin: 40px auto; text-align: center;">
+                <p style="color: var(--text-tertiary);">
+                    © 2025 Rocky Wu (JiaYang Wu). Built with passion for data and innovation.
                 </p>
             </div>
         </footer>
-    </div>
+    </main>
 
-    <script>
-        // ===========================
-        // Opening Screen Manager
-        // ===========================
-        const OpeningScreen = {
-            STORAGE_KEY: 'rocky-portfolio-seen-intro',
-            ANIMATION_DURATION: 2000, // 2 seconds
+    <!-- Main Application Script (ES6 Modules) -->
+    <script type="module" src="/js/app.js"></script>
 
-            init() {
-                this.screen = document.getElementById('opening-screen');
-                this.skipButton = document.getElementById('skip-intro');
-
-                // Check if user has seen intro before
-                const hasSeenIntro = localStorage.getItem(this.STORAGE_KEY);
-
-                if (hasSeenIntro || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    // Skip animation for returning visitors or those who prefer reduced motion
-                    this.hideImmediately();
-                } else {
-                    // Show animation for first-time visitors
-                    this.showAnimation();
-                }
-            },
-
-            showAnimation() {
-                // Auto-hide after duration
-                this.hideTimeout = setTimeout(() => {
-                    this.hide();
-                }, this.ANIMATION_DURATION);
-
-                // Skip button click
-                if (this.skipButton) {
-                    this.skipButton.addEventListener('click', () => {
-                        clearTimeout(this.hideTimeout);
-                        this.hide();
-                    });
-                }
-
-                // Keyboard shortcuts (Space, Enter, Escape)
-                this.keyHandler = (e) => {
-                    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
-                        e.preventDefault();
-                        clearTimeout(this.hideTimeout);
-                        this.hide();
-                        document.removeEventListener('keydown', this.keyHandler);
-                    }
-                };
-                document.addEventListener('keydown', this.keyHandler);
-            },
-
-            hide() {
-                if (this.screen) {
-                    this.screen.classList.add('hidden');
-                    localStorage.setItem(this.STORAGE_KEY, 'true');
-
-                    // Remove from DOM after animation
-                    setTimeout(() => {
-                        if (this.screen && this.screen.parentNode) {
-                            this.screen.parentNode.removeChild(this.screen);
-                        }
-                    }, 600); // Match CSS transition duration
-                }
-            },
-
-            hideImmediately() {
-                if (this.screen) {
-                    this.screen.style.display = 'none';
-                }
-            }
-        };
-
-        // ===========================
-        // Theme Manager
-        // ===========================
-        const ThemeManager = {
-            STORAGE_KEY: 'rocky-portfolio-theme',
-            THEME_ATTRIBUTE: 'data-theme',
-
-            init() {
-                this.toggleButton = document.getElementById('theme-toggle');
-                this.currentTheme = this.getStoredTheme() || this.getSystemTheme();
-
-                this.applyTheme(this.currentTheme, false);
-                this.setupEventListeners();
-            },
-
-            setupEventListeners() {
-                // Toggle button click
-                if (this.toggleButton) {
-                    this.toggleButton.addEventListener('click', () => {
-                        this.toggleTheme();
-                    });
-                }
-
-                // Listen for system theme changes
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (!this.getStoredTheme()) {
-                        this.applyTheme(e.matches ? 'dark' : 'light', true);
-                    }
-                });
-
-                // Keyboard shortcut (Ctrl/Cmd + Shift + D)
-                document.addEventListener('keydown', (e) => {
-                    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'D') {
-                        e.preventDefault();
-                        this.toggleTheme();
-                    }
-                });
-            },
-
-            toggleTheme() {
-                const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-                this.applyTheme(newTheme, true);
-            },
-
-            applyTheme(theme, animate = false) {
-                this.currentTheme = theme;
-
-                // Apply theme attribute
-                if (theme === 'light') {
-                    document.documentElement.setAttribute(this.THEME_ATTRIBUTE, 'light');
-                } else {
-                    document.documentElement.removeAttribute(this.THEME_ATTRIBUTE);
-                }
-
-                // Save preference
-                localStorage.setItem(this.STORAGE_KEY, theme);
-
-                // Update button ARIA
-                if (this.toggleButton) {
-                    this.toggleButton.setAttribute('aria-pressed', theme === 'light');
-                }
-
-                // Animate transition
-                if (animate) {
-                    this.animateThemeTransition();
-                }
-
-                // Dispatch custom event for other components
-                window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
-            },
-
-            animateThemeTransition() {
-                document.documentElement.classList.add('theme-transitioning');
-                setTimeout(() => {
-                    document.documentElement.classList.remove('theme-transitioning');
-                }, 300);
-            },
-
-            getStoredTheme() {
-                return localStorage.getItem(this.STORAGE_KEY);
-            },
-
-            getSystemTheme() {
-                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            }
-        };
-
-        // ===========================
-        // Accordion Toggle
-        // ===========================
-        function toggleAccordion(header) {
-            const accordionItem = header.parentElement;
-            const isActive = accordionItem.classList.contains('active');
-
-            // Close all accordion items
-            document.querySelectorAll('.accordion-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // If the clicked item wasn't active, open it
-            if (!isActive) {
-                accordionItem.classList.add('active');
-            }
-        }
-
-        // ===========================
-        // GSAP Animations Manager
-        // ===========================
-        const GSAPAnimations = {
-            init() {
-                // Check if GSAP is loaded and reduced motion is not preferred
-                if (typeof gsap === 'undefined') {
-                    return; // GSAP not loaded yet
-                }
-
-                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                if (prefersReducedMotion) {
-                    return; // Skip animations if user prefers reduced motion
-                }
-
-                // Register ScrollTrigger plugin
-                if (typeof ScrollTrigger !== 'undefined') {
-                    gsap.registerPlugin(ScrollTrigger);
-                }
-
-                this.initPageLoadAnimations();
-                this.initScrollAnimations();
-                this.initMicrointeractions();
-            },
-
-            initPageLoadAnimations() {
-                // Hero section staggered entrance
-                const heroTimeline = gsap.timeline({ delay: 0.2 });
-
-                heroTimeline
-                    .from('.hero-title', {
-                        y: 50,
-                        opacity: 0,
-                        duration: 1,
-                        ease: 'power3.out'
-                    })
-                    .from('.hero-subtitle', {
-                        y: 30,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power2.out'
-                    }, '-=0.5')
-                    .from('.hero-links .btn', {
-                        y: 20,
-                        opacity: 0,
-                        duration: 0.6,
-                        stagger: 0.1,
-                        ease: 'back.out(1.7)'
-                    }, '-=0.4');
-
-                // Navigation slide-in
-                gsap.from('nav', {
-                    y: -100,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: 'power2.out',
-                    delay: 0.3
-                });
-            },
-
-            initScrollAnimations() {
-                if (typeof ScrollTrigger === 'undefined') return;
-
-                // Animate about section
-                gsap.from('.about-content', {
-                    scrollTrigger: {
-                        trigger: '.about-section',
-                        start: 'top 80%',
-                        toggleActions: 'play none none reverse',
-                        once: true
-                    },
-                    y: 60,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power2.out'
-                });
-
-                // Animate skill categories with stagger
-                gsap.from('.skill-category', {
-                    scrollTrigger: {
-                        trigger: '.skills-container',
-                        start: 'top 80%',
-                        once: true
-                    },
-                    y: 40,
-                    opacity: 0,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power2.out'
-                });
-
-                // Parallax effect on radial gradients (subtle)
-                gsap.to('body::before', {
-                    scrollTrigger: {
-                        trigger: 'body',
-                        start: 'top top',
-                        end: 'bottom top',
-                        scrub: 1
-                    },
-                    yPercent: 10
-                });
-
-                // Footer entrance
-                gsap.from('.footer-content', {
-                    scrollTrigger: {
-                        trigger: 'footer',
-                        start: 'top 90%',
-                        once: true
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                });
-            },
-
-            initMicrointeractions() {
-                // Button hover enhancements
-                document.querySelectorAll('.btn').forEach(button => {
-                    button.addEventListener('mouseenter', () => {
-                        gsap.to(button, {
-                            scale: 1.05,
-                            y: -2,
-                            duration: 0.3,
-                            ease: 'power2.out'
-                        });
-                    });
-
-                    button.addEventListener('mouseleave', () => {
-                        gsap.to(button, {
-                            scale: 1,
-                            y: 0,
-                            duration: 0.3,
-                            ease: 'power2.in'
-                        });
-                    });
-
-                    // Button click animation
-                    button.addEventListener('mousedown', () => {
-                        gsap.to(button, {
-                            scale: 0.95,
-                            duration: 0.1
-                        });
-                    });
-
-                    button.addEventListener('mouseup', () => {
-                        gsap.to(button, {
-                            scale: 1.05,
-                            duration: 0.2
-                        });
-                    });
-                });
-
-                // Card hover effects (skills, project cards if they exist)
-                document.querySelectorAll('.skill-category, .project-card').forEach(card => {
-                    card.addEventListener('mouseenter', () => {
-                        gsap.to(card, {
-                            y: -8,
-                            duration: 0.4,
-                            ease: 'power2.out'
-                        });
-                    });
-
-                    card.addEventListener('mouseleave', () => {
-                        gsap.to(card, {
-                            y: 0,
-                            duration: 0.3,
-                            ease: 'power2.in'
-                        });
-                    });
-                });
-
-                // Glass card subtle pulse on hover
-                document.querySelectorAll('.glass').forEach(glass => {
-                    glass.addEventListener('mouseenter', () => {
-                        gsap.to(glass, {
-                            borderColor: 'rgba(255, 255, 255, 0.2)',
-                            duration: 0.3
-                        });
-                    });
-
-                    glass.addEventListener('mouseleave', () => {
-                        gsap.to(glass, {
-                            borderColor: 'var(--glass-border)',
-                            duration: 0.3
-                        });
-                    });
-                });
-
-                // Accordion smooth expand/collapse with GSAP
-                document.querySelectorAll('.accordion-header').forEach(header => {
-                    header.addEventListener('click', () => {
-                        const accordionItem = header.parentElement;
-                        const content = accordionItem.querySelector('.accordion-content');
-                        const isActive = accordionItem.classList.contains('active');
-
-                        // Close all
-                        document.querySelectorAll('.accordion-item.active').forEach(item => {
-                            const itemContent = item.querySelector('.accordion-content');
-                            gsap.to(itemContent, {
-                                height: 0,
-                                duration: 0.4,
-                                ease: 'power2.inOut'
-                            });
-                            item.classList.remove('active');
-                        });
-
-                        // Open clicked if it wasn't active
-                        if (!isActive) {
-                            accordionItem.classList.add('active');
-                            gsap.fromTo(content,
-                                { height: 0 },
-                                {
-                                    height: 'auto',
-                                    duration: 0.5,
-                                    ease: 'power2.out'
-                                }
-                            );
-                        }
-                    });
-                });
-
-                // Email copy animation (if email elements exist)
-                document.querySelectorAll('.footer-email').forEach(email => {
-                    email.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const emailText = email.textContent;
-
-                        navigator.clipboard.writeText(emailText).then(() => {
-                            // Create temporary notification
-                            const notification = document.createElement('div');
-                            notification.textContent = 'Email copied!';
-                            notification.style.cssText = `
-                                position: fixed;
-                                bottom: 40px;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                background: var(--accent-blue);
-                                color: white;
-                                padding: 12px 24px;
-                                border-radius: 8px;
-                                font-size: 0.9rem;
-                                z-index: 10001;
-                                opacity: 0;
-                            `;
-                            document.body.appendChild(notification);
-
-                            // Animate notification
-                            gsap.timeline()
-                                .to(notification, {
-                                    opacity: 1,
-                                    y: -10,
-                                    duration: 0.3
-                                })
-                                .to(notification, {
-                                    opacity: 0,
-                                    y: -20,
-                                    duration: 0.3,
-                                    delay: 2
-                                })
-                                .then(() => {
-                                    notification.remove();
-                                });
-
-                            // Button pulse effect
-                            gsap.timeline()
-                                .to(email, {
-                                    scale: 0.95,
-                                    duration: 0.1
-                                })
-                                .to(email, {
-                                    scale: 1,
-                                    duration: 0.2
-                                });
-                        });
-                    });
-                });
-            }
-        };
-
-        // ===========================
-        // Initialize on DOM Ready
-        // ===========================
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize opening screen
-            OpeningScreen.init();
-
-            // Initialize theme manager
-            ThemeManager.init();
-
-            // Open first accordion by default
-            const firstAccordion = document.querySelector('.accordion-item');
-            if (firstAccordion) {
-                firstAccordion.classList.add('active');
-            }
-
-            // Initialize GSAP animations (wait for GSAP to load)
-            if (typeof gsap !== 'undefined') {
-                GSAPAnimations.init();
-            } else {
-                // Wait for GSAP to load
-                window.addEventListener('load', () => {
-                    setTimeout(() => {
-                        GSAPAnimations.init();
-                    }, 100);
-                });
-            }
-        });
-
-        // ===========================
-        // Particles.js Configuration
-        // ===========================
-        // Load particles.js and initialize
-        function initParticles() {
-            // Check if particles should be shown (not on mobile, not reduced motion)
-            const isMobile = window.innerWidth <= 768;
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            if (isMobile || prefersReducedMotion) {
-                return; // Skip particles on mobile or if reduced motion preferred
-            }
-
-            // Check if particlesJS is loaded
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: {
-                            value: 60,
-                            density: {
-                                enable: true,
-                                value_area: 800
-                            }
-                        },
-                        color: {
-                            value: ['#007AFF', '#AF52DE', '#FF2D55']
-                        },
-                        shape: {
-                            type: 'circle'
-                        },
-                        opacity: {
-                            value: 0.3,
-                            random: true,
-                            anim: {
-                                enable: true,
-                                speed: 1,
-                                opacity_min: 0.1,
-                                sync: false
-                            }
-                        },
-                        size: {
-                            value: 3,
-                            random: true,
-                            anim: {
-                                enable: true,
-                                speed: 2,
-                                size_min: 0.1,
-                                sync: false
-                            }
-                        },
-                        line_linked: {
-                            enable: true,
-                            distance: 150,
-                            color: '#007AFF',
-                            opacity: 0.2,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 1,
-                            direction: 'none',
-                            random: true,
-                            straight: false,
-                            out_mode: 'out',
-                            bounce: false
-                        }
-                    },
-                    interactivity: {
-                        detect_on: 'canvas',
-                        events: {
-                            onhover: {
-                                enable: true,
-                                mode: 'grab'
-                            },
-                            onclick: {
-                                enable: false
-                            },
-                            resize: true
-                        },
-                        modes: {
-                            grab: {
-                                distance: 140,
-                                line_linked: {
-                                    opacity: 0.5
-                                }
-                            }
-                        }
-                    },
-                    retina_detect: true
-                });
-
-                // Update particle colors based on theme
-                window.addEventListener('themechange', (e) => {
-                    // Particles.js doesn't support dynamic color changes easily
-                    // We'll just keep the current particles
-                });
-            }
-        }
-
-        // Load particles.js after page load (non-blocking)
-        window.addEventListener('load', () => {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
-            script.async = true;
-            script.onload = () => {
-                // Delay particles initialization slightly
-                setTimeout(initParticles, 500);
-            };
-            document.body.appendChild(script);
-        });
-    </script>
+    <!-- Legacy script section (kept for backwards compatibility with inline functions) -->
 </body>
 </html>
