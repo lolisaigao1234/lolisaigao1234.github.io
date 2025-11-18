@@ -20,9 +20,23 @@ export const GSAPAnimations = {
             gsap.registerPlugin(ScrollTrigger);
         }
 
+        // Initialize page load animations immediately (critical)
         this.initPageLoadAnimations();
-        this.initScrollAnimations();
-        this.initMicrointeractions();
+
+        // Defer scroll animations and microinteractions to idle time
+        // This reduces main thread blocking during page load
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                this.initScrollAnimations();
+                this.initMicrointeractions();
+            }, { timeout: 2000 });
+        } else {
+            // Fallback for browsers without requestIdleCallback
+            setTimeout(() => {
+                this.initScrollAnimations();
+                this.initMicrointeractions();
+            }, 100);
+        }
     },
 
     initPageLoadAnimations() {
@@ -122,14 +136,14 @@ export const GSAPAnimations = {
     },
 
     initMicrointeractions() {
-        // Button hover enhancements
+        // Button hover enhancements (optimized with faster durations)
         document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('mouseenter', () => {
                 gsap.to(button, {
                     scale: 1.05,
                     y: -2,
-                    duration: 0.3,
-                    ease: 'power2.out'
+                    duration: 0.2, // Reduced from 0.3 for snappier feel
+                    ease: 'power1.out' // Simpler easing for better performance
                 });
             });
 
@@ -137,95 +151,66 @@ export const GSAPAnimations = {
                 gsap.to(button, {
                     scale: 1,
                     y: 0,
-                    duration: 0.3,
-                    ease: 'power2.in'
+                    duration: 0.2, // Reduced from 0.3
+                    ease: 'power1.in' // Simpler easing
                 });
             });
 
-            // Button click animation
+            // Button click animation (optimized)
             button.addEventListener('mousedown', () => {
                 gsap.to(button, {
                     scale: 0.95,
-                    duration: 0.1
+                    duration: 0.08 // Reduced from 0.1 for instant feedback
                 });
             });
 
             button.addEventListener('mouseup', () => {
                 gsap.to(button, {
                     scale: 1.05,
-                    duration: 0.2
+                    duration: 0.15 // Reduced from 0.2
                 });
             });
         });
 
-        // Card hover effects
+        // Card hover effects (optimized)
         document.querySelectorAll('.skill-category, .project-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
                 gsap.to(card, {
                     y: -8,
-                    duration: 0.4,
-                    ease: 'power2.out'
+                    duration: 0.3, // Reduced from 0.4
+                    ease: 'power1.out' // Simpler easing
                 });
             });
 
             card.addEventListener('mouseleave', () => {
                 gsap.to(card, {
                     y: 0,
-                    duration: 0.3,
-                    ease: 'power2.in'
+                    duration: 0.25, // Reduced from 0.3
+                    ease: 'power1.in' // Simpler easing
                 });
             });
         });
 
-        // Glass card subtle pulse on hover
+        // Glass card subtle pulse on hover (optimized)
         document.querySelectorAll('.glass').forEach(glass => {
             glass.addEventListener('mouseenter', () => {
                 gsap.to(glass, {
                     borderColor: 'rgba(255, 255, 255, 0.2)',
-                    duration: 0.3
+                    duration: 0.2 // Reduced from 0.3
                 });
             });
 
             glass.addEventListener('mouseleave', () => {
                 gsap.to(glass, {
                     borderColor: 'var(--glass-border)',
-                    duration: 0.3
+                    duration: 0.2 // Reduced from 0.3
                 });
             });
         });
 
-        // Accordion smooth expand/collapse with GSAP
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const accordionItem = header.parentElement;
-                const content = accordionItem.querySelector('.accordion-content');
-                const isActive = accordionItem.classList.contains('active');
-
-                // Close all
-                document.querySelectorAll('.accordion-item.active').forEach(item => {
-                    const itemContent = item.querySelector('.accordion-content');
-                    gsap.to(itemContent, {
-                        height: 0,
-                        duration: 0.4,
-                        ease: 'power2.inOut'
-                    });
-                    item.classList.remove('active');
-                });
-
-                // Open clicked if it wasn't active
-                if (!isActive) {
-                    accordionItem.classList.add('active');
-                    gsap.fromTo(content,
-                        { height: 0 },
-                        {
-                            height: 'auto',
-                            duration: 0.5,
-                            ease: 'power2.out'
-                        }
-                    );
-                }
-            });
-        });
+        // NOTE: Accordion animation removed - handled by CSS max-height transition
+        // This prevents layout thrashing from GSAP's height: 'auto' calculation
+        // Accordion.js module manages the .active class, CSS handles smooth transitions
 
         // Email copy animation
         document.querySelectorAll('.footer-email').forEach(email => {
