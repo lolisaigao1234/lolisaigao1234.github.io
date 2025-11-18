@@ -10,6 +10,7 @@ import { GSAPAnimations } from './modules/animations.js';
 import { ParticlesManager } from './modules/particles.js';
 import { ProjectFilter } from './modules/projectFilter.js';
 import { ContactForm } from './modules/contactForm.js';
+import { PWAInstall } from './modules/pwaInstall.js';
 
 /**
  * Portfolio App Controller
@@ -49,6 +50,9 @@ const PortfolioApp = {
 
         // Initialize particles
         ParticlesManager.init();
+
+        // Initialize PWA functionality
+        PWAInstall.init();
     }
 };
 

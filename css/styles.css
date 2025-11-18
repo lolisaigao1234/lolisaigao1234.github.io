@@ -1658,3 +1658,304 @@ html.theme-transitioning *::after {
         text-align: center;
     }
 }
+/* =====================================
+   ACCESSIBILITY (Phase 4)
+   ===================================== */
+
+/* Skip Navigation Link */
+.skip-link {
+    position: absolute;
+    top: -48px;
+    left: 16px;
+    background: var(--accent-blue);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    z-index: 10002;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 16px;
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+/* Enhanced Focus Indicators */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Remove default focus for mouse users, keep for keyboard */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Improved Button Focus */
+.btn:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 4px;
+}
+
+.btn-primary:focus-visible {
+    outline-color: white;
+}
+
+/* Navigation Focus */
+nav a:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 4px;
+}
+
+/* =====================================
+   PWA ELEMENTS (Phase 4)
+   ===================================== */
+
+/* PWA Install Button */
+.pwa-install-btn {
+    position: fixed;
+    bottom: -80px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pwa-install-btn.show {
+    bottom: 20px;
+}
+
+.pwa-install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-blue);
+}
+
+.pwa-install-btn svg {
+    color: var(--accent-blue);
+}
+
+.pwa-install-close {
+    margin-left: 8px;
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s ease;
+}
+
+.pwa-install-close:hover {
+    color: var(--accent-pink);
+}
+
+/* PWA Update Notification */
+.pwa-update-notification {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    z-index: 10001;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pwa-update-notification.show {
+    top: 20px;
+}
+
+.pwa-update-notification p {
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+/* =====================================
+   BLOG SECTION (Phase 4)
+   ===================================== */
+
+.blog-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.blog-header h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blog-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    margin-top: 40px;
+}
+
+.blog-card {
+    padding: 32px;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    display: block;
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+}
+
+.blog-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+}
+
+.blog-date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.blog-reading-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.blog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.blog-excerpt {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.blog-tag {
+    padding: 4px 12px;
+    background: rgba(0, 122, 255, 0.1);
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.blog-placeholder {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.blog-placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.blog-placeholder p {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.blog-placeholder small {
+    color: var(--text-tertiary);
+}
+
+/* Responsive Blog Grid */
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .blog-section {
+        padding: 60px 20px;
+    }
+}
+
+/* =====================================
+   REDUCED MOTION (Enhanced Phase 4)
+   ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .pwa-install-btn,
+    .pwa-update-notification {
+        transition: none;
+    }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Rocky Wu - Data Analyst & ML Engineer Portfolio",
+  "short_name": "Rocky Wu",
+  "description": "Portfolio showcasing data analytics, machine learning projects, and professional experience in quantitative finance, cloud computing, and AI systems.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0a",
+  "theme_color": "#007AFF",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "technology", "education"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View my featured projects",
+      "url": "/#projects",
+      "icons": []
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "/#contact",
+      "icons": []
+    }
+  ]
+}
