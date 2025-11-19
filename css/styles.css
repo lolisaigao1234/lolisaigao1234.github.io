@@ -156,23 +156,6 @@ nav a {
 }
 
 nav a:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
-}
-
-/* Container */
-#container {
-    position: relative;
-    z-index: 1;
-    padding: 120px 20px 60px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
     margin-bottom: 80px;
     animation: fadeInUp 0.8s ease-out;
     /* GPU acceleration for smooth animations */
@@ -551,22 +534,6 @@ nav a:hover {
 
 .company-role {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 12px;
-}
-
-/* Skills Section */
-.skills-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-top: 24px;
-}
-
-.skill-category {
-    padding: 24px;
-    background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.3s ease;
