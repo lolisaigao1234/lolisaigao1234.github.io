@@ -32,7 +32,7 @@ export const ParticlesManager = {
             particlesJS('particles-js', {
                 particles: {
                     number: {
-                        value: 60,
+                        value: 30, // Reduced from 60 for better performance
                         density: {
                             enable: true,
                             value_area: 800
@@ -49,7 +49,7 @@ export const ParticlesManager = {
                         random: true,
                         anim: {
                             enable: true,
-                            speed: 1,
+                            speed: 0.5, // Reduced from 1 for smoother animation
                             opacity_min: 0.1,
                             sync: false
                         }
@@ -59,7 +59,7 @@ export const ParticlesManager = {
                         random: true,
                         anim: {
                             enable: true,
-                            speed: 2,
+                            speed: 1, // Reduced from 2 for smoother animation
                             size_min: 0.1,
                             sync: false
                         }
@@ -73,7 +73,7 @@ export const ParticlesManager = {
                     },
                     move: {
                         enable: true,
-                        speed: 1,
+                        speed: 0.5, // Reduced from 1 for smoother performance
                         direction: 'none',
                         random: true,
                         straight: false,

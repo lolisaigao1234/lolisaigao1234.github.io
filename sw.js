@@ -3,13 +3,14 @@
  * Provides offline support and caching for PWA functionality
  */
 
-const CACHE_NAME = 'rocky-portfolio-v1';
+const CACHE_NAME = 'rocky-portfolio-v2'; // Updated: Fixed missing pwaInstall.js
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
     '/',
     '/index.html',
+    '/offline.html', // Offline fallback page
     '/css/styles.css',
     '/js/app.js',
     '/js/modules/openingScreen.js',
@@ -19,6 +20,7 @@ const PRECACHE_ASSETS = [
     '/js/modules/particles.js',
     '/js/modules/projectFilter.js',
     '/js/modules/contactForm.js',
+    '/js/modules/pwaInstall.js', // CRITICAL FIX: Added missing module
     '/js/data/projects.js',
     '/manifest.json'
 ];
@@ -54,13 +56,36 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - network-first for HTML, cache-first for assets
 self.addEventListener('fetch', (event) => {
     // Skip cross-origin requests
     if (!event.request.url.startsWith(self.location.origin)) {
         return;
     }
 
+    // Network-first strategy for HTML pages (prevents stale layout)
+    if (event.request.headers.get('accept').includes('text/html')) {
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => {
+                    // Cache the fresh HTML
+                    if (response && response.status === 200) {
+                        const responseToCache = response.clone();
+                        caches.open(CACHE_NAME)
+                            .then((cache) => cache.put(event.request, responseToCache));
+                    }
+                    return response;
+                })
+                .catch(() => {
+                    // Fallback to cache if offline
+                    return caches.match(event.request)
+                        .then(cachedResponse => cachedResponse || caches.match(OFFLINE_URL));
+                })
+        );
+        return;
+    }
+
+    // Cache-first strategy for static assets (CSS, JS, images)
     event.respondWith(
         caches.match(event.request)
             .then((cachedResponse) => {
@@ -89,10 +114,8 @@ self.addEventListener('fetch', (event) => {
                         return response;
                     })
                     .catch(() => {
-                        // Offline fallback for HTML pages
-                        if (event.request.headers.get('accept').includes('text/html')) {
-                            return caches.match(OFFLINE_URL);
-                        }
+                        // No fallback for non-HTML assets
+                        return new Response('Offline', { status: 503 });
                     });
             })
     );
