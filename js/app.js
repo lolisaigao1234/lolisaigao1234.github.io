@@ -26,24 +26,28 @@ const PortfolioApp = {
         // Initialize accordion
         Accordion.init();
 
-        // Initialize project filter (if projects section exists)
-        if (document.querySelector('.projects-grid')) {
-            ProjectFilter.init();
-        }
-
         // Initialize contact form (if form exists)
         if (document.getElementById('contact-form')) {
             ContactForm.init();
         }
 
-        // Initialize GSAP animations (wait for GSAP to load)
+        // Initialize GSAP animations first (wait for GSAP to load)
+        // This must happen BEFORE ProjectFilter renders cards
         if (typeof gsap !== 'undefined') {
             GSAPAnimations.init();
+            // Initialize project filter AFTER GSAP sets up animations
+            if (document.querySelector('.projects-grid')) {
+                ProjectFilter.init();
+            }
         } else {
             // Wait for GSAP to load
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     GSAPAnimations.init();
+                    // Initialize project filter AFTER GSAP animations
+                    if (document.querySelector('.projects-grid')) {
+                        ProjectFilter.init();
+                    }
                 }, 100);
             });
         }

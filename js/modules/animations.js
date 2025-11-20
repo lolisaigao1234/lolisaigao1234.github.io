@@ -92,33 +92,73 @@ export const GSAPAnimations = {
         });
 
         // Animate skill categories with stagger
-        gsap.from('.skill-category', {
-            scrollTrigger: {
-                trigger: '.skills-container',
-                start: 'top 80%',
-                once: true
-            },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: 'power2.out'
-        });
+        const skillCategories = document.querySelectorAll('.skill-category');
+        if (skillCategories.length > 0) {
+            // Check if skills section is already in viewport
+            const skillsContainer = document.querySelector('.skills-container');
+            const rect = skillsContainer?.getBoundingClientRect();
+            const isInViewport = rect && rect.top < window.innerHeight * 0.8;
+
+            if (isInViewport) {
+                // Skills already visible, animate immediately without scroll trigger
+                gsap.from(skillCategories, {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'power2.out'
+                });
+            } else {
+                // Skills not in viewport, use scroll trigger
+                gsap.from(skillCategories, {
+                    scrollTrigger: {
+                        trigger: '.skills-container',
+                        start: 'top 80%',
+                        once: true
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'power2.out'
+                });
+            }
+        }
 
         // Animate projects section if exists
         if (document.querySelector('.projects-grid')) {
-            gsap.from('.project-card', {
-                scrollTrigger: {
-                    trigger: '.projects-section',
-                    start: 'top 80%',
-                    once: true
-                },
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: 'power2.out'
-            });
+            const projectCards = document.querySelectorAll('.project-card');
+            if (projectCards.length > 0) {
+                // Check if projects section is already in viewport
+                const projectsSection = document.querySelector('.projects-section');
+                const rect = projectsSection?.getBoundingClientRect();
+                const isInViewport = rect && rect.top < window.innerHeight * 0.8;
+
+                if (isInViewport) {
+                    // Projects already visible, animate immediately without scroll trigger
+                    gsap.from(projectCards, {
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.8,
+                        stagger: 0.1,
+                        ease: 'power2.out'
+                    });
+                } else {
+                    // Projects not in viewport, use scroll trigger
+                    gsap.from(projectCards, {
+                        scrollTrigger: {
+                            trigger: '.projects-section',
+                            start: 'top 80%',
+                            once: true
+                        },
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.8,
+                        stagger: 0.1,
+                        ease: 'power2.out'
+                    });
+                }
+            }
         }
 
         // Footer entrance
