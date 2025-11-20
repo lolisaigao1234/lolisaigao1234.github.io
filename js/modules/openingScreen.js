@@ -9,7 +9,6 @@ export const OpeningScreen = {
 
     init() {
         this.screen = document.getElementById('opening-screen');
-        this.skipButton = document.getElementById('skip-intro');
 
         // Check if user has seen intro before
         const hasSeenIntro = localStorage.getItem(this.STORAGE_KEY);
@@ -28,25 +27,6 @@ export const OpeningScreen = {
         this.hideTimeout = setTimeout(() => {
             this.hide();
         }, this.ANIMATION_DURATION);
-
-        // Skip button click
-        if (this.skipButton) {
-            this.skipButton.addEventListener('click', () => {
-                clearTimeout(this.hideTimeout);
-                this.hide();
-            });
-        }
-
-        // Keyboard shortcuts (Space, Enter, Escape)
-        this.keyHandler = (e) => {
-            if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
-                e.preventDefault();
-                clearTimeout(this.hideTimeout);
-                this.hide();
-                document.removeEventListener('keydown', this.keyHandler);
-            }
-        };
-        document.addEventListener('keydown', this.keyHandler);
     },
 
     hide() {
