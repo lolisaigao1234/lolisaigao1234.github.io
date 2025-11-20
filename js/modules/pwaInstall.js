@@ -5,6 +5,7 @@
 
 export const PWAInstall = {
     deferredPrompt: null,
+    updateNotificationShown: false,
 
     init() {
         this.registerServiceWorker();
@@ -114,6 +115,10 @@ export const PWAInstall = {
     },
 
     showUpdateNotification() {
+        // Prevent showing multiple notifications and infinite refresh loops
+        if (this.updateNotificationShown) return;
+        this.updateNotificationShown = true;
+
         const notification = document.createElement('div');
         notification.className = 'pwa-update-notification glass';
         notification.innerHTML = `
