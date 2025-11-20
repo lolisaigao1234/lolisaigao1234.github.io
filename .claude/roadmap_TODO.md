@@ -1,9 +1,35 @@
 # Portfolio Website Improvement Roadmap
 
 **Created:** 2025-11-17
-**Last Updated:** 2025-11-17
+**Last Updated:** 2025-11-20
 **Status:** ✅ All Phases Complete (1-4)
 **Current Version:** Full-Featured PWA with Modular Architecture, Accessibility, and Modern UX
+
+---
+
+## 📂 Directory Structure
+
+The `.claude` directory has been reorganized for better clarity:
+
+```
+.claude/
+├── roadmap_TODO.md           # This file - master roadmap
+├── settings.local.json       # Claude Code settings
+├── completed/                # Archived completed work
+│   ├── phase1-quick-wins/   # 5 completed TODOs
+│   ├── phase2-visual-polish/ # 5 completed TODOs (1 skipped)
+│   ├── phase3-architectural/ # 4 completed TODOs (1 deferred)
+│   ├── phase4-advanced/     # 4 completed TODOs (1 deferred)
+│   ├── test-reports/        # Performance test reports
+│   └── bug-fixes/           # Bug fix documentation
+└── planned/                  # Future enhancements
+    ├── TODO_08_state_management.md
+    ├── TODO_15_custom_cursor.md
+    ├── TODO_19_analytics.md
+    └── TODO_22_internationalization.md
+```
+
+**Note:** All completed TODO files have been moved to `completed/` subdirectories. Only planned/future enhancements remain in `planned/`.
 
 ---
 
@@ -18,48 +44,48 @@ This roadmap outlines a comprehensive modernization plan for Rocky Wu's portfoli
 ### 🎨 **Visual & Animation Enhancements** (High Impact)
 | # | Improvement | Priority | Difficulty | Impact | Status | TODO File |
 |---|------------|----------|------------|--------|--------|-----------|
-| 1 | Opening Screen Animations | HIGH | Medium | High | ✅ Implemented | `TODO_01_opening_animations.md` |
-| 2 | Background Visual Effects | HIGH | Medium | High | ✅ Implemented | `TODO_02_background_effects.md` |
-| 3 | Advanced Animation Library Integration | MEDIUM | Medium | Medium | ✅ Implemented | `TODO_03_advanced_animations.md` |
-| 4 | Parallax & Scroll Effects | MEDIUM | Medium | High | ✅ Implemented | `TODO_04_parallax_scroll.md` |
-| 5 | 3D Background Elements | LOW | High | Medium | ⏭️ Deferred | `TODO_05_3d_elements.md` |
+| 1 | Opening Screen Animations | HIGH | Medium | High | ✅ Implemented | `completed/phase1-quick-wins/TODO_01_opening_animations.md` |
+| 2 | Background Visual Effects | HIGH | Medium | High | ✅ Implemented | `completed/phase1-quick-wins/TODO_02_background_effects.md` |
+| 3 | Advanced Animation Library Integration | MEDIUM | Medium | Medium | ✅ Implemented | `completed/phase2-visual-polish/TODO_03_advanced_animations.md` |
+| 4 | Parallax & Scroll Effects | MEDIUM | Medium | High | ✅ Implemented | `completed/phase2-visual-polish/TODO_04_parallax_scroll.md` |
+| 5 | 3D Background Elements | LOW | High | Medium | ⏭️ Deferred | `completed/phase4-advanced/TODO_05_3d_elements.md` |
 
 ### 🛠️ **Technical Architecture** (High Impact)
 | # | Improvement | Priority | Difficulty | Impact | Status | TODO File |
 |---|------------|----------|------------|--------|--------|-----------|
-| 6 | Vue.js Framework Migration | MEDIUM | High | High | ⏭️ Deferred | `TODO_06_vue_migration.md` |
-| 7 | Component Architecture | MEDIUM | High | High | ✅ Implemented | `TODO_07_component_architecture.md` |
-| 8 | State Management System | LOW | Medium | Medium | 📋 Planned | `TODO_08_state_management.md` |
+| 6 | Vue.js Framework Migration | MEDIUM | High | High | ⏭️ Deferred | `completed/phase3-architectural/TODO_06_vue_migration.md` |
+| 7 | Component Architecture | MEDIUM | High | High | ✅ Implemented | `completed/phase3-architectural/TODO_07_component_architecture.md` |
+| 8 | State Management System | LOW | Medium | Medium | 📋 Planned | `planned/TODO_08_state_management.md` |
 
 ### ⚡ **Performance & UX** (Medium Impact)
 | # | Improvement | Priority | Difficulty | Impact | Status | TODO File |
 |---|------------|----------|------------|--------|--------|-----------|
-| 9 | Performance Optimization | HIGH | Medium | High | ✅ Implemented | `TODO_09_performance.md` |
-| 10 | Progressive Web App (PWA) | LOW | Medium | Medium | ✅ Implemented | `TODO_10_pwa.md` |
-| 11 | Loading States & Transitions | MEDIUM | Low | Medium | ✅ Implemented | `TODO_11_loading_states.md` |
+| 9 | Performance Optimization | HIGH | Medium | High | ✅ Implemented | `completed/phase1-quick-wins/TODO_09_performance.md` |
+| 10 | Progressive Web App (PWA) | LOW | Medium | Medium | ✅ Implemented | `completed/phase4-advanced/TODO_10_pwa.md` |
+| 11 | Loading States & Transitions | MEDIUM | Low | Medium | ✅ Implemented | `completed/phase2-visual-polish/TODO_11_loading_states.md` |
 
 ### 🎯 **User Experience Features** (Medium Impact)
 | # | Improvement | Priority | Difficulty | Impact | Status | TODO File |
 |---|------------|----------|------------|--------|--------|-----------|
-| 12 | Dark/Light Mode Toggle | MEDIUM | Low | Medium | ✅ Implemented | `TODO_12_theme_toggle.md` |
-| 13 | Microinteractions & Feedback | MEDIUM | Medium | Medium | ✅ Implemented | `TODO_13_microinteractions.md` |
-| 14 | Interactive Project Showcases | MEDIUM | Medium | High | 📋 Planned | `TODO_14_interactive_projects.md` |
-| 15 | Custom Cursor Effects | LOW | Low | Low | 📋 Planned | `TODO_15_custom_cursor.md` |
+| 12 | Dark/Light Mode Toggle | MEDIUM | Low | Medium | ✅ Implemented | `completed/phase1-quick-wins/TODO_12_theme_toggle.md` |
+| 13 | Microinteractions & Feedback | MEDIUM | Medium | Medium | ✅ Implemented | `completed/phase2-visual-polish/TODO_13_microinteractions.md` |
+| 14 | Interactive Project Showcases | MEDIUM | Medium | High | ⏭️ Skipped | `completed/phase2-visual-polish/TODO_14_interactive_projects.md` |
+| 15 | Custom Cursor Effects | LOW | Low | Low | 📋 Planned | `planned/TODO_15_custom_cursor.md` |
 
 ### 📱 **Content & Features** (Low-Medium Impact)
 | # | Improvement | Priority | Difficulty | Impact | Status | TODO File |
 |---|------------|----------|------------|--------|--------|-----------|
-| 16 | Blog/Articles Section | LOW | Medium | Medium | ✅ Implemented | `TODO_16_blog_section.md` |
-| 17 | Project Filtering & Search | MEDIUM | Low | Medium | ✅ Implemented | `TODO_17_project_filtering.md` |
-| 18 | Contact Form with Validation | MEDIUM | Low | Low | ✅ Implemented | `TODO_18_contact_form.md` |
-| 19 | Analytics & Tracking | LOW | Low | Low | 📋 Planned | `TODO_19_analytics.md` |
+| 16 | Blog/Articles Section | LOW | Medium | Medium | ✅ Implemented | `completed/phase4-advanced/TODO_16_blog_section.md` |
+| 17 | Project Filtering & Search | MEDIUM | Low | Medium | ✅ Implemented | `completed/phase3-architectural/TODO_17_project_filtering.md` |
+| 18 | Contact Form with Validation | MEDIUM | Low | Low | ✅ Implemented | `completed/phase3-architectural/TODO_18_contact_form.md` |
+| 19 | Analytics & Tracking | LOW | Low | Low | 📋 Planned | `planned/TODO_19_analytics.md` |
 
 ### ♿ **Accessibility & SEO** (Medium Impact)
 | # | Improvement | Priority | Difficulty | Impact | Status | TODO File |
 |---|------------|----------|------------|--------|--------|-----------|
-| 20 | Enhanced Accessibility (WCAG 2.1 AA) | HIGH | Medium | High | ✅ Implemented | `TODO_20_accessibility.md` |
-| 21 | SEO Optimization | HIGH | Low | High | ✅ Implemented | `TODO_21_seo_optimization.md` |
-| 22 | Internationalization (i18n) | LOW | High | Low | 📋 Planned | `TODO_22_internationalization.md` |
+| 20 | Enhanced Accessibility (WCAG 2.1 AA) | HIGH | Medium | High | ✅ Implemented | `completed/phase4-advanced/TODO_20_accessibility.md` |
+| 21 | SEO Optimization | HIGH | Low | High | ✅ Implemented | `completed/phase1-quick-wins/TODO_21_seo_optimization.md` |
+| 22 | Internationalization (i18n) | LOW | High | Low | 📋 Planned | `planned/TODO_22_internationalization.md` |
 
 ---
 
