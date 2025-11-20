@@ -49,7 +49,7 @@ const PortfolioApp = {
         }
 
         // Initialize particles
-        // ParticlesManager.init();
+        ParticlesManager.init();
 
         // // Initialize PWA functionality (only in production to avoid live-server conflicts)
         // if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
