@@ -123,14 +123,26 @@ export const PWAInstall = {
         notification.className = 'pwa-update-notification glass';
         notification.innerHTML = `
             <p>A new version is available!</p>
-            <button class="btn btn-primary btn-small">Reload</button>
+            <button class="btn btn-primary btn-small">Update</button>
+            <button class="btn btn-secondary btn-small dismiss-update">Later</button>
         `;
 
         document.body.appendChild(notification);
 
-        // Handle reload button
-        notification.querySelector('button').addEventListener('click', () => {
-            window.location.reload();
+        // Handle update button - tell service worker to skip waiting, then reload
+        notification.querySelector('.btn-primary').addEventListener('click', () => {
+            // Send message to service worker to skip waiting
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+            }
+            // Wait a bit for service worker to take control, then reload
+            setTimeout(() => window.location.reload(), 100);
+        });
+
+        // Handle dismiss button
+        notification.querySelector('.dismiss-update').addEventListener('click', () => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
         });
 
         // Auto-show
