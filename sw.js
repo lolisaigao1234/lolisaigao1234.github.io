@@ -35,7 +35,8 @@ self.addEventListener('install', (event) => {
                 console.log('[Service Worker] Precaching assets');
                 return cache.addAll(PRECACHE_ASSETS);
             })
-            .then(() => self.skipWaiting())
+            // Don't call skipWaiting() automatically - let it wait for user confirmation
+            // This prevents aggressive activation that can cause reload loops
     );
 });
 
@@ -52,7 +53,8 @@ self.addEventListener('activate', (event) => {
                         .map((cacheName) => caches.delete(cacheName))
                 );
             })
-            .then(() => self.clients.claim())
+            // Don't automatically claim clients - this can cause aggressive page reloads
+            // Let the page reload naturally or wait for user action
     );
 });
 
@@ -124,6 +126,9 @@ self.addEventListener('fetch', (event) => {
 // Message event - handle messages from client
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
+        // User confirmed they want to update
         self.skipWaiting();
+        // After skipping waiting, claim clients
+        self.clients.claim();
     }
 });

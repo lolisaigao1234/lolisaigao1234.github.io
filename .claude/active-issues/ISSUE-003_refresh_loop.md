@@ -372,8 +372,38 @@ _Update this section as investigation progresses_
 - Investigation plan created
 - Awaiting assignment
 
+### 2025-11-20 - Investigation Complete & Fix Implemented
+**Root Cause Identified:**
+- Service worker was using **aggressive activation** with `skipWaiting()` and `clients.claim()`
+- The install event called `skipWaiting()` immediately (sw.js:38)
+- The activate event called `clients.claim()` immediately (sw.js:55)
+- This caused browsers to trigger reload loops when service worker updated
+- The cache version was recently bumped (CACHE_NAME = 'rocky-portfolio-v2'), triggering updates
+
+**Files Investigated:**
+- ✅ sw.js - Found aggressive activation (ROOT CAUSE)
+- ✅ js/app.js - No reload calls
+- ✅ js/modules/openingScreen.js - No reload calls
+- ✅ js/modules/themeManager.js - No reload calls
+- ✅ js/modules/pwaInstall.js - Only reloads on user button click
+- ✅ index.html - No meta refresh tags
+- ✅ All precached assets exist (verified)
+
+**Fix Implemented:**
+1. **sw.js**: Removed automatic `skipWaiting()` from install event
+2. **sw.js**: Removed automatic `clients.claim()` from activate event
+3. **sw.js**: Only call `skipWaiting()` and `clients.claim()` when user confirms via SKIP_WAITING message
+4. **pwaInstall.js**: Send SKIP_WAITING message when user clicks "Update" button
+5. **pwaInstall.js**: Added "Later" dismiss button for user control
+
+**Result:**
+- Service worker now waits for user confirmation before updating
+- No more aggressive activation causing reload loops
+- Users can choose when to update (graceful degradation)
+- Reload only happens when user explicitly clicks "Update"
+
 ---
 
-**Next Action:** Run browser DevTools diagnostics to identify refresh trigger
-**Estimated Fix Time:** 2-4 hours (once root cause identified)
-**Dependencies:** None - this blocks all other work
+**Status:** ✅ RESOLVED
+**Fix Committed:** 2025-11-20
+**Testing:** Pending browser verification
