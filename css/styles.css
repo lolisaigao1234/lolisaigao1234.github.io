@@ -179,6 +179,12 @@ nav a:hover {
     transform: translateZ(0);
 }
 
+.opening-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .opening-content {
     text-align: center;
     position: relative;
