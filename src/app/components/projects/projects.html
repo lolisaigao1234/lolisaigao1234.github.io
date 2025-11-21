@@ -10,7 +10,7 @@
                 class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400 drop-shadow-sm">Projects</span>
         </h2>
 
-        <!-- Filter Buttons -->
+        <!-- Filter Buttons (Static for now, can be made dynamic later) -->
         <div class="flex flex-wrap justify-center gap-4 mb-16">
             <button
                 class="px-6 py-2.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300 backdrop-blur-sm">All</button>
@@ -25,7 +25,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- Project 1: Tax and Portfolio Reconciliation System -->
+            @for (project of projects(); track project.title) {
             <div
                 class="relative p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full overflow-hidden">
                 <!-- Inner Glow -->
@@ -36,156 +36,37 @@
                 <div
                     class="mb-6 overflow-hidden rounded-2xl h-48 bg-slate-800 relative group-hover:shadow-inner transition-all">
                     <!-- Placeholder Gradient -->
-                    <div
-                        class="absolute inset-0 bg-gradient-to-br from-purple-900/60 to-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-br flex items-center justify-center group-hover:scale-105 transition-transform duration-700"
+                        [class]="'bg-gradient-to-br ' + project.gradient">
                         <span
-                            class="text-5xl drop-shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500">💰</span>
+                            class="text-5xl drop-shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500">{{
+                            project.icon }}</span>
                     </div>
                 </div>
 
-                <h3 class="text-2xl font-bold mb-3 text-slate-100 group-hover:text-cyan-300 transition-colors">Tax &
-                    Portfolio
-                    Reconciliation</h3>
+                <h3 class="text-2xl font-bold mb-3 text-slate-100 group-hover:text-cyan-300 transition-colors">{{
+                    project.title }}</h3>
                 <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed font-light">
-                    A comprehensive system to simulate broker operations, reconcile transactions with real-time market
-                    data, and calculate tax liabilities including wash-sale implications.
+                    {{ project.description }}
                 </p>
 
                 <div class="flex flex-wrap gap-2 mb-6">
+                    @for (tag of project.tags; track tag) {
                     <span
-                        class="text-xs px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-300 rounded-full">Python</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-300 rounded-full">Pandas</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-300 rounded-full">IBKR
-                        API</span>
+                        class="text-xs px-3 py-1 bg-white/5 border border-white/10 text-slate-300 rounded-full group-hover:border-cyan-500/30 group-hover:text-cyan-200 transition-colors">{{
+                        tag }}</span>
+                    }
                 </div>
 
                 <div class="mt-auto pt-4 border-t border-white/5 flex justify-between items-center relative z-10">
-                    <span class="text-xs text-slate-500 font-medium">Oct 2024 - Present</span>
+                    <span class="text-xs text-slate-500 font-medium">{{ project.period }}</span>
                     <a href="#"
                         class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center gap-1 group/link">
                         View Details <span class="group-hover/link:translate-x-1 transition-transform">→</span>
                     </a>
                 </div>
             </div>
-
-            <!-- Project 2: Wi-Fi Health Score System -->
-            <div
-                class="relative p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full overflow-hidden">
-                <div
-                    class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                </div>
-
-                <div
-                    class="mb-6 overflow-hidden rounded-2xl h-48 bg-slate-800 relative group-hover:shadow-inner transition-all">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-br from-cyan-900/60 to-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                        <span
-                            class="text-5xl drop-shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500">📶</span>
-                    </div>
-                </div>
-                <h3 class="text-2xl font-bold mb-3 text-slate-100 group-hover:text-cyan-300 transition-colors">Wi-Fi
-                    Health Score System
-                </h3>
-                <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed font-light">
-                    Cloud-based analytics platform quantifying access point performance. Features real-time monitoring
-                    dashboards and distributed data processing on AWS.
-                </p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span
-                        class="text-xs px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 rounded-full">AWS</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 rounded-full">Docker</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 rounded-full">Athena</span>
-                </div>
-                <div class="mt-auto pt-4 border-t border-white/5 flex justify-between items-center relative z-10">
-                    <span class="text-xs text-slate-500 font-medium">May 2025 - Dec 2025</span>
-                    <a href="#"
-                        class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center gap-1 group/link">
-                        View Details <span class="group-hover/link:translate-x-1 transition-transform">→</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 3: NLP-to-SQL Pipeline -->
-            <div
-                class="relative p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full overflow-hidden">
-                <div
-                    class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                </div>
-
-                <div
-                    class="mb-6 overflow-hidden rounded-2xl h-48 bg-slate-800 relative group-hover:shadow-inner transition-all">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                        <span
-                            class="text-5xl drop-shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500">🤖</span>
-                    </div>
-                </div>
-                <h3 class="text-2xl font-bold mb-3 text-slate-100 group-hover:text-cyan-300 transition-colors">
-                    NLP-to-SQL Pipeline</h3>
-                <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed font-light">
-                    Intelligent system automating SQL query generation from natural language prompts with 80% semantic
-                    accuracy.
-                </p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span
-                        class="text-xs px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-300 rounded-full">NLP</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-300 rounded-full">Deep
-                        Learning</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-300 rounded-full">Python</span>
-                </div>
-                <div class="mt-auto pt-4 border-t border-white/5 flex justify-between items-center relative z-10">
-                    <span class="text-xs text-slate-500 font-medium">Jun 2023 - Aug 2023</span>
-                    <a href="#"
-                        class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center gap-1 group/link">
-                        View Details <span class="group-hover/link:translate-x-1 transition-transform">→</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 4: Marketing Analytics Platform -->
-            <div
-                class="relative p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full overflow-hidden">
-                <div
-                    class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                </div>
-
-                <div
-                    class="mb-6 overflow-hidden rounded-2xl h-48 bg-slate-800 relative group-hover:shadow-inner transition-all">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-br from-green-900/60 to-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                        <span
-                            class="text-5xl drop-shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500">📊</span>
-                    </div>
-                </div>
-                <h3 class="text-2xl font-bold mb-3 text-slate-100 group-hover:text-cyan-300 transition-colors">Marketing
-                    Analytics
-                    Dashboard</h3>
-                <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed font-light">
-                    Dynamic web platform analyzing sales data and advertising ROI for mobile apps. Boosted ad ROI by 30%
-                    through data-driven insights.
-                </p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span
-                        class="text-xs px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-300 rounded-full">Django</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-300 rounded-full">MySQL</span>
-                    <span
-                        class="text-xs px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-300 rounded-full">Visualization</span>
-                </div>
-                <div class="mt-auto pt-4 border-t border-white/5 flex justify-between items-center relative z-10">
-                    <span class="text-xs text-slate-500 font-medium">Jun 2021 - Aug 2021</span>
-                    <a href="#"
-                        class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center gap-1 group/link">
-                        View Details <span class="group-hover/link:translate-x-1 transition-transform">→</span>
-                    </a>
-                </div>
-            </div>
+            }
 
         </div>
     </div>

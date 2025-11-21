@@ -3,55 +3,17 @@
         <h2 class="text-4xl font-bold mb-12 text-center">Technical <span class="text-gradient">Expertise</span></h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Category 1: Languages & Databases -->
+            @for (category of skillCategories(); track category.name) {
             <div class="glass-panel p-6 hover:-translate-y-2 transition-transform duration-300">
-                <h3 class="text-xl font-semibold mb-4 text-cyan-400">Languages & Databases</h3>
+                <h3 class="text-xl font-semibold mb-4" [class]="'text-' + category.colorClass + '-400'">{{ category.name
+                    }}</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Python</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">MySQL</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">C++</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Java</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">AWS Athena</span>
+                    @for (skill of category.skills; track skill) {
+                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">{{ skill }}</span>
+                    }
                 </div>
             </div>
-
-            <!-- Category 2: Data Science & ML -->
-            <div class="glass-panel p-6 hover:-translate-y-2 transition-transform duration-300">
-                <h3 class="text-xl font-semibold mb-4 text-purple-400">Data Science & ML</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Spark</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">PyTorch</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">TensorFlow</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Scikit-learn</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">NumPy</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Pandas</span>
-                </div>
-            </div>
-
-            <!-- Category 3: Cloud & Tools -->
-            <div class="glass-panel p-6 hover:-translate-y-2 transition-transform duration-300">
-                <h3 class="text-xl font-semibold mb-4 text-blue-400">Cloud & Tools</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">AWS (EC2, S3)</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Docker</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Git</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Tableau</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Power BI</span>
-                </div>
-            </div>
-
-            <!-- Category 4: Domain Expertise -->
-            <div class="glass-panel p-6 hover:-translate-y-2 transition-transform duration-300">
-                <h3 class="text-xl font-semibold mb-4 text-green-400">Domain Expertise</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Generative AI (ChatGPT, Claude)</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">NLP</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Statistical Modeling</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">ETL Pipelines</span>
-                    <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">Tax/Accounting Concepts</span>
-                </div>
-            </div>
-
+            }
         </div>
     </div>
 </section>
