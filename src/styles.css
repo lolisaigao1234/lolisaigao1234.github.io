@@ -1,17 +1,25 @@
 @import "tailwindcss";
 
-@layer base {
-    body {
-        @apply bg-slate-900 text-slate-50 antialiased;
-    }
+/* Base styles */
+body {
+    background-color: rgb(15 23 42);
+    color: rgb(248 250 252);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-    .glass-panel {
-        @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-xl;
-    }
+/* Custom utility classes */
+.glass-panel {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
 
-    .text-gradient {
-        @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500;
-    }
+.text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, rgb(34 211 238), rgb(168 85 247));
 }
