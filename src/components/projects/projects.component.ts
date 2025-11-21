@@ -11,7 +11,6 @@ interface ExperienceCategory {
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage]
 })
 export class ProjectsComponent {
   experiences = signal<ExperienceCategory[]>([
