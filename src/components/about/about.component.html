@@ -1,0 +1,51 @@
+<section id="about" class="py-24 sm:py-32">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">About Me</h2>
+    <p class="mt-4 text-lg text-slate-400">My journey, education, and the technologies I work with.</p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-16">
+    <div class="md:col-span-3 space-y-6 text-slate-300 text-lg leading-relaxed">
+      <p>
+        Hello! I'm Rocky, a data analyst and scientist with a Master's in Information Management from the University of Illinois at Urbana-Champaign. My passion lies at the intersection of data, finance, and technology, with a strong focus on AI-powered trading, tax policy, and machine learning research.
+      </p>
+      <p>
+        I specialize in constructing end-to-end data pipelines, developing robust statistical models, and leveraging cloud technologies to turn complex data into actionable insights. I enjoy transforming raw data into meaningful stories and building intelligent systems that solve real-world problems.
+      </p>
+
+      <div class="mt-12">
+        <h3 class="text-2xl font-bold text-white mb-6">Education</h3>
+        <div class="space-y-6 border-l-2 border-sky-500/30 pl-6">
+            <div class="relative">
+              <div class="absolute -left-[34px] top-1.5 h-4 w-4 rounded-full bg-sky-500"></div>
+              <h4 class="text-xl font-semibold text-sky-400">University of Illinois at Urbana-Champaign</h4>
+              <p class="text-slate-300">Master of Science in Information Management <span class="text-sm italic text-slate-400">(Aug 2024 - Dec 2025)</span></p>
+              <p class="text-slate-400 text-sm mt-1">Focus: Data Analytics, Cloud Computing, and Financial Data Management</p>
+            </div>
+            <div class="relative">
+              <div class="absolute -left-[34px] top-1.5 h-4 w-4 rounded-full bg-sky-500"></div>
+              <h4 class="text-xl font-semibold text-sky-400">University of Illinois at Urbana-Champaign</h4>
+              <p class="text-slate-300">Bachelor of Science in Information Science & Data Science <span class="text-sm italic text-slate-400">(Aug 2020 - May 2024)</span></p>
+              <p class="text-slate-400 text-sm mt-1">Minor: Computer Science | GPA: 3.58</p>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="md:col-span-2">
+      <h3 class="text-2xl font-bold text-white mb-6">My Skillset</h3>
+      @for(category of skills(); track category.category) {
+        <div class="mb-6">
+            <h4 class="text-lg font-semibold text-sky-400 mb-3">{{ category.category }}</h4>
+            <div class="flex flex-wrap gap-2">
+            @for (skill of category.list; track skill) {
+              <span class="bg-slate-800 text-sky-300 text-xs font-medium px-3 py-1.5 rounded-full shadow-md border border-slate-700">
+                {{ skill }}
+              </span>
+            }
+            </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
