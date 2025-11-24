@@ -1,20 +1,47 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Personal Portfolio
 
-# Run and deploy your AI Studio app
+A modern, responsive personal portfolio website featuring a "Liquid Glass" design aesthetic. Built to showcase projects, skills, and professional experience.
 
-This contains everything you need to run your app locally.
+## 🚀 Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1epZuBrd8FI8sZugF4cUU-keQbEte1aEq
+- **Framework:** [Angular](https://angular.io/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
 
-## Run Locally
+## 🛠️ Getting Started
 
-**Prerequisites:**  Node.js
+### Prerequisites
 
+- Node.js (Latest LTS recommended)
+- npm
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/lolisaigao1234/lolisaigao1234.github.io.git
+    cd lolisaigao1234.github.io
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    Navigate to `http://localhost:4200` (or the port shown in your terminal).
+
+4.  **Build for production:**
+    ```bash
+    npm run build
+    ```
+
+## ✨ Features
+
+- **Liquid Glass UI:** Modern, translucent, and frosted glass effects.
+- **Responsive Design:** Optimized for all device sizes.
+- **Dynamic Components:** Angular-powered components for Projects, Skills, and Experience.
