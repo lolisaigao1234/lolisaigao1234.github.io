@@ -25,7 +25,8 @@
     "tailwindcss": "latest"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^1.14.0",
+    "@analogjs/vite-plugin-angular": "^2.1.0",
+    "@analogjs/vitest-angular": "^2.1.0",
     "@testing-library/dom": "^10.4.0",
     "@types/node": "^22.14.0",
     "jsdom": "^25.0.1",
