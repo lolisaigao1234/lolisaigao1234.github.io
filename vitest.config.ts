@@ -1,13 +1,15 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
-import angular from '@analogjs/vite-plugin-angular';
+// import angular from '@analogjs/vite-plugin-angular';
 
+// NOTE: Angular plugin disabled due to bug with test suite discovery
+// See .gemini/VITEST_MIGRATION_NOTES.md for details
 export default defineConfig(({ mode }) => ({
   plugins: [
-    angular({
-      jit: true,
-      tsconfig: './tsconfig.spec.json',
-    }),
+    // angular({
+    //   jit: true,
+    //   tsconfig: './tsconfig.spec.json',
+    // }),
   ],
   test: {
     globals: true,

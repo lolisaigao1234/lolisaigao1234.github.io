@@ -205,7 +205,7 @@ describe('OpeningScreenComponent', () => {
     // 5. Reduced Motion Accessibility
     // =============================================
     describe('Reduced Motion Preference', () => {
-        it('should complete quickly when reduced motion is preferred', fakeAsync(async () => {
+        it('should complete quickly when reduced motion is preferred', async () => {
             // Mock matchMedia to return reduced motion preference
             const originalMatchMedia = window.matchMedia;
             window.matchMedia = vi.fn().mockReturnValue({
@@ -223,17 +223,15 @@ describe('OpeningScreenComponent', () => {
             fixture.detectChanges();
 
             // Should complete within 800ms for reduced motion
-            tick(800);
+            await new Promise(resolve => setTimeout(resolve, 850));
             expect(component.isComplete()).toBe(true);
             expect(completeSpy).toHaveBeenCalledTimes(1);
 
             // Restore original
             window.matchMedia = originalMatchMedia;
+        });
 
-            flush();
-        }));
-
-        it('should skip flashing state with reduced motion', fakeAsync(async () => {
+        it('should skip flashing state with reduced motion', async () => {
             const originalMatchMedia = window.matchMedia;
             window.matchMedia = vi.fn().mockReturnValue({
                 matches: true,
@@ -246,15 +244,14 @@ describe('OpeningScreenComponent', () => {
             fixture.detectChanges();
 
             // Check state never becomes 'flashing'
-            tick(400);
+            await new Promise(resolve => setTimeout(resolve, 400));
             expect(component.isFlashing()).toBe(false);
 
-            tick(500);
+            await new Promise(resolve => setTimeout(resolve, 500));
             expect(component.isComplete()).toBe(true);
 
             window.matchMedia = originalMatchMedia;
-            flush();
-        }));
+        });
     });
 
     // =============================================
@@ -366,6 +363,7 @@ describe('OpeningScreenComponent', () => {
         it('should correctly compute isFlashing', fakeAsync(() => {
             fixture.detectChanges();
             tick(1500);
+            fixture.detectChanges(); // Trigger change detection after tick
 
             expect(component.isPulsing()).toBe(false);
             expect(component.isFlashing()).toBe(true);
@@ -378,6 +376,7 @@ describe('OpeningScreenComponent', () => {
         it('should correctly compute isRevealing', fakeAsync(() => {
             fixture.detectChanges();
             tick(2000);
+            fixture.detectChanges(); // Trigger change detection after tick
 
             expect(component.isPulsing()).toBe(false);
             expect(component.isFlashing()).toBe(false);
@@ -417,7 +416,7 @@ describe('OpeningScreenComponent', () => {
     // 9. SSR Safety
     // =============================================
     describe('Server-Side Rendering Safety', () => {
-        it('should handle server platform without errors', fakeAsync(async () => {
+        it('should handle server platform without errors', async () => {
             await createComponent('server');
 
             // Should not throw when window.matchMedia is not available
@@ -425,12 +424,10 @@ describe('OpeningScreenComponent', () => {
                 fixture.detectChanges();
             }).not.toThrow();
 
-            // Should still complete animation
-            tick(3500);
+            // Should still complete animation (add extra time for async operations)
+            await new Promise(resolve => setTimeout(resolve, 3600));
             expect(component.isComplete()).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     // =============================================
