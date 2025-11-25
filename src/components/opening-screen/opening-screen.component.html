@@ -1,0 +1,42 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden transition-opacity duration-1000"
+    [class.pointer-events-none]="state() === 'finished'" [class.hidden]="state() === 'finished'" id="opening-screen">
+
+    <!-- Background Overlay: Fades out when revealing -->
+    <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-3xl transition-opacity duration-700"
+        [class.opacity-0]="state() === 'revealing'"></div>
+
+    <!-- Deep Background Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/80 pointer-events-none transition-opacity duration-700"
+        [class.opacity-0]="state() === 'revealing'"></div>
+
+    <!-- Prism Container: Scales up and fades out during reveal -->
+    <div class="relative z-10 flex flex-col items-center justify-center transition-all duration-700"
+        [class.opacity-0]="state() === 'revealing'" [class.scale-150]="state() === 'revealing'">
+
+        <!-- The Prism Itself -->
+        <div class="prism-container relative h-32 w-32 animate-pulse-custom">
+            <!-- Outer Glass Shell -->
+            <div
+                class="absolute inset-0 rotate-45 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+            </div>
+
+            <!-- Inner Refraction Layer -->
+            <div
+                class="absolute inset-4 rotate-45 rounded-lg bg-gradient-to-br from-white/20 via-transparent to-white/5 mix-blend-overlay">
+            </div>
+
+            <!-- Core Glow -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="h-16 w-16 rounded-full bg-cyan-400/20 blur-xl"></div>
+            </div>
+
+            <!-- Flash Burst Effect (Only visible when flashing) -->
+            <div *ngIf="state() === 'flashing'"
+                class="absolute inset-0 bg-white mix-blend-overlay rounded-xl rotate-45 flash-active"></div>
+        </div>
+    </div>
+
+    <!-- Ripple Reveal Mask (Optional: If we want a hard clip-path reveal, we apply it to a covering div, 
+       but for this "Liquid" style, fading the background (opacity-0 above) is often smoother. 
+       Let's keep the CSS class available if we want to switch to clip-path later.) -->
+</div>

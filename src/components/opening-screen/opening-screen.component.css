@@ -1,0 +1,65 @@
+:host {
+    display: block;
+}
+
+/* 1. Pulse Animation */
+@keyframes prism-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.2));
+    }
+
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 35px rgba(34, 211, 238, 0.4));
+    }
+}
+
+.animate-pulse-custom {
+    animation: prism-pulse 3s ease-in-out infinite;
+}
+
+/* 2. Refraction Flash */
+@keyframes flash-burst {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+.flash-active {
+    animation: flash-burst 0.8s ease-out forwards;
+}
+
+/* 3. Ripple Expansion (The Reveal) */
+@keyframes ripple-expand {
+    0% {
+        clip-path: circle(0% at 50% 50%);
+    }
+
+    100% {
+        clip-path: circle(150% at 50% 50%);
+    }
+}
+
+.reveal-mask {
+    /* We will apply this to a mask or the container itself to reveal content */
+    animation: ripple-expand 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Utility to hide the opening screen after animation */
+.hidden-screen {
+    display: none;
+}
