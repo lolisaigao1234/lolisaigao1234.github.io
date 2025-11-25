@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { OpeningScreenComponent } from './components/opening-screen/opening-screen.component';
+import { CommonModule } from '@angular/common'; // CRITICAL: This was missing!
 
+import { OpeningScreenComponent } from './components/opening-screen/opening-screen.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { ProjectsComponent } from './components/projects/projects.component';
@@ -12,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule, // CRITICAL: Required for *ngIf directive
     RouterOutlet,
     OpeningScreenComponent,
     HeaderComponent,
@@ -25,9 +27,23 @@ import { FooterComponent } from './components/footer/footer.component';
 })
 export class AppComponent {
   title = 'portfolio-website';
+
+  /**
+   * Signal to control opening screen visibility.
+   * Starts as true and is set to false when animation completes.
+   */
   showOpeningScreen = signal(true);
 
-  onOpeningAnimationComplete() {
+  /**
+   * Handler for when the opening screen animation completes.
+   * Hides the opening screen to reveal main content.
+   */
+  onOpeningAnimationComplete(): void {
     this.showOpeningScreen.set(false);
+
+    // Optionally, unlock body scroll if it was locked
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
   }
 }
