@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, signal, computed, Output, EventEmitter, Inject, PLATFORM_ID, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
-type AnimationState = 'frozen' | 'flashing' | 'revealing' | 'finished';
+export type AnimationState = 'frozen' | 'flashing' | 'revealing' | 'finished';
 
 @Component({
     selector: 'app-opening-screen',
@@ -42,6 +42,9 @@ export class OpeningScreenComponent implements OnInit, OnDestroy {
     shouldFadeBackground = computed(() =>
         this.state() === 'revealing' || this.state() === 'finished'
     );
+
+    /** Returns true when the opening screen should be hidden */
+    shouldHide = computed(() => this.state() === 'finished');
 
     /** Host binding for animation-complete class */
     @HostBinding('class.animation-complete')

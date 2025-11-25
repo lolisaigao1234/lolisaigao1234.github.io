@@ -11,12 +11,14 @@
     ],
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
     "allowJs": true,
+    "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
       "@/*": [
@@ -26,6 +28,10 @@
   },
   "files": [
     "./index.tsx"
+  ],
+  "include": [
+    "src/**/*",
+    "tests/**/*"
   ],
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true
