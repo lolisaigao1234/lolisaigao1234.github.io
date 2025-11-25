@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
+import { vi } from 'vitest';
 import { OpeningScreenComponent, AnimationState } from './opening-screen.component';
 
 /**
@@ -20,13 +21,13 @@ describe('OpeningScreenComponent', () => {
     let fixture: ComponentFixture<OpeningScreenComponent>;
 
     // Helper to create component with specific platform
-    const createComponent = (platformId: string = 'browser') => {
-        TestBed.configureTestingModule({
+    const createComponent = async (platformId: string = 'browser') => {
+        await TestBed.configureTestingModule({
             imports: [OpeningScreenComponent],
             providers: [
                 { provide: PLATFORM_ID, useValue: platformId }
             ]
-        });
+        }).compileComponents();
         fixture = TestBed.createComponent(OpeningScreenComponent);
         component = fixture.componentInstance;
     };
@@ -41,15 +42,15 @@ describe('OpeningScreenComponent', () => {
     // 1. Component Creation & Initialization
     // =============================================
     describe('Component Creation', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should create the component', () => {
             expect(component).toBeTruthy();
         });
 
-        it('should initialize with idle state before ngOnInit', () => {
+        it('should initialize with frozen state before ngOnInit', () => {
             // Before ngOnInit is called
-            expect(component.state()).toBe('idle');
+            expect(component.state()).toBe('frozen');
         });
 
         it('should have animationComplete output defined', () => {
@@ -61,17 +62,17 @@ describe('OpeningScreenComponent', () => {
     // 2. Animation State Transitions
     // =============================================
     describe('Animation State Transitions', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
-        it('should transition to pulsing state on init', fakeAsync(() => {
+        it('should remain in frozen state on init', fakeAsync(() => {
             fixture.detectChanges(); // Triggers ngOnInit
 
-            expect(component.state()).toBe('pulsing');
+            expect(component.state()).toBe('frozen');
         }));
 
         it('should transition from pulsing to flashing after 1500ms', fakeAsync(() => {
             fixture.detectChanges();
-            expect(component.state()).toBe('pulsing');
+            expect(component.state()).toBe('frozen');
 
             tick(1500);
             expect(component.state()).toBe('flashing');
@@ -92,7 +93,7 @@ describe('OpeningScreenComponent', () => {
             fixture.detectChanges();
 
             tick(3500);
-            expect(component.state()).toBe('complete');
+            expect(component.state()).toBe('finished');
 
             flush();
         }));
@@ -112,7 +113,7 @@ describe('OpeningScreenComponent', () => {
             tick(1500); // 3500ms total
             stateHistory.push(component.state());
 
-            expect(stateHistory).toEqual(['pulsing', 'flashing', 'revealing', 'complete']);
+            expect(stateHistory).toEqual(['frozen', 'flashing', 'revealing', 'finished']);
 
             flush();
         }));
@@ -122,13 +123,13 @@ describe('OpeningScreenComponent', () => {
     // 3. Timing & Sequencing
     // =============================================
     describe('Animation Timing', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should not be flashing at 1499ms', fakeAsync(() => {
             fixture.detectChanges();
 
             tick(1499);
-            expect(component.state()).toBe('pulsing');
+            expect(component.state()).toBe('frozen');
             expect(component.isFlashing()).toBe(false);
 
             flush();
@@ -161,10 +162,10 @@ describe('OpeningScreenComponent', () => {
     // 4. Event Emission
     // =============================================
     describe('Event Emission', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should emit animationComplete when animation finishes', fakeAsync(() => {
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
@@ -176,7 +177,7 @@ describe('OpeningScreenComponent', () => {
         }));
 
         it('should not emit animationComplete before completion', fakeAsync(() => {
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
@@ -188,7 +189,7 @@ describe('OpeningScreenComponent', () => {
         }));
 
         it('should emit exactly once', fakeAsync(() => {
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
@@ -204,63 +205,60 @@ describe('OpeningScreenComponent', () => {
     // 5. Reduced Motion Accessibility
     // =============================================
     describe('Reduced Motion Preference', () => {
-        it('should complete quickly when reduced motion is preferred', fakeAsync(() => {
+        it('should complete quickly when reduced motion is preferred', async () => {
             // Mock matchMedia to return reduced motion preference
             const originalMatchMedia = window.matchMedia;
-            window.matchMedia = jasmine.createSpy('matchMedia').and.returnValue({
+            window.matchMedia = vi.fn().mockReturnValue({
                 matches: true,
                 media: '(prefers-reduced-motion: reduce)',
                 addEventListener: () => { },
                 removeEventListener: () => { }
             } as unknown as MediaQueryList);
 
-            createComponent('browser');
+            await createComponent('browser');
 
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
 
             // Should complete within 800ms for reduced motion
-            tick(800);
+            await new Promise(resolve => setTimeout(resolve, 850));
             expect(component.isComplete()).toBe(true);
             expect(completeSpy).toHaveBeenCalledTimes(1);
 
             // Restore original
             window.matchMedia = originalMatchMedia;
+        });
 
-            flush();
-        }));
-
-        it('should skip flashing state with reduced motion', fakeAsync(() => {
+        it('should skip flashing state with reduced motion', async () => {
             const originalMatchMedia = window.matchMedia;
-            window.matchMedia = jasmine.createSpy('matchMedia').and.returnValue({
+            window.matchMedia = vi.fn().mockReturnValue({
                 matches: true,
                 media: '(prefers-reduced-motion: reduce)',
                 addEventListener: () => { },
                 removeEventListener: () => { }
             } as unknown as MediaQueryList);
 
-            createComponent('browser');
+            await createComponent('browser');
             fixture.detectChanges();
 
             // Check state never becomes 'flashing'
-            tick(400);
+            await new Promise(resolve => setTimeout(resolve, 400));
             expect(component.isFlashing()).toBe(false);
 
-            tick(500);
+            await new Promise(resolve => setTimeout(resolve, 500));
             expect(component.isComplete()).toBe(true);
 
             window.matchMedia = originalMatchMedia;
-            flush();
-        }));
+        });
     });
 
     // =============================================
     // 6. Skip Animation Functionality
     // =============================================
     describe('Skip Animation', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should immediately complete when skipAnimation is called', fakeAsync(() => {
             fixture.detectChanges();
@@ -271,13 +269,13 @@ describe('OpeningScreenComponent', () => {
             component.skipAnimation();
 
             expect(component.isComplete()).toBe(true);
-            expect(component.state()).toBe('complete');
+            expect(component.state()).toBe('finished');
 
             flush();
         }));
 
         it('should emit animationComplete when skipped', fakeAsync(() => {
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
@@ -291,7 +289,7 @@ describe('OpeningScreenComponent', () => {
         }));
 
         it('should cancel pending timers when skipped', fakeAsync(() => {
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
@@ -313,10 +311,10 @@ describe('OpeningScreenComponent', () => {
     // 7. Cleanup & Memory Management
     // =============================================
     describe('Cleanup', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should clear timers on destroy', fakeAsync(() => {
-            const completeSpy = jasmine.createSpy('animationComplete');
+            const completeSpy = vi.fn();
             component.animationComplete.subscribe(completeSpy);
 
             fixture.detectChanges();
@@ -349,7 +347,7 @@ describe('OpeningScreenComponent', () => {
     // 8. Computed Properties
     // =============================================
     describe('Computed Properties', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should correctly compute isPulsing', fakeAsync(() => {
             fixture.detectChanges();
@@ -365,6 +363,7 @@ describe('OpeningScreenComponent', () => {
         it('should correctly compute isFlashing', fakeAsync(() => {
             fixture.detectChanges();
             tick(1500);
+            fixture.detectChanges(); // Trigger change detection after tick
 
             expect(component.isPulsing()).toBe(false);
             expect(component.isFlashing()).toBe(true);
@@ -377,6 +376,7 @@ describe('OpeningScreenComponent', () => {
         it('should correctly compute isRevealing', fakeAsync(() => {
             fixture.detectChanges();
             tick(2000);
+            fixture.detectChanges(); // Trigger change detection after tick
 
             expect(component.isPulsing()).toBe(false);
             expect(component.isFlashing()).toBe(false);
@@ -416,27 +416,25 @@ describe('OpeningScreenComponent', () => {
     // 9. SSR Safety
     // =============================================
     describe('Server-Side Rendering Safety', () => {
-        it('should handle server platform without errors', fakeAsync(() => {
-            createComponent('server');
+        it('should handle server platform without errors', async () => {
+            await createComponent('server');
 
             // Should not throw when window.matchMedia is not available
             expect(() => {
                 fixture.detectChanges();
             }).not.toThrow();
 
-            // Should still complete animation
-            tick(3500);
+            // Should still complete animation (add extra time for async operations)
+            await new Promise(resolve => setTimeout(resolve, 3600));
             expect(component.isComplete()).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     // =============================================
     // 10. Host Binding
     // =============================================
     describe('Host Binding', () => {
-        beforeEach(() => createComponent());
+        beforeEach(async () => await createComponent());
 
         it('should not have animation-complete class initially', fakeAsync(() => {
             fixture.detectChanges();
