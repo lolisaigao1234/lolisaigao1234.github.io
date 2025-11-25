@@ -13,11 +13,11 @@
 - [x] Coordinate timing sequence (Pulse -> Flash -> Ripple) <!-- id: 7 -->
 
 ## Phase 3: Integration & State Management
-- [ ] Create `LoadingService` or signal to manage app loading state <!-- id: 8 -->
-- [ ] Integrate component into `AppComponent` <!-- id: 9 -->
-- [ ] Handle transition from Opening Screen to Main Content (DOM removal/hiding) <!-- id: 10 -->
+- [x] Create `LoadingService` or signal to manage app loading state <!-- id: 8 -->
+- [x] Integrate component into `AppComponent` <!-- id: 9 -->
+- [x] Handle transition from Opening Screen to Main Content (DOM removal/hiding) <!-- id: 10 -->
 
 ## Phase 4: Polish & Optimization
-- [ ] Add "Reduced Motion" media query support <!-- id: 11 -->
-- [ ] Optimize SVG/CSS performance (will-change, transform layers) <!-- id: 12 -->
-- [ ] Final Browser & Device Verification <!-- id: 13 -->
+- [x] Add "Reduced Motion" media query support <!-- id: 11 -->
+- [x] Optimize SVG/CSS performance (will-change, transform layers) <!-- id: 12 -->
+- [x] Final Browser & Device Verification <!-- id: 13 -->

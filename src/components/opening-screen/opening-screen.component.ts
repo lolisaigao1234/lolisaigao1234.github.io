@@ -1,5 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, signal, Output, EventEmitter, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'app-opening-screen',
@@ -9,14 +9,32 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./opening-screen.component.css']
 })
 export class OpeningScreenComponent implements OnInit {
+    @Output() animationComplete = new EventEmitter<void>();
+
     // Animation States
     state = signal<'frozen' | 'flashing' | 'revealing' | 'finished'>('frozen');
+
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
     ngOnInit() {
         this.startAnimationSequence();
     }
 
     private startAnimationSequence() {
+        // Check for reduced motion preference
+        const prefersReducedMotion = isPlatformBrowser(this.platformId) &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            // Shortened sequence for reduced motion (just a quick fade out)
+            setTimeout(() => {
+                this.state.set('finished');
+                this.animationComplete.emit();
+            }, 1000); // 1s static display then done
+            return;
+        }
+
+        // Standard Animation Sequence
         // 1. Start in 'frozen' state (Pulse happens automatically via CSS)
 
         // 2. Trigger Flash after 1.5s
@@ -30,6 +48,7 @@ export class OpeningScreenComponent implements OnInit {
                 // 4. Cleanup/Finish after ripple completes (e.g., 1.5s duration)
                 setTimeout(() => {
                     this.state.set('finished');
+                    this.animationComplete.emit();
                 }, 1500);
 
             }, 500);

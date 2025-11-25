@@ -1,5 +1,6 @@
 <div class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden transition-opacity duration-1000"
-    [class.pointer-events-none]="state() === 'finished'" [class.hidden]="state() === 'finished'" id="opening-screen">
+    [class.pointer-events-none]="state() === 'finished'" [class.hidden]="state() === 'finished'" id="opening-screen"
+    aria-hidden="true">
 
     <!-- Background Overlay: Fades out when revealing -->
     <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-3xl transition-opacity duration-700"

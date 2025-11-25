@@ -18,6 +18,7 @@
 }
 
 .animate-pulse-custom {
+    will-change: transform, filter;
     animation: prism-pulse 3s ease-in-out infinite;
 }
 
@@ -40,6 +41,7 @@
 }
 
 .flash-active {
+    will-change: transform, opacity;
     animation: flash-burst 0.8s ease-out forwards;
 }
 
@@ -56,10 +58,27 @@
 
 .reveal-mask {
     /* We will apply this to a mask or the container itself to reveal content */
+    will-change: clip-path;
     animation: ripple-expand 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Utility to hide the opening screen after animation */
 .hidden-screen {
     display: none;
+}
+
+/* 4. Reduced Motion Overrides */
+@media (prefers-reduced-motion: reduce) {
+
+    .animate-pulse-custom,
+    .flash-active,
+    .reveal-mask {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Simple fade out for reduced motion */
+    :host {
+        transition: opacity 0.5s ease-out;
+    }
 }
