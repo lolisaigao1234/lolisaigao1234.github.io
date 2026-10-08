@@ -1,47 +1,35 @@
-# Personal Portfolio
+# Form 1040-RW
 
-A modern, responsive personal portfolio website featuring a "Liquid Glass" design aesthetic. Built to showcase projects, skills, and professional experience.
+Rocky Wu's personal site, served at <https://lolisaigao1234.github.io>.
 
-## 🚀 Tech Stack
+Visitors get a notice from the Résumé Revenue Service: they've been selected to
+audit Rocky. The page is his résumé filed as a tax return. Each job is an
+income line, skills are itemized on Schedule A, and a side project goes on
+Schedule C. Auditing a line opens its evidence, and four of them are working
+demos of the thing the line claims:
 
-- **Framework:** [Angular](https://angular.io/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
+| Line | Exhibit |
+| --- | --- |
+| 2, Tencent | Ask Rocky's résumé a question; a rule-based translator turns it into SQL and runs it. |
+| 5, AiFinSphere | Back out implied volatility with Black-Scholes and Newton-Raphson. |
+| 7, Actiontec | Get a Wi-Fi health score for your own connection. You are network #1,776. |
+| 10, Schedule C | Spot the wash sale in a list of trades. |
 
-## 🛠️ Getting Started
+Disallowing a line files an appeal. The appeal always wins.
 
-### Prerequisites
+## Running it
 
-- Node.js (Latest LTS recommended)
-- npm
+No build step. GitHub Pages serves the repo root as is.
 
-### Installation
+```bash
+npm install        # typescript + vitest, for checks only
+npm run dev        # static server on http://localhost:3000
+npm run check      # typecheck (JSDoc, checkJs) + tests
+```
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/lolisaigao1234/lolisaigao1234.github.io.git
-    cd lolisaigao1234.github.io
-    ```
+## Layout
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
-    Navigate to `http://localhost:4200` (or the port shown in your terminal).
-
-4.  **Build for production:**
-    ```bash
-    npm run build
-    ```
-
-## ✨ Features
-
-- **Liquid Glass UI:** Modern, translucent, and frosted glass effects.
-- **Responsive Design:** Optimized for all device sizes.
-- **Dynamic Components:** Angular-powered components for Projects, Skills, and Experience.
+- `index.html`, `styles.css`: the envelope, the notice, the form.
+- `js/data.js`: everything the form says about Rocky. Edit content here.
+- `js/main.js`: renders the form, runs the evidence dialog and signature.
+- `js/audit.js`, `js/nl2sql.js`, `js/blackscholes.js`, `js/wifi.js`, `js/washsale.js`: pure logic, tested in `test/`.
