@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { findWashSales } from '../js/washsale.js';
+import { findWashSales, replacementFor } from '../js/washsale.js';
 
 /** @param {string} id @param {string} date @param {string} symbol @param {number} price @returns {import('../js/washsale.js').Trade} */
 const buy = (id, date, symbol, price) => ({ id, date, side: 'buy', symbol, price });
@@ -14,6 +14,16 @@ describe('findWashSales', () => {
       buy('c', '2024-03-25', 'NVDA', 82),
     ];
     expect(findWashSales(trades)).toEqual(['b']);
+  });
+
+  it('names the purchase that triggered the wash', () => {
+    const trades = [
+      buy('a', '2024-03-01', 'NVDA', 100),
+      sell('b', '2024-03-10', 'NVDA', 80, 'a'),
+      buy('c', '2024-03-25', 'NVDA', 82),
+    ];
+    expect(replacementFor(trades[1], trades)?.id).toBe('c');
+    expect(replacementFor(trades[0], trades)).toBeUndefined();
   });
 
   it('does not treat the lot being sold as its own replacement', () => {

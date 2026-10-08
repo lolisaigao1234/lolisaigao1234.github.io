@@ -43,6 +43,11 @@ describe('scoreConnection', () => {
     expect(a).toBeGreaterThan(b);
   });
 
+  it('gives full throughput marks at the 10 Mbps Chromium reports as its ceiling', () => {
+    const r = scoreConnection({ ...good, downlinkMbps: 10 });
+    expect(r.dimensions.find((d) => d.name === 'Throughput')?.score).toBe(100);
+  });
+
   it('leaves throughput out when the browser cannot report it', () => {
     const r = scoreConnection({ ...good, downlinkMbps: null });
     expect(r.dimensions.map((d) => d.name)).not.toContain('Throughput');

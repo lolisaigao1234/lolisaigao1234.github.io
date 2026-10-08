@@ -42,9 +42,11 @@ export function scoreConnection(m) {
     { name: 'Reliability', weight: 0.2, score: ramp(m.lossPct, 0, 30), reading: `${m.lossPct}% lost` },
   ];
   if (m.downlinkMbps != null) {
-    // Throughput is scored on a log scale: 1 Mbps -> 0, 100 Mbps -> 100.
-    const score = Math.round(100 * Math.min(1, Math.max(0, Math.log10(m.downlinkMbps) / 2)));
-    dimensions.push({ name: 'Throughput', weight: 0.15, score, reading: `~${m.downlinkMbps} Mbps` });
+    // Log scale from 0.5 Mbps (0) to 10 Mbps (100). Chromium never reports more
+    // than 10, so the top of the scale has to sit there.
+    const score = Math.round(100 * Math.min(1, Math.max(0, Math.log10(m.downlinkMbps / 0.5) / Math.log10(20))));
+    const reading = m.downlinkMbps >= 10 ? '10+ Mbps (the browser’s cap)' : `~${m.downlinkMbps} Mbps`;
+    dimensions.push({ name: 'Throughput', weight: 0.15, score, reading });
   }
   const weight = dimensions.reduce((a, d) => a + d.weight, 0);
   const total = Math.round(dimensions.reduce((a, d) => a + d.score * d.weight, 0) / weight);

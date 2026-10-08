@@ -73,6 +73,10 @@ html.sealed {
   overflow: hidden;
 }
 
+.sealed .envelope-stage {
+  display: grid;
+}
+
 body {
   margin: 0;
   background-color: var(--desk);
@@ -172,7 +176,7 @@ a {
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: grid;
+  display: none;
   place-items: center;
   padding: 16px;
   background: inherit;

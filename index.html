@@ -12,6 +12,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Decide before first paint whether the envelope covers the desk, so the
+    // form never flashes on a first visit. main.js reads this class.
+    try {
+      if (!location.hash && sessionStorage.getItem('rrs-opened') !== '1') document.documentElement.classList.add('sealed');
+    } catch (e) {}
+  </script>
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
@@ -26,7 +33,7 @@
     </filter>
   </svg>
 
-  <div class="envelope-stage" id="envelope" hidden>
+  <div class="envelope-stage" id="envelope">
     <div class="envelope" role="group" aria-label="Envelope from the Résumé Revenue Service">
       <button class="tear-strip" id="tear" type="button">
         <span>Pull here to open your notice</span>

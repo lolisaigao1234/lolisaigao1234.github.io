@@ -5,7 +5,7 @@ import { createAudit, reduce, progress, canSign } from './audit.js';
 import { ask } from './nl2sql.js';
 import { callPrice, impliedVol } from './blackscholes.js';
 import { summarize, scoreConnection } from './wifi.js';
-import { findWashSales } from './washsale.js';
+import { replacementFor, DAY } from './washsale.js';
 
 /** @typedef {import('./audit.js').AuditState} AuditState */
 /** @typedef {import('./data.js').ExhibitKind} ExhibitKind */
@@ -53,7 +53,7 @@ const shortDate = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-US
 const auditables = [
   ...income.map((l) => ({ id: l.id, no: l.no, title: l.label, evidence: l.evidence, exhibit: l.exhibit, appeal: l.appeal })),
   { id: education.id, no: education.no, title: education.label, evidence: education.evidence, appeal: education.appeal },
-  { id: project.id, no: '10', title: project.label, evidence: project.evidence, exhibit: 'washsale', appeal: project.appeal },
+  { id: project.id, no: project.no, title: project.label, evidence: project.evidence, exhibit: 'washsale', appeal: project.appeal },
 ];
 
 let state = createAudit(auditables.map((a) => a.id));
@@ -122,7 +122,7 @@ function renderLines() {
 
   $('#project').append(lineItem({
     id: project.id,
-    no: '10',
+    no: project.no,
     label: 'Independent project',
     meta: project.period,
     entries: [project.label],
@@ -181,6 +181,8 @@ function renderTally() {
 const dialog = /** @type {HTMLDialogElement} */ ($('#exhibit'));
 /** @type {string | null} */
 let openId = null;
+/** Cancels the open exhibit's timers and probes when the dialog closes or reopens. */
+let exhibitRun = new AbortController();
 
 /** @param {string} id */
 function openExhibit(id) {
@@ -194,7 +196,9 @@ function openExhibit(id) {
   const demo = $('#exhibit-demo');
   demo.replaceChildren();
   demo.hidden = !line.exhibit;
-  if (line.exhibit) exhibits[line.exhibit](demo);
+  exhibitRun.abort();
+  exhibitRun = new AbortController();
+  if (line.exhibit) exhibits[line.exhibit](demo, exhibitRun.signal);
   const appeal = $('#exhibit-appeal');
   appeal.hidden = status !== 'appealed';
   appeal.textContent = status === 'appealed' ? `Appeal upheld. ${line.appeal}` : '';
@@ -208,12 +212,18 @@ function closeExhibit() {
 }
 
 dialog.addEventListener('close', () => {
+  exhibitRun.abort();
   const opener = openId && document.querySelector(`[data-open="${openId}"]`);
   if (opener instanceof HTMLElement) opener.focus();
   openId = null;
 });
 dialog.addEventListener('click', (e) => {
-  if (e.target === dialog) closeExhibit(); // backdrop click
+  // The dialog element is also the target for clicks on its own padding, so
+  // only treat clicks outside its box as backdrop clicks.
+  if (e.target !== dialog) return;
+  const r = dialog.getBoundingClientRect();
+  const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+  if (!inside) closeExhibit();
 });
 $('#exhibit-close').addEventListener('click', closeExhibit);
 
@@ -237,7 +247,7 @@ $('#disallow').addEventListener('click', () => {
 
 // ---------------------------------------------------------------- exhibits
 
-/** @type {Record<ExhibitKind, (root: HTMLElement) => void>} */
+/** @type {Record<ExhibitKind, (root: HTMLElement, signal: AbortSignal) => void>} */
 const exhibits = {
   sql(root) {
     const input = /** @type {HTMLInputElement} */ (h('input', { type: 'text', name: 'q', autocomplete: 'off', placeholder: 'Where did he work in 2024?' }));
@@ -274,7 +284,7 @@ const exhibits = {
     );
   },
 
-  blackscholes(root) {
+  blackscholes(root, signal) {
     const contract = { S: 100, K: 105, T: 0.5, r: 0.03 };
     const trueSigma = 0.22 + Math.random() * 0.36;
     const market = callPrice({ ...contract, sigma: trueSigma });
@@ -292,20 +302,30 @@ const exhibits = {
         : `σ = ${slider.value}%: model ${money(model)}, ${money(Math.abs(gap))} too ${gap > 0 ? 'high' : 'low'}.`;
     };
 
+    /** @type {ReturnType<typeof setTimeout>[]} */
+    let timers = [];
+    const cancel = () => {
+      timers.forEach(clearTimeout);
+      timers = [];
+    };
+    signal.addEventListener('abort', cancel);
+
     const solve = () => {
+      cancel();
       const result = impliedVol({ ...contract, price: market, guess: Number(slider.value) / 100 });
       steps.replaceChildren();
       verdict.textContent = '';
       const delay = reducedMotion.matches ? 0 : 280;
       result.steps.forEach((s, i) => {
-        setTimeout(() => {
-          steps.append(h('li', {}, `σ = ${pct(s.sigma)}, model ${money(s.price)}, off by ${s.error >= 0 ? '+' : '−'}${money(Math.abs(s.error))}`));
+        timers.push(setTimeout(() => {
+          const off = Math.abs(s.error) < 5e-5 ? 'matches the market' : `off by ${s.error >= 0 ? '+' : '−'}${money(Math.abs(s.error))}`;
+          steps.append(h('li', {}, `σ = ${pct(s.sigma)}, model ${money(s.price)}, ${off}`));
           if (i === result.steps.length - 1) {
             verdict.textContent = result.converged
               ? `Converged in ${result.steps.length} steps. The market is pricing σ = ${pct(result.sigma)}.`
               : 'Newton overshot from that guess. Production solvers bracket first; try a guess nearer the middle.';
           }
-        }, delay * i);
+        }, delay * i));
       });
     };
 
@@ -322,7 +342,7 @@ const exhibits = {
     update();
   },
 
-  wifi(root) {
+  wifi(root, signal) {
     const status = h('p', { class: 'typed', 'aria-live': 'polite' });
     const result = h('div', { class: 'wifi-result' });
     const button = /** @type {HTMLButtonElement} */ (h('button', { class: 'button', type: 'button' }, 'Score my connection'));
@@ -333,9 +353,11 @@ const exhibits = {
       /** @type {(number | null)[]} */
       const samples = [];
       for (let i = 0; i < 10; i++) {
+        if (signal.aborted) return;
         status.textContent = `Probing ${i + 1} of 10…`;
-        samples.push(await probe(i));
+        samples.push(await probe(i, signal));
       }
+      if (signal.aborted) return;
       const conn = /** @type {{ connection?: { downlink?: number } }} */ (/** @type {unknown} */ (navigator)).connection;
       const score = scoreConnection({ ...summarize(samples), downlinkMbps: conn?.downlink ?? null });
       status.textContent = `Network #1,776 scored on ${score.dimensions.length} dimensions.`;
@@ -361,10 +383,8 @@ const exhibits = {
   },
 
   washsale(root) {
-    const wash = new Set(findWashSales(trades));
     const byId = new Map(trades.map((t) => [t.id, t]));
     const verdict = h('p', { class: 'typed verdict', 'aria-live': 'polite' });
-    const DAY = 864e5;
 
     /** @param {import('./washsale.js').Trade} sale */
     const explain = (sale) => {
@@ -372,9 +392,8 @@ const exhibits = {
       if (sale.price >= lot.price) {
         return `Not a wash. Sold at ${money(sale.price)} against a ${money(lot.price)} basis: a gain. The rule only bites losses.`;
       }
-      const rebuy = trades.find((t) => t.side === 'buy' && t.id !== lot.id && t.symbol === sale.symbol &&
-        Math.abs(Date.parse(t.date) - Date.parse(sale.date)) <= 30 * DAY);
-      if (wash.has(sale.id) && rebuy) {
+      const rebuy = replacementFor(sale, trades);
+      if (rebuy) {
         const days = Math.round(Math.abs(Date.parse(rebuy.date) - Date.parse(sale.date)) / DAY);
         return `Correct. A ${money(lot.price - sale.price)} loss, and ${sale.symbol} was bought again ${days} days away. The loss is disallowed and rolls into the new lot’s basis.`;
       }
@@ -401,10 +420,15 @@ const exhibits = {
   },
 };
 
-/** Time one uncached round trip to this site; null if it fails or stalls. @param {number} i */
-async function probe(i) {
+/**
+ * Time one uncached round trip to this site; null if it fails or stalls.
+ * @param {number} i
+ * @param {AbortSignal} cancelled
+ */
+async function probe(i, cancelled) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 2000);
+  cancelled.addEventListener('abort', () => controller.abort(), { once: true });
   const start = performance.now();
   try {
     const res = await fetch(`assets/favicon.png?probe=${i}-${Date.now()}`, { cache: 'no-store', signal: controller.signal });
@@ -493,22 +517,15 @@ function setupEnvelope() {
   const desk = $('#desk');
   // A deterministic four-state postal barcode, like the ones on real mail.
   $('.barcode').append(...Array.from({ length: 65 }, (_, i) => h('span', { class: 'tadf'[(i * 7 + i * i + 3) % 4] })));
-  let seen = false;
-  try {
-    seen = sessionStorage.getItem('rrs-opened') === '1';
-  } catch {}
-  if (seen || location.hash) return;
-
-  stage.hidden = false;
+  // The inline script in <head> already decided whether to show the envelope.
+  if (!document.documentElement.classList.contains('sealed')) return;
   desk.inert = true;
-  document.documentElement.classList.add('sealed');
 
   $('#tear').addEventListener('click', () => {
     try {
       sessionStorage.setItem('rrs-opened', '1');
     } catch {}
     const finish = () => {
-      stage.hidden = true;
       desk.inert = false;
       document.documentElement.classList.remove('sealed');
       $('#notice-title').setAttribute('tabindex', '-1');

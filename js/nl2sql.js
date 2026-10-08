@@ -12,6 +12,13 @@
 /** @param {string} pattern @param {string} text */
 const has = (pattern, text) => new RegExp(`\\b(?:${pattern})`, 'i').test(text);
 
+/** Whole-word, case-insensitive match that also works for names like C++. @param {string} name @param {string} text */
+const mentions = (name, text) =>
+  new RegExp(`(?<![a-z0-9])${name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![a-z0-9])`).test(text);
+
+/** Words that can follow "know" or "use" without naming a skill. */
+const FILLER = new Set(['about', 'at', 'of', 'the', 'a', 'an', 'any', 'in', 'for', 'with', 'how', 'to', 'on', 'work', 'job', 'daily', 'most', 'well']);
+
 /** Keep LIKE terms to safe characters so the echoed SQL stays readable. */
 const term = (/** @type {string} */ s) => s.toLowerCase().replace(/[^a-z0-9+#. -]/g, '').trim();
 
@@ -31,10 +38,24 @@ export function ask(question, db) {
     };
   }
 
-  const namedSkill = db.skills.find((s) => q.includes(s.name.toLowerCase()));
-  const knowWhat = q.match(/\b(?:know|use|used|knows)\s+([a-z0-9+#.]+)/);
-  if (namedSkill || knowWhat || has('skills?\\b|languages?\\b|tools?\\b|stack\\b|tech', q)) {
-    const like = namedSkill ? term(namedSkill.name) : knowWhat ? term(knowWhat[1]) : null;
+  const company = db.jobs.find((j) => {
+    const name = j.company.toLowerCase();
+    return mentions(name, q) || mentions(name.split(' ')[0], q);
+  })?.company;
+
+  const namedSkill = company ? undefined : db.skills.find((s) => mentions(s.name, q));
+  const afterVerb = q.match(/\b(?:know|knows|use|uses|used)\b((?:\s+[a-z0-9+#.]+)+)/)?.[1].trim().split(/\s+/) ?? [];
+  const knowWhat = afterVerb.find((w) => !FILLER.has(w));
+  const asksSkills = afterVerb.length > 0 || has('skills?\\b|languages?\\b|tools?\\b|stack\\b', q);
+  if (!company && (namedSkill || asksSkills)) {
+    if (namedSkill) {
+      const name = term(namedSkill.name);
+      return {
+        sql: `SELECT name, category FROM skills WHERE LOWER(name) = '${name}';`,
+        rows: db.skills.filter((s) => s.name.toLowerCase() === namedSkill.name.toLowerCase()),
+      };
+    }
+    const like = knowWhat ? term(knowWhat) : null;
     return like
       ? {
           sql: `SELECT name, category FROM skills WHERE LOWER(name) LIKE '%${like}%';`,
@@ -43,10 +64,6 @@ export function ask(question, db) {
       : { sql: 'SELECT name, category FROM skills;', rows: db.skills };
   }
 
-  const company = db.jobs.find((j) => {
-    const name = j.company.toLowerCase();
-    return q.includes(name) || q.includes(name.split(' ')[0]);
-  })?.company;
   const year = q.match(/\b(20\d\d)\b/)?.[1];
   const current = has('now|current|today|present|these days', q);
   if (company || year || current || has('work|job|employ|compan|intern|role|position|career|experience', q)) {
