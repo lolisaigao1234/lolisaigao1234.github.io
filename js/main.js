@@ -1,7 +1,7 @@
 // Wires the handheld, the stage card, the Rockydex and the adoption page.
 
 import { stages, sideQuest, careSheet, owner } from './data.js';
-import { createPet, act, skipToEnd, ACTIONS } from './pet.js';
+import { createPet, act, skipToEnd, ACTIONS, HATCH_TAPS, XP_TO_EVOLVE } from './pet.js';
 import { createScreen } from './lcd.js';
 import { toys } from './toys.js';
 import { $, h, reducedMotion } from './dom.js';
@@ -59,6 +59,7 @@ const wait = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, redu
 /** @param {Action} action */
 async function press(action) {
   if (busy) return;
+  const from = pet.stage;
   const result = act(pet, action, stages);
   pet = result.pet;
   save();
@@ -67,18 +68,27 @@ async function press(action) {
 
   if (!result.evolved) {
     screen.show(pet.stage, pet.xp, stages.length);
-    renderProgress();
     return;
   }
 
+  // Show the full XP bar on the old stage before it flashes into the new one.
+  screen.show(from, from === 0 ? HATCH_TAPS : XP_TO_EVOLVE, stages.length);
+  const to = pet.stage;
   busy = true;
+  setControlsLocked(true);
   await wait(900);
-  await screen.evolve(pet.stage);
+  await screen.evolve(to);
   busy = false;
-  const stage = stages[pet.stage];
+  setControlsLocked(false);
+  const stage = stages[to];
   renderCard(true);
-  say(pet.stage === 1 ? `It hatched! Meet ${stage.name}.` : `Rocky evolved into ${stage.name}!`, cardLink());
+  say(to === 1 ? `It hatched! Meet ${stage.name}.` : `Rocky evolved into ${stage.name}!`, cardLink());
   renderDex();
+}
+
+/** Skip and Start over would race an evolution in progress, so they wait for it. @param {boolean} locked */
+function setControlsLocked(locked) {
+  for (const id of ['#skip', '#reset']) /** @type {HTMLButtonElement} */ ($(id)).disabled = locked;
 }
 
 for (const button of document.querySelectorAll('[data-action]')) {
@@ -86,7 +96,7 @@ for (const button of document.querySelectorAll('[data-action]')) {
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.metaKey || e.ctrlKey || e.altKey || $('#view-play').hidden) return;
+  if (e.repeat || e.metaKey || e.ctrlKey || e.altKey || $('#view-play').hidden) return;
   if (e.target instanceof HTMLElement && e.target.closest('input, textarea, select')) return;
   const action = ACTIONS[['1', '2', '3'].indexOf(e.key)];
   if (!action) return;
@@ -123,11 +133,6 @@ function toyPanel(toy) {
 
 const sticker = (/** @type {string} */ id, /** @type {string} */ alt, cls = 'sticker') =>
   h('img', { class: cls, src: `assets/stickers/${id}.webp`, alt, width: '240', height: '240', loading: 'lazy', decoding: 'async' });
-
-function renderProgress() {
-  const hint = document.querySelector('#card .hint');
-  if (hint) hint.textContent = `Hint: ${stages[pet.stage].hint}`;
-}
 
 /** @param {boolean} [celebrate] */
 function renderCard(celebrate = false) {
@@ -176,6 +181,7 @@ function renderDex() {
 }
 
 $('#skip').addEventListener('click', () => {
+  if (busy) return;
   pet = skipToEnd(stages.length);
   save();
   screen.show(pet.stage, pet.xp, stages.length);
@@ -185,13 +191,12 @@ $('#skip').addEventListener('click', () => {
 });
 
 $('#reset').addEventListener('click', () => {
+  if (busy) return;
   pet = createPet();
   save();
   screen.show(pet.stage, pet.xp, stages.length);
   say('A fresh geode. Something inside is reading a CSV.');
-  renderCard();
-  renderDex();
-  location.hash = '#play';
+  location.hash = '#play'; // route() renders the card
 });
 
 // ---------------------------------------------------------------- adopt
@@ -211,6 +216,7 @@ function route() {
   const name = views.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'play';
   stopToys();
   for (const v of views) $(`#view-${v}`).hidden = v !== name;
+  screen.setActive(name === 'play');
   for (const link of document.querySelectorAll('[data-view]')) {
     if (/** @type {HTMLElement} */ (link).dataset.view === name) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');

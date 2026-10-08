@@ -46,7 +46,10 @@ export function createScreen(canvas, { reducedMotion }) {
   /** @type {{ start: number, resolve: () => void } | null} */
   let evolving = null;
 
-  const ink = () => getComputedStyle(canvas).getPropertyValue('--lcd-ink').trim() || '#2e3527';
+  // Read the ink colour once, and again only when the colour scheme flips.
+  let inkColor = '';
+  const ink = () => (inkColor ||= getComputedStyle(canvas).getPropertyValue('--lcd-ink').trim() || '#2e3527');
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { inkColor = ''; });
 
   /** @param {number} x @param {number} y @param {number} [alpha] */
   const px = (x, y, alpha = 1) => {
@@ -241,24 +244,42 @@ export function createScreen(canvas, { reducedMotion }) {
     else drawRock();
   }
 
+  function finishEvolving() {
+    if (!evolving) return;
+    const done = evolving.resolve;
+    evolving = null;
+    done();
+  }
+
   function step() {
     tick++;
     if (effect && tick - effect.start >= EFFECT_TICKS) effect = null;
-    if (evolving && tick - evolving.start >= 16) {
-      const done = evolving.resolve;
-      evolving = null;
-      done();
-    }
+    if (evolving && tick - evolving.start >= 16) finishEvolving();
     draw();
   }
 
-  let timer = setInterval(step, TICK_MS);
-  document.addEventListener('visibilitychange', () => {
+  // Only animate while the screen is on the visible page.
+  let active = true;
+  /** @type {ReturnType<typeof setInterval> | undefined} */
+  let timer;
+  const sync = () => {
     clearInterval(timer);
-    if (!document.hidden) timer = setInterval(step, TICK_MS);
-  });
+    timer = active && !document.hidden ? setInterval(step, TICK_MS) : undefined;
+    // Nobody is watching, so an evolution in progress completes at once
+    // rather than leaving the game waiting on a paused animation.
+    if (!timer) finishEvolving();
+  };
+  document.addEventListener('visibilitychange', sync);
+  sync();
 
   return {
+    /** Pause the animation while the screen's page is hidden. @param {boolean} on */
+    setActive(on) {
+      if (on === active) return;
+      active = on;
+      sync();
+      if (on) draw();
+    },
     /** @param {number} s @param {number} x @param {number} n */
     show(s, x, n) {
       stage = s;
@@ -278,6 +299,7 @@ export function createScreen(canvas, { reducedMotion }) {
         stage = s;
         xp = 0;
         evolving = { start: reducedMotion() ? tick - 12 : tick, resolve: () => resolve() };
+        if (!timer) finishEvolving();
       });
     },
   };

@@ -15,10 +15,15 @@ const pct = (/** @type {number} */ n) => `${(n * 100).toFixed(2)}%`;
 /** @param {string} iso */
 const shortDate = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
+/** A toy can be open on the card and in the Rockydex at once, so ids must be unique. */
+let mounts = 0;
+const uid = (/** @type {string} */ name) => `${name}-${++mounts}`;
+
 /** @type {Record<import('./data.js').ToyKind, (root: HTMLElement, signal: AbortSignal) => void>} */
 export const toys = {
   sql(root) {
-    const input = /** @type {HTMLInputElement} */ (h('input', { type: 'text', id: 'ask-q', autocomplete: 'off', placeholder: 'Where did he work in 2024?' }));
+    const id = uid('ask');
+    const input = /** @type {HTMLInputElement} */ (h('input', { type: 'text', id, autocomplete: 'off', placeholder: 'Where did he work in 2024?' }));
     const out = h('div', { class: 'toy-out', 'aria-live': 'polite' });
 
     /** @param {string} question */
@@ -41,7 +46,7 @@ export const toys = {
 
     root.append(
       h('form', { class: 'ask', onsubmit: (e) => { e.preventDefault(); if (input.value.trim()) run(input.value); } },
-        h('label', { class: 'sr-only', for: 'ask-q' }, 'Your question'),
+        h('label', { class: 'sr-only', for: id }, 'Your question'),
         input,
         h('button', { class: 'btn', type: 'submit' }, 'Ask')),
       h('p', { class: 'chips' }, ...['What is he doing now?', 'Does he know FastAPI?', 'How many internships?'].map((q) =>
@@ -53,7 +58,8 @@ export const toys = {
   blackscholes(root, signal) {
     const contract = { S: 100, K: 105, T: 0.5, r: 0.03 };
     const market = callPrice({ ...contract, sigma: 0.22 + Math.random() * 0.36 });
-    const slider = /** @type {HTMLInputElement} */ (h('input', { type: 'range', min: '5', max: '150', value: '80', id: 'sigma' }));
+    const sliderId = uid('sigma');
+    const slider = /** @type {HTMLInputElement} */ (h('input', { type: 'range', min: '5', max: '150', value: '80', id: sliderId }));
     const reading = h('p', { 'aria-live': 'polite' });
     const steps = h('ol', { class: 'steps' });
     const verdict = h('p', { class: 'verdict', 'aria-live': 'polite' });
@@ -92,7 +98,7 @@ export const toys = {
     slider.addEventListener('input', update);
     root.append(
       h('p', {}, `A 6-month option on a $100 stock costs ${money(market)}. How jumpy does the market think the stock is? Drag to guess, then let Newton finish.`),
-      h('label', { class: 'slider', for: 'sigma' }, h('span', {}, 'Your volatility guess'), slider),
+      h('label', { class: 'slider', for: sliderId }, h('span', {}, 'Your volatility guess'), slider),
       reading,
       h('button', { class: 'btn', type: 'button', onclick: solve }, 'Let Newton solve it'),
       steps,
@@ -157,6 +163,7 @@ export const toys = {
     root.append(
       h('p', {}, 'One of these sales is a wash sale: a loss you can’t deduct. Which one?'),
       h('table', { class: 'result' },
+        h('thead', {}, h('tr', {}, ...['Date', 'Trade', 'Price', 'Wash sale?'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', {}, ...trades.map((t) => {
           const lot = t.lot ? byId.get(t.lot) : undefined;
           return h('tr', {},
@@ -178,7 +185,8 @@ export const toys = {
 async function probe(i, cancelled) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 2000);
-  cancelled.addEventListener('abort', () => controller.abort(), { once: true });
+  const stop = () => controller.abort();
+  cancelled.addEventListener('abort', stop, { once: true });
   const start = performance.now();
   try {
     const res = await fetch(`assets/favicon.png?probe=${i}-${Date.now()}`, { cache: 'no-store', signal: controller.signal });
@@ -188,5 +196,6 @@ async function probe(i, cancelled) {
     return null;
   } finally {
     clearTimeout(timer);
+    cancelled.removeEventListener('abort', stop);
   }
 }
