@@ -24,7 +24,7 @@ export const taxpayer = {
   home: 'lolisaigao1234.github.io',
   region: 'San Francisco Bay Area',
   languages: 'English (fluent), Chinese (native)',
-  email: 'rockyforwork123@gmail.com',
+  email: 'toosakarin00@gmail.com',
   github: 'https://github.com/lolisaigao1234',
   linkedin: 'https://www.linkedin.com/in/jiayang-wu-85b960179',
 };
@@ -44,7 +44,7 @@ export const income = [
       'Cleaned and validated the data before anyone made a marketing call on it.',
       'Found the trends that lifted advertising ROI by 30% inside the app ecosystem.',
     ],
-    appeal: 'Grounds for disallowance were recorded as “seemed like a lot.” That is not grounds.',
+    appeal: 'The taxpayer has brought up this 30% in every conversation since 2021 and was not about to let it go now.',
   },
   {
     id: 'tencent',
@@ -60,7 +60,7 @@ export const income = [
       'Built a Python database-migration utility with JSON parsing.',
     ],
     exhibit: 'sql',
-    appeal: 'The taxpayer submitted 100 test cases. The auditor read four of them and withdrew.',
+    appeal: 'The taxpayer generated the appeal from a plain-English prompt. It was 80% accurate. The other 20% was mostly semicolons.',
   },
   {
     id: 'actiontec-2023',
@@ -75,7 +75,7 @@ export const income = [
       'Consolidated over a million product alarm records so engineers could pin down Wi-Fi modem bugs.',
       'Wrote the data dictionary: flows, definitions, and integrity rules.',
     ],
-    appeal: 'The auditor asked for all one million records as evidence. They arrived. The auditor regrets asking.',
+    appeal: 'The taxpayer attached all one million alarm records, plus a data dictionary for each field. He considers this a normal amount of evidence.',
   },
   {
     id: 'sdic',
@@ -90,7 +90,7 @@ export const income = [
       'Merged cross-asset datasets (ETFs, stocks, profit) into dashboards on profit distribution and trade frequency.',
       'Made it 15% faster with worker pools, error-handling queues, and tidy helper functions.',
     ],
-    appeal: 'The objection was processed on a single core. The appeal was processed on eight and arrived first.',
+    appeal: 'The taxpayer filed the appeal from eight processes at once, then spent the afternoon telling everyone it was 15% faster.',
   },
   {
     id: 'aifinsphere',
@@ -106,7 +106,7 @@ export const income = [
       'Unified hundreds of millions of transaction records, cutting compute time by 10%.',
     ],
     exhibit: 'blackscholes',
-    appeal: 'The taxpayer priced the auditor’s objection as an option. It expired worthless.',
+    appeal: 'The taxpayer priced the disallowance as an option, then explained the Greeks to it until it gave up.',
   },
   {
     id: 'actiontec-2025',
@@ -122,7 +122,7 @@ export const income = [
       'Took one data-gathering shell script through 27 iterations, then moved the whole thing to Docker on EC2 with Athena.',
       'Built the real-time monitoring dashboard that made health assessment 60% faster.',
     ],
-    appeal: 'The disallowance was itself disallowed on review. Iteration 28.',
+    appeal: 'The taxpayer rewrote this appeal 27 times, like the shell script. Version 28 is already in progress.',
   },
   {
     id: 'actiontec-2026',
@@ -140,7 +140,7 @@ export const income = [
       'Holds AI coding agents to strict review: 1,050+ tests, a checker tying 780+ functions to 18 specs and 16 ADRs, 200+ Gerrit changes.',
     ],
     exhibit: 'wifi',
-    appeal: 'The auditor’s connection was scored during the dispute. It was the auditor’s connection that failed.',
+    appeal: 'The taxpayer wrote a spec, an ADR, and 14 tests for the appeal before filing it. All tests pass. He would like you to know that.',
   },
 ];
 
@@ -158,7 +158,7 @@ export const education = {
     'Bachelor’s coursework: data structures, databases, machine learning, deep learning.',
     'Five and a half Champaign winters, survived.',
   ],
-  appeal: 'Champaign confirms the taxpayer attended. The cornfields have been notified.',
+  appeal: 'The taxpayer stayed in Champaign for five and a half winters by choice and would like that listed as a skill.',
 };
 
 /** Schedule C, a business of one. */
@@ -172,7 +172,7 @@ export const project = {
     'Reconciles transactions against live market data and writes a daily P&L statement with the tax entries.',
     'Documents every rule it applies, because tax code is not self-explanatory.',
   ],
-  appeal: 'The disallowance was flagged by the taxpayer’s own reconciler as a wash. Reversed.',
+  appeal: 'The taxpayer ran the disallowance through his own reconciler, which flagged it as a wash. He built a tool to win tax arguments and is not embarrassed about it.',
 };
 
 /** Schedule A, itemized skills. */

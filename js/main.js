@@ -88,6 +88,9 @@ function renderTaxpayer() {
       h('span', { class: 'field-label' }, 'Filing status. Check only one box.'),
       h('span', { class: 'check-row' }, box('Student', false), box('Employed full time', true), box('Retired early on options profits', false))),
     h('div', { class: 'field span-3 checks' },
+      h('span', { class: 'field-label' }, 'Are you open to a new role?'),
+      h('span', { class: 'check-row' }, box('Yes, actively looking', true), box('No', false))),
+    h('div', { class: 'field span-3 checks' },
       h('span', { class: 'field-label' }, 'At any time during the year, did you write an automated test?'),
       h('span', { class: 'check-row' }, box('Yes, 1,050+ of them', true), box('No', false))),
   );
