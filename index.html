@@ -3,170 +3,83 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rocky Wu’s Form 1040-RW</title>
-  <meta name="description" content="JiaYang (Rocky) Wu, data scientist. You've been selected to audit his résumé.">
-  <meta name="theme-color" content="#c7ccc2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f1626" media="(prefers-color-scheme: dark)">
+  <title>Rockygotchi</title>
+  <meta name="description" content="Raise a data scientist from a pebble. A pocket-pet game about JiaYang (Rocky) Wu, data scientist.">
+  <meta name="theme-color" content="#fff1c9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1d1830" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Silkscreen&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script>
-    // Decide before first paint whether the envelope covers the desk, so the
-    // form never flashes on a first visit. main.js reads this class.
-    try {
-      if (!location.hash && sessionStorage.getItem('rrs-opened') !== '1') document.documentElement.classList.add('sealed');
-    } catch (e) {}
-  </script>
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
-  <!-- Rubber-stamp ink: roughens stamp edges and knocks holes in the fill. -->
-  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <filter id="ink">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
-      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.55" result="holes"/>
-      <feComposite in="SourceGraphic" in2="holes" operator="in" result="inked"/>
-      <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="1" seed="3" result="wobble"/>
-      <feDisplacementMap in="inked" in2="wobble" scale="2.5"/>
-    </filter>
-  </svg>
+  <header class="top">
+    <a class="wordmark" href="#play">Rockygotchi</a>
+    <nav aria-label="Pages">
+      <a href="#play" data-view="play">Play</a>
+      <a href="#dex" data-view="dex">Rockydex</a>
+      <a href="#adopt" data-view="adopt">Adopt</a>
+    </nav>
+  </header>
 
-  <div class="envelope-stage" id="envelope">
-    <div class="envelope" role="group" aria-label="Envelope from the Résumé Revenue Service">
-      <button class="tear-strip" id="tear" type="button">
-        <span>Pull here to open your notice</span>
-      </button>
-      <div class="envelope-face">
-        <address class="return-address">
-          <strong>Résumé Revenue Service</strong>
-          Department of the Personal Website<br>
-          lolisaigao1234.github.io
-        </address>
-        <div class="meter" aria-hidden="true">
-          <span>Official business</span>
-          <span>Penalty for not reading, $0</span>
-        </div>
-        <div class="window">
-          <p class="window-notice">Notice RW-1776</p>
-          <p>You, the visitor<br>Your browser, port 443<br>The Internet</p>
-        </div>
-        <p class="barcode" aria-hidden="true"></p>
+  <main>
+    <section class="view view-play" id="view-play" aria-labelledby="play-title">
+      <div class="intro">
+        <h1 id="play-title" tabindex="-1">Raise a data scientist from a pebble.</h1>
+        <p>Feed him data, give him coffee, throw bugs at him. Rocky evolves through every job Rocky Wu has had.</p>
       </div>
-    </div>
-  </div>
 
-  <main class="desk" id="desk">
-    <article class="notice" aria-labelledby="notice-title">
-      <header class="notice-head">
-        <p class="agency">Résumé Revenue Service<br>Examinations Division</p>
-        <p class="notice-no">Notice RW-1776<br><span id="today"></span></p>
-      </header>
-      <h1 id="notice-title">You’ve been selected to audit Rocky Wu</h1>
-      <div class="typed">
-        <p>Dear visitor,</p>
-        <p>The attached Form 1040-RW is the résumé return of JiaYang “Rocky” Wu, a data scientist who builds the backend and data plumbing behind Wi-Fi health scores. He’s employed full time and actively looking for his next role.</p>
-        <p>For each line, open the evidence, try it yourself, and stamp the line verified. You may disallow a line instead. The taxpayer will appeal.</p>
-        <p>When every line is stamped, sign at the bottom to close the audit.</p>
+      <div class="device-wrap">
+        <p class="say" id="say" aria-live="polite"></p>
+        <div class="device">
+          <span class="brand" aria-hidden="true">Rockygotchi</span>
+          <div class="bezel">
+            <canvas id="lcd" role="img" aria-label="Rocky on the screen"></canvas>
+          </div>
+          <div class="pad" role="group" aria-label="Care for Rocky">
+            <button type="button" data-action="data" aria-keyshortcuts="1"><span class="cap" aria-hidden="true"></span>Data</button>
+            <button type="button" data-action="coffee" aria-keyshortcuts="2"><span class="cap" aria-hidden="true"></span>Coffee</button>
+            <button type="button" data-action="bug" aria-keyshortcuts="3"><span class="cap" aria-hidden="true"></span>Bug</button>
+          </div>
+        </div>
+        <p class="keys">Keys 1, 2 and 3 work too.</p>
       </div>
-      <a class="button" href="#form">Start the audit</a>
-    </article>
 
-    <article class="form" id="form" aria-labelledby="form-title" tabindex="-1">
-      <header class="form-head">
-        <div class="form-id">Form <b>1040-RW</b></div>
-        <div class="form-title">
-          <p>Résumé Revenue Service</p>
-          <h2 id="form-title">U.S. Individual Résumé Return</h2>
+      <article class="card" id="card"></article>
+    </section>
+
+    <section class="view view-dex" id="view-dex" aria-labelledby="dex-title" hidden>
+      <div class="dex-head">
+        <h1 id="dex-title" tabindex="-1">Rockydex</h1>
+        <p id="dex-count"></p>
+        <div class="dex-actions">
+          <button class="btn" type="button" id="skip">Skip to the end</button>
+          <button class="btn btn-quiet" type="button" id="reset">Start over</button>
         </div>
-        <div class="form-year" id="form-year">2026</div>
-      </header>
+      </div>
+      <ol class="dex" id="dex"></ol>
+    </section>
 
-      <section class="taxpayer" aria-label="Taxpayer information" id="taxpayer"></section>
-
-      <section class="part" aria-labelledby="part1">
-        <h3 class="part-head"><span>Part I</span> <span id="part1">Income, one line per job</span></h3>
-        <ol class="lines" id="income"></ol>
-        <p class="line line-total">
-          <span class="line-no">8</span>
-          <span class="line-label">Total income lines verified. Add lines 1 through 7.</span>
-          <span class="line-amount typed" id="income-total"></span>
-        </p>
-      </section>
-
-      <section class="part" aria-labelledby="part2">
-        <h3 class="part-head"><span>Part II</span> <span id="part2">Education</span></h3>
-        <ol class="lines" id="education"></ol>
-      </section>
-
-      <section class="part schedule" aria-labelledby="sched-a">
-        <h3 class="part-head"><span>Schedule A</span> <span id="sched-a">Itemized skills</span></h3>
-        <dl class="skills" id="skills"></dl>
-      </section>
-
-      <section class="part schedule" aria-labelledby="sched-c">
-        <h3 class="part-head"><span>Schedule C</span> <span id="sched-c">Profit or loss from a side project</span></h3>
-        <ol class="lines" id="project"></ol>
-      </section>
-
-      <section class="part" aria-labelledby="part3">
-        <h3 class="part-head"><span>Part III</span> <span id="part3">Amount you owe</span></h3>
-        <div class="line line-owe">
-          <span class="line-no">11</span>
-          <span class="line-label">Amount you owe the taxpayer. Pay by any method below.</span>
-          <span class="line-amount typed">1 hello</span>
-        </div>
-        <ul class="payment" id="payment"></ul>
-      </section>
-
-      <section class="sign" aria-labelledby="sign-title" id="sign">
-        <h3 class="sign-flag" id="sign-title">Sign here</h3>
-        <p class="sign-oath">Under penalties of perjury, I declare that I have examined this return and accompanying exhibits, and to the best of my knowledge they are true, correct, and complete.</p>
-        <div class="sign-grid">
-          <label class="field">
-            <span class="field-label">Auditor’s signature (draw it)</span>
-            <canvas id="signature" width="600" height="120" aria-label="Signature pad. Typing your name below works too."></canvas>
-          </label>
-          <label class="field">
-            <span class="field-label">Or type your name</span>
-            <input id="signer" type="text" autocomplete="name" maxlength="60">
-          </label>
-        </div>
-        <p class="sign-status" id="sign-status" aria-live="polite"></p>
-        <div class="sign-actions">
-          <button class="button" type="button" id="sign-button">Sign and close the audit</button>
-          <button class="link-button" type="button" id="clear-signature">Clear signature</button>
-        </div>
-      </section>
-
-      <footer class="form-foot">
-        <span>Paid preparer use only: prepared with Claude Code, unpaid.</span>
-        <span>Form <b>1040-RW</b> (2026)</span>
-      </footer>
-    </article>
+    <section class="view view-adopt" id="view-adopt" aria-labelledby="adopt-title" hidden>
+      <img class="adopt-sticker" src="assets/stickers/suitcase.webp" alt="Rocky the pet rock holding a suitcase, waving" width="320" height="320">
+      <div class="adopt-body">
+        <h1 id="adopt-title" tabindex="-1">Rocky is all grown up and looking for a new home.</h1>
+        <p>He’s a data scientist at Actiontec, building the backend and data plumbing behind Wi-Fi health scores, and he’s actively looking for his next role.</p>
+        <ul class="contact" id="contact"></ul>
+        <h2>Care sheet</h2>
+        <dl class="care" id="care"></dl>
+      </div>
+    </section>
   </main>
 
-  <aside class="tally" aria-live="polite" id="tally"></aside>
-
-  <dialog class="exhibit" id="exhibit" aria-labelledby="exhibit-title">
-    <div class="staple" aria-hidden="true"></div>
-    <header class="exhibit-head">
-      <p id="exhibit-kicker"></p>
-      <h2 id="exhibit-title"></h2>
-      <button class="close" type="button" id="exhibit-close" aria-label="Close evidence">×</button>
-    </header>
-    <ul class="evidence typed" id="exhibit-evidence"></ul>
-    <section class="demo" id="exhibit-demo"></section>
-    <p class="appeal typed" id="exhibit-appeal" hidden></p>
-    <footer class="exhibit-actions" id="exhibit-actions">
-      <button class="button" type="button" id="verify">Stamp verified</button>
-      <button class="button button-quiet" type="button" id="disallow">Disallow</button>
-    </footer>
-  </dialog>
+  <footer class="foot">
+    <p>Made by JiaYang (Rocky) Wu, with Claude Code. Stickers drawn by Codex.</p>
+  </footer>
 
   <noscript>
-    <p class="noscript">This form needs JavaScript to fill itself in. Meanwhile, Rocky is on <a href="https://www.linkedin.com/in/jiayang-wu-85b960179">LinkedIn</a> and <a href="https://github.com/lolisaigao1234">GitHub</a>.</p>
+    <p class="noscript">Rocky needs JavaScript to hatch. Meanwhile, find him on <a href="https://www.linkedin.com/in/jiayang-wu-85b960179">LinkedIn</a> or <a href="https://github.com/lolisaigao1234">GitHub</a>.</p>
   </noscript>
 </body>
 </html>
