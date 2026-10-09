@@ -81,9 +81,11 @@ async function press(action) {
   busy = false;
   setControlsLocked(false);
   const stage = stages[to];
-  renderCard(true);
+  // route() already rendered the updated pet if the visitor left Play.
+  // Preserve any Rockydex toy they opened while the evolution was pending.
+  if (!$('#view-play').hidden) renderCard(true);
   say(to === 1 ? `It hatched! Meet ${stage.name}.` : `Rocky evolved into ${stage.name}!`, cardLink());
-  renderDex();
+  if ($('#view-dex').hidden) renderDex();
 }
 
 /** Skip and Start over would race an evolution in progress, so they wait for it. @param {boolean} locked */
