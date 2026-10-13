@@ -19,6 +19,15 @@ const shortDate = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-US
 let mounts = 0;
 const uid = (/** @type {string} */ name) => `${name}-${++mounts}`;
 
+/** Keep wide demo tables readable and keyboard-scrollable inside a card.
+ * @param {string} label
+ * @param {HTMLElement[]} rows
+ */
+function resultTable(label, ...rows) {
+  return h('div', { class: 'table-scroll', role: 'region', 'aria-label': label, tabindex: '0' },
+    h('table', { class: 'result' }, ...rows));
+}
+
 /** @type {Record<import('./data.js').ToyKind, (root: HTMLElement, signal: AbortSignal) => void>} */
 export const toys = {
   sql(root) {
@@ -37,7 +46,7 @@ export const toys = {
       out.replaceChildren(
         h('pre', { class: 'code' }, answer.sql),
         answer.rows.length
-          ? h('table', { class: 'result' },
+          ? resultTable('Résumé query results',
               h('thead', {}, h('tr', {}, ...columns.map((c) => h('th', { scope: 'col' }, c)))),
               h('tbody', {}, ...answer.rows.map((r) => h('tr', {}, ...columns.map((c) => h('td', {}, r[c] === null ? 'NULL' : String(r[c])))))))
           : h('p', {}, '0 rows. Not on his résumé.'),
@@ -162,7 +171,7 @@ export const toys = {
 
     root.append(
       h('p', {}, 'One of these sales is a wash sale: a loss you can’t deduct. Which one?'),
-      h('table', { class: 'result' },
+      resultTable('Trades: find the wash sale',
         h('thead', {}, h('tr', {}, ...['Date', 'Trade', 'Price', 'Wash sale?'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', {}, ...trades.map((t) => {
           const lot = t.lot ? byId.get(t.lot) : undefined;

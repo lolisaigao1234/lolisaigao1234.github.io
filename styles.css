@@ -514,6 +514,7 @@ main {
 
 .toy {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
   margin-top: 0.9rem;
   padding: 1rem 1.1rem;
@@ -523,8 +524,13 @@ main {
   text-align: left;
 }
 
+.toy > * {
+  min-width: 0;
+}
+
 .toy .btn {
   justify-self: start;
+  max-width: 100%;
 }
 
 .ask {
@@ -577,11 +583,17 @@ main {
 
 .toy-out {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.6rem;
+}
+
+.table-scroll {
+  overflow-x: auto;
 }
 
 .result {
   width: 100%;
+  min-width: 24rem;
   border-collapse: collapse;
   font-size: 14px;
 }
@@ -697,7 +709,13 @@ main {
 }
 
 .dex-item {
+  min-width: 0;
   text-align: center;
+}
+
+.dex-item .dims li {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.15rem;
 }
 
 .dex-item .sticker {
@@ -899,7 +917,7 @@ main {
   }
 
   .dex {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     padding: 1.5rem 0.75rem;
   }
 
